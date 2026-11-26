@@ -2,46 +2,59 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 263DE606A31E
-	for <amd-gfx@archiver.kernel.org>; Thu, 26 Nov 2026 17:06:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 739B5606A321
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Nov 2026 17:21:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=dztMj/21
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mTJwNm4m
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B7E2F112621;
-	Thu, 26 Nov 2026 17:06:15 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 88FB8112621;
- Thu, 26 Nov 2026 17:06:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
- MIME-Version:Date:Message-ID:From:Reply-To;
- bh=jmtK+g0faZpXqjAUl3o5P09s+C6Pl8sPmpskva0JaUI=; t=1795712769; x=2111072769; 
- b=dztMj/21yxDkjySKjdsvPJeOwIOQ41ntrfXwSH/SIqN0E9OtX9TvHDzjzlgqx28wgXySpyAEswh
- 3YE65K1nzjSrPKd3CuKvlSo2kh2G8Rlf3lBVbNJPTT1XkSnKdO/THoyN93kJaGYxicEGxKRAe0tlc
- MoCU4PBZ9efQjkrHZOd4c/rJ7fZ+x0jjIBT61lY+iCT1jOv/r7FJZPbJ0FTZBkhhY0vjM2UKO1Lvr
- Dsw0fu+gJNaCE8kqGyzS2+i9sO0uro24kXxSielCHONeLcN/aANeoeDopIsTZS48E3e2EQXWn4AGo
- vo4OeZ2QCFF9oUtCKVp+PoeZtqcf723EgPCg==;
-Received: from [81.79.79.1] (helo=[192.168.0.116])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1xWcv9-00000004UZq-3VBj; Thu, 26 Nov 2026 18:06:07 +0100
-Message-ID: <1a1ef50a-8ae3-43bc-830c-c34793837f25@igalia.com>
-Date: Thu, 26 Nov 2026 17:06:07 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id D0E7F10E99A;
+	Thu, 26 Nov 2026 17:21:16 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B5A5F10E1A0;
+ Thu, 26 Nov 2026 17:21:09 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id D1FD260CDA;
+ Thu, 26 Nov 2026 17:21:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9239D1F000C4;
+ Thu, 26 Nov 2026 17:21:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795713668;
+ bh=3U4ZmO6S4QfEt/0nkql9n+zraERnhGp5O1oAWKI8DhM=;
+ h=From:To:Cc:Subject:Date;
+ b=mTJwNm4muBgPSCGc64/Nxa/Yqq8VD8DExUAgAmSaFUqoqQogRhM3TaRi+/0fHv+UF
+ gIOnIcyf5/tLdiZordWsLWTYWAv+kF5m4ISeXMXSwEf4Ld18dsbc/ywSTp3fgQySwg
+ j1YKVGEcc5kZ03yxNqXZGri3/e1VY4l7me75qvhHXTf2FJfM37MknEiCvknRFxOYiQ
+ 0gLyX/te8A0rpHwrwQJviE7u3wbUVJ+0kNL/PaeH9SO1N+p+8odmzCGDLTPK2h+zy3
+ QXifcEdJn0akMa1x/s1fBLQDCrfntJ0RY22qQ6kpXkO/d1eaCYB8S2x29GALOw19sf
+ J+xCbh2ySobTA==
+From: Philipp Stanner <phasta@kernel.org>
+To: Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Philipp Stanner <phasta@kernel.org>,
+ Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Matthew Brost <matthew.brost@intel.com>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ "Mario Limonciello (AMD)" <superm1@kernel.org>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ Gustavo Padovan <gustavo.padovan@collabora.com>,
+ Chris Wilson <chris@chris-wilson.co.uk>,
+ Luben Tuikov <ltuikov89@gmail.com>,
+ Shashank Sharma <shashank.sharma@amd.com>,
+ "Paul E . McKenney" <paulmck@kernel.org>, Gary Guo <gary@garyguo.net>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org
+Subject: [PATCH 0/3] dma-fence: Properly order timestamps
+Date: Thu, 26 Nov 2026 18:20:44 +0100
+Message-ID: <20261126172046.2473303-2-phasta@kernel.org>
+X-Mailer: git-send-email 2.56.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC] drm/sched: Track sched fence scheduled and finished time
- directly
-To: sashiko-reviews@lists.linux.dev, dri-devel@lists.freedesktop.org
-Cc: amd-gfx@lists.freedesktop.org
-References: <20261126154200.71180-1-tvrtko.ursulin@igalia.com>
- <sashiko-outbox-235869@kernel.org>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <sashiko-outbox-235869@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,162 +65,32 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-11.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=4.0.1
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+I propose stuffing these hotfixes into the stable kernel / misc-fixes
+while we move on on misc-next with a more proper solution. I'll post a
+series for that soonish, too.
 
-On 26/11/2026 16:00, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 3 potential
-> issues to consider:
-> - [Medium] drm/sched: drm_sched_fence_advance_start_time() advances
->    start_ts past end
-> - [Medium] drm/sched: race in drm_sched_fence_scheduled() drops start_ts
->    advancement
-> - [Low] drm/sched: wrong kernel-doc comment on
->    drm_sched_fence_finished_time()
-> --
-> 
-> commit 410c845aad37c46edfe8c0d12fc45e44b4afc986
-> Author: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> 
-> drm/sched: Track sched fence scheduled and finished time directly
-> 
-> This commit records scheduled and finished timestamps directly in struct
-> drm_sched_fence under a dedicated spinlock instead of reading and
-> overwriting dma_fence.timestamp.
-> 
->> diff --git a/drivers/gpu/drm/scheduler/sched_fence.c b/drivers/gpu/drm/scheduler/sched_fence.c
->> index 94ba0cf4fe027..5fecd3ebfffbb 100644
->> --- a/drivers/gpu/drm/scheduler/sched_fence.c
->> +++ b/drivers/gpu/drm/scheduler/sched_fence.c
->> @@ -65,6 +65,9 @@ static void drm_sched_fence_set_parent(struct drm_sched_fence *s_fence,
->>   void drm_sched_fence_scheduled(struct drm_sched_fence *fence,
->>   			       struct dma_fence *parent)
->>   {
->> +	ktime_t now = ktime_get();
->> +	unsigned long flags;
->> +
->>   	/* Set the parent before signaling the scheduled fence, such that,
->>   	 * any waiter expecting the parent to be filled after the job has
->>   	 * been scheduled (which is the case for drivers delegating waits
->> @@ -74,14 +77,26 @@ void drm_sched_fence_scheduled(struct drm_sched_fence *fence,
->>   	if (!IS_ERR_OR_NULL(parent))
->>   		drm_sched_fence_set_parent(fence, parent);
->>   
->> -	dma_fence_signal(&fence->scheduled);
->> +	spin_lock_irqsave(&fence->ts_lock, flags);
->> +	fence->start_ts = now;
->> +	spin_unlock_irqrestore(&fence->ts_lock, flags);
->> +
->> +	dma_fence_signal_timestamp(&fence->scheduled, now);
->>   }
-> 
-> [Severity: Medium]
-> Can drm_sched_fence_scheduled() overwrite a start_ts advancement on an
-> unordered submit_wq?
-> 
-> drm_sched_run_job_work() adds the job to sched->pending_list in
-> drm_sched_job_begin() before calling run_job() and
-> drm_sched_fence_scheduled().  If the previous head job finishes while
-> this job is between drm_sched_job_begin() and acquiring fence->ts_lock:
-> 
-> work_run_job (next)               work_free_job (prev)
-> drm_sched_job_begin(next)
->    list_add_tail(..., pending_list)
-> fence = run_job(next)
-> drm_sched_fence_scheduled()
->    now = ktime_get()
->                                    drm_sched_get_finished_job()
->                                      ts = ...finished_time(prev)
->                                      drm_sched_fence_advance_start_time()
->                                        /* start_ts == 0, no-op */
->    spin_lock(&fence->ts_lock)
->    fence->start_ts = now;  <-- older than prev's finished_ts
-> 
-> The advancement to prev's finish timestamp is lost and next->s_fence
-> keeps the earlier timestamp, overaccounting GPU time.
+P.
 
-I thought this wouldn't be a big deal since the delta amounts to the 
-lock contention period and this new lock has a super tiny scope.
+Philipp Stanner (3):
+  dma-buf: dma-fence: Hot-fix timestamp misordering
+  drm/sched: Hot-fix timestamp misordering
+  drm/amdgpu: Hot-fix timestamp misordering
 
-Nevertheless it is easy to fix by taking the current time once the lock 
-is obtained.
+ drivers/dma-buf/dma-fence.c             |  9 +++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c |  4 ++--
+ drivers/gpu/drm/scheduler/sched_main.c  | 12 ++++++++++--
+ include/linux/dma-fence.h               |  8 ++++++--
+ 4 files changed, 27 insertions(+), 6 deletions(-)
 
-> 
-> [ ... ]
-> 
->> diff --git a/drivers/gpu/drm/scheduler/sched_internal.h b/drivers/gpu/drm/scheduler/sched_internal.h
->> index 32d3ddb820be6..be90e55af9470 100644
->> --- a/drivers/gpu/drm/scheduler/sched_internal.h
->> +++ b/drivers/gpu/drm/scheduler/sched_internal.h
->> @@ -67,6 +67,47 @@ void drm_sched_fence_scheduled(struct drm_sched_fence *fence,
->>   			       struct dma_fence *parent);
->>   void drm_sched_fence_finished(struct drm_sched_fence *fence, int result);
->>   
->> +/**
->> + * drm_sched_fence_advance_start_time - Advance scheduler fence scheduled timestamp
->> + * @fence: scheduler fence
->> + * @t: time to advance to
->> + *
->> + * Advances the scheduler fence scheduled time to @t if the fence has already
->> + * been scheduled with an older timestamp.
->> + */
->> +static inline void
->> +drm_sched_fence_advance_start_time(struct drm_sched_fence *fence, ktime_t t)
->> +{
->> +	unsigned long flags;
->> +
->> +	spin_lock_irqsave(&fence->ts_lock, flags);
->> +	if (fence->start_ts && ktime_after(t, fence->start_ts))
->> +		fence->start_ts = t;
->> +	spin_unlock_irqrestore(&fence->ts_lock, flags);
->> +}
-> 
-> [Severity: Medium]
-> Can drm_sched_fence_advance_start_time() advance fence->start_ts past an
-> already recorded fence->finished_ts?
-> 
-> If a later job on sched->pending_list finishes before the head job (for
-> example, when run_job() returns an error or NULL for a canceled job so
-> drm_sched_run_job_work() immediately calls drm_sched_job_done(), or when
-> parent fences signal out of order), next->s_fence->finished_ts is set to
-> T1 while next remains queued behind the head job.  When the head job
-> later completes at T2 > T1, drm_sched_get_finished_job() advances
-> next->s_fence->start_ts to T2 because drm_sched_fence_advance_start_time()
-> does not check fence->finished_ts.
 
-I did not consider errors from run_job() and cancelled jobs. Let me 
-think about that and see if there are any pre-existing bugs in this area 
-too.
-
-> 
-> ktime_sub(end, start) then yields a negative duration in
-> drm_sched_entity_stats_job_add_gpu_time() and amdgpu_ctx_fence_time(),
-> subtracting from accumulated runtime and passing a negative value cast to
-> unsigned long into ewma_drm_sched_avgtime_add(), which wraps
-> stats->avg_job_us and sched->avg_job_us near ULONG_MAX.
-> 
->> +
->> +/**
->> + * drm_sched_fence_finished_time - Queries the scheduler fence finished timestamp
->> + * @fence: scheduler fence
->> + *
->> + * Advances the scheduler fence scheduled time to @t if the fence has already
->> + * been scheduled with an older timestamp.
->> + *
->> + * Returns: Scheduler fence finished timestamp.
->> + */
-> 
-> [Severity: Low]
-> This kernel-doc body looks copy-pasted from
-> drm_sched_fence_advance_start_time() and refers to @t, which
-> drm_sched_fence_finished_time() does not take.
-
-Mea culpa.
-
-Tvrtko
+base-commit: bf57105b00e32d37b666c029c8c6b8708391da20
+-- 
+2.56.0
 
