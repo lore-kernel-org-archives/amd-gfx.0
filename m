@@ -2,43 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98F43606A335
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Nov 2026 08:43:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2939606A31C
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Nov 2026 08:43:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=GN6bqs8V
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=MTL+NDCc
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 32B72112877;
-	Fri, 27 Nov 2026 08:43:04 +0000 (UTC)
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013037.outbound.protection.outlook.com
- [40.107.201.37])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5FDAC112877;
- Fri, 27 Nov 2026 08:42:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F626112878;
+	Fri, 27 Nov 2026 08:43:06 +0000 (UTC)
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012057.outbound.protection.outlook.com [52.101.53.57])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5320D112878;
+ Fri, 27 Nov 2026 08:43:00 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=J+MP9JxieAajRwiULOo1nHR7JVHwafNK3hoUvVOEZyfW6drWoSqcXGZypYimklwWYT0JJudTIXp8JZ16Td1Q9ZDu1AB2plxE4NtoEoAhuA7zEyRDXhPcxp9pY9+Et5a8WJ8Vma+ZX58yeypnI4TjejN4LLzRYao4MPHIvXvNPfdrEwcGMyqX1nt+aq5+3v/foNKCykMHQvwbKIW/6mSBwE6oaM+rYjO6OKJX9JYaD74qPBvRN381vEHQZU01SErK/+aNhmPs32mxizKmZins5RcaA9oEGb7Hf+e9jQXqSyqHwCy72CJ8eTfEMlZfTQsc7FTPAcclao2axISWSngbpA==
+ b=bXcO0Fvtc2ABEmaQWE6ISCGWRxgaoeCCc38AneGO8XfnQloYoLNG5F8KNN183UKVpRRx62sXwdzPZN2aq0wiaV9uiu+RUX16/NoeT2ZPjNtAyp8zKruxl/QdJnsnCV9ghkcB16FvAcyg3neGQWLnjoLyu5SHbRnGpomCSQZIk7rXVy09nD0yacIlBdndoc3HkGu55+lNqVjlhWYUPxNQ+8WkB83mWAOnfyWx9zAzVK0ihA2f+jtYLJ8fWxF35A7wToYhlKfX7iO80mLh/87aUTKXiHU8o6ij/7kUMUGH0YDhu3kDLomQ7XPk2u3NFriNGAQfCi770um0RYAn6lkIxg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hEJEbVU8Su0j2VFKjU3eDYhbDuWc9vXUxCLPpaFFXAk=;
- b=fbZ3ugKBSS2V6oRbFOqowUKJzzytXaa+L50Cl6oyigNQsA6PH8lIpfVFASVI69NvRUKQ9iZFFdLypFOK/0Dsx2YD7Xc5+RE11Q2FcXWqmvcrKTnC3yTRoXyOXLOLnvN4zgcaLJ4ClyVAcTYBXTG1JoqO5evNmOpyV1NSguPjE13+USKnZRdzmujoBn6BFmxjDT9kT+wfbfZVJrCy8QQH6l0yELv2ofj3QL+eNomHHQ2WoyIxc6d3+cxVzS1OFkNUT5jHejFmwQ4Rv1DEYdLbZ3t7cwPSZyZtHX89A3Jsb9BijhVzqKS9WaNGuoOQq2hJL6HzIpTtnqzYOOqAHjxZZg==
+ bh=tAULFPkudazZlg1EuLCzKa+xaU4eVJwFs3sWVZ6v0is=;
+ b=MksSQ4v2rN/8/qxOugkrtVx90rRcPHfjfoyGGK3N0FUYvHceIBdYDWMWCn+d4olGx9r/PVyPY5otSlAASaqG0TaAelYNB264HVVEwhgR/4440oeBI9udSoNfK7jvrkwOFEvR/dJwG0Fkf+bgACQoE5SeJmfassxUCXQHi4OpDxqDtPWSx6ORIWfoJmU2z38fm69NUU3jfEoNbGUsQ+S5h99prAUEARGkYEvfAMCdYDrgEjHPQxUYL46hqxPtI/pCtBZ0CXH5HnVpuTYRmxHnlzBg0gZSwsXeF0F5tdyBN/6m6SWZpvZhA+Sd+4CC6tXih38i/O1KKoxVJGwz98s3mw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=ffwll.ch smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hEJEbVU8Su0j2VFKjU3eDYhbDuWc9vXUxCLPpaFFXAk=;
- b=GN6bqs8VBY/GUzCJxi7/pXSFvjsqPqm28LIz5U3xFs68U4esoDPjjLMXjKsisGyFi4sdOPgwZgqU8WXkIbo0GNguIOSF5vGcNxBBy+g51DSl2BQCA91nmce4fvnv2BWzrYIxBLbjfA0DzP4PWCsbhM6Zub+D4eFk4E/iQLSpIc8=
-Received: from CH5P220CA0001.NAMP220.PROD.OUTLOOK.COM (2603:10b6:610:1ef::7)
- by PH8PR12MB6794.namprd12.prod.outlook.com (2603:10b6:510:1c5::17) with
+ bh=tAULFPkudazZlg1EuLCzKa+xaU4eVJwFs3sWVZ6v0is=;
+ b=MTL+NDCcnLuc9B5pOBMWw8vnSTclm9+QCpY3zfGpJVOXh9x/qVvK47g3evAhDf9WTkGfsJ/iXtpEYsLKka30mq7ori46tOaguBGocoJlaCPNonbcF/yGuGgcfLKVNa0Roay1oJRkwWDnbTysQKrUgy5nHEwIFLiYB3U5djM94fU=
+Received: from CH5P223CA0014.NAMP223.PROD.OUTLOOK.COM (2603:10b6:610:1f3::16)
+ by DS0PR12MB7850.namprd12.prod.outlook.com (2603:10b6:8:146::18) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.6; Fri, 27 Nov
- 2026 08:42:50 +0000
-Received: from CH2PEPF000166BE.namprd04.prod.outlook.com
- (2603:10b6:610:1ef:cafe::58) by CH5P220CA0001.outlook.office365.com
- (2603:10b6:610:1ef::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.639.12 via Frontend Transport; Fri,
- 27 Nov 2026 08:42:50 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.13; Fri, 27 Nov
+ 2026 08:42:55 +0000
+Received: from CH2PEPF000166BB.namprd04.prod.outlook.com
+ (2603:10b6:610:1f3:cafe::75) by CH5P223CA0014.outlook.office365.com
+ (2603:10b6:610:1f3::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.662.10 via Frontend Transport; Fri,
+ 27 Nov 2026 08:42:55 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
@@ -47,13 +46,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- CH2PEPF000166BE.mail.protection.outlook.com (10.167.252.8) with Microsoft
+ CH2PEPF000166BB.mail.protection.outlook.com (10.167.252.5) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.688.5 via Frontend Transport; Fri, 27 Nov 2026 08:42:50 +0000
+ 15.21.688.5 via Frontend Transport; Fri, 27 Nov 2026 08:42:55 +0000
 Received: from hr-amd.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Fri, 27 Nov
- 2026 02:42:45 -0600
+ 2026 02:42:50 -0600
 From: Huang Rui <ray.huang@amd.com>
 To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, Philip Yang
  <Philip.Yang@amd.com>, Alex Deucher <alexander.deucher@amd.com>, "Felix
@@ -68,11 +67,11 @@ CC: Xiaogang Chen <xiaogang.chen@amd.com>, Oak Zeng <Oak.Zeng@amd.com>, "Jenny
  "Honglei
  Huang" <honglei1.huang@amd.com>, Junhua Shen <Junhua.Shen@amd.com>, Yiru Ma
  <yiru.ma@amd.com>, Huang Rui <ray.huang@amd.com>, Honglei Huang
- <honghuan@amd.com>
-Subject: [PATCH v11 12/22] drm/amdgpu: integrate SVM into build system and VM
- fault path
-Date: Fri, 27 Nov 2026 16:41:35 +0800
-Message-ID: <20261127084149.925625-13-ray.huang@amd.com>
+ <honghuan@amd.com>, Yu Huang <Yu.Huang@amd.com>
+Subject: [PATCH v11 13/22] drm/amdgpu: make VM eviction lock read/write to
+ match notifier lock
+Date: Fri, 27 Nov 2026 16:41:36 +0800
+Message-ID: <20261127084149.925625-14-ray.huang@amd.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261127084149.925625-1-ray.huang@amd.com>
 References: <20261127084149.925625-1-ray.huang@amd.com>
@@ -84,29 +83,29 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF000166BE:EE_|PH8PR12MB6794:EE_
-X-MS-Office365-Filtering-Correlation-Id: 12da2690-e20b-4aec-c39a-08df4c626ba5
+X-MS-TrafficTypeDiagnostic: CH2PEPF000166BB:EE_|DS0PR12MB7850:EE_
+X-MS-Office365-Filtering-Correlation-Id: 358c772c-8349-406b-bb9e-08df4c626eb9
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|36860700016|82310400026|23010399003|921020|261026121527099003|10067099003|11063799006|261022115727099003|56012099006|261009221227099003|261009223027099003|261021121427099003|261021123027099003|261102123227099003|261026140227099003|261022075727099003|261022105027099003|261028144727099003|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info: frLJ6eG8L3dFSN0gZw6gfzCr4VJm541Hvr1u1UtRyEcOddbGbgxMbARwQK0fNig4K2+bjDSB1bV4mVEl33nhM2joOQVUzARPIUyTQBzD4o12tpP+ytsUVoWKKI9GMrSCTcCIEtEZls3BG/3G7UnMu4LHM1s0yGr8kOwcoe4p5S5Plcb1aHE/fbtQrZY7m5ImqlzN3DQeUWa9vmt26sCYWAUbRyz5LC2hSwlNOC3D1vMUdFqXE64K2WmrL+9nRKDhNsmoP+hpbKgCALh1dckp5p6wO6qoel+A49FOmoRC8lA82vDYACBEh3FHLjKBld6JVHWQG9akkcpdsdFkjbxsuENTLL/E2RJbJFDGFiJSYZbtI9DtrR7GaRVAhYKJtG/S5/E/EHQ/xjm9AMvX+ZCFtH+JXiHDPadQ4mxflTOypsZPGDJNP8o6Xhh83bKJomtT6OdhLIA0JdU1lpdiE8z0RyzY3CQiB2RP/fBjT66L0s9X3TDUg2L+NMISk0v3MZGTM/uWxmB3w8Dfcv0xEBdZNVqFAZ2fQ7j2BHDBkxVTYQlYk/y+/qQwGpaZ3Rv6RTW/w2dYzhVleZ2B+uEs11/0Qw7R5zYriScR6spj4Him1M5xZbLucgdrHprFTqxoVujiyzX43bNZ3rlztJbzfyjOZleo/jQvHg7b5+onXMOxkvBIEc3SYB2iEXcesk3Ohi4kPSLLahC4VZoOanP/tri4aje1jg3J1KdJM8d7ZkhoxwoYlzQdYvw+I7Vis4FTwWXr
+ ARA:13230040|1800799024|23010399003|376014|82310400026|36860700016|22082099003|921020|18002099003|11063799006|56012099006|261009223027099003|10067099003|261028144727099003|261021121427099003|261022105027099003|261022075727099003|261026121527099003|261021123027099003|261102123227099003|261026140227099003;
+X-Microsoft-Antispam-Message-Info: 5FWVbE8b8MjFhW28BIjiZL5MiMjxpIJuaIaVrLSD76+OweHD9d5tNAaR67AcZyBQQUGX/osxkOx/NDkcq6ThdvmYihdtAcG4Gvam8GA65UmFqqH2cbjd+/lSzGbu+PU3dP0Ga8S4j9Tk6Ec0cD5cQ8WcCql/A2nOUhpfFyKO2cYAtzvDVwK5QZEdl9iT0jckRgpciWypk6eR/4GtjDvf8Ds7AkOVjxEIjMF4ITGWwao/haO4zL/EHAgjPTb9F4F9Jx2DW9b3uWasw/P5xuCl31b0wCDSnMaPKxhl7OqsPNKhB4nqsUAjaXmzEyc51re934FXxCBcgqWZubHsM2Nn4gLT5Uw3f5ZIxroYUOy93M+KiF48LeN7xdHLT0mmJEQSfDNfOoKSvXlD34FXnTRHpweB0XtCjzYq+JGj883G+c0wlm5HwlchWRfgHjm04abDxHlg9azx0G+Yz240N6i8IKKZwpGEOZxvvcw1vDR2SSmvG97oM5h9gS2nuDNG1AyJry+R9tVu+s/BEdn5fr+fYIx8Spi7zpp2YhAK/Z9KDJOMPK+KFyClw8iJVZFN+ojVU75Q2wrXURgo4rtnNfAWdBtR58CpdmgJ+rRGUvPJK1u/CWNwhvrhJUVc6WEa0ovzEED7Hwa9nJS9ojTiawUUTUmoXkae6NLC6EHmH/XJS1igL9a+RswGJJOxW39VoZVhmgjwKh/AWib6L7aGPW4MhVgiGdauWPlU+yD4b46HlAZUrLjRKLASHBgJJ8qtsf1L
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(36860700016)(82310400026)(23010399003)(921020)(261026121527099003)(10067099003)(11063799006)(261022115727099003)(56012099006)(261009221227099003)(261009223027099003)(261021121427099003)(261021123027099003)(261102123227099003)(261026140227099003)(261022075727099003)(261022105027099003)(261028144727099003)(22082099003)(18002099003)(6133799003);
+ SFS:(13230040)(1800799024)(23010399003)(376014)(82310400026)(36860700016)(22082099003)(921020)(18002099003)(11063799006)(56012099006)(261009223027099003)(10067099003)(261028144727099003)(261021121427099003)(261022105027099003)(261022075727099003)(261026121527099003)(261021123027099003)(261102123227099003)(261026140227099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: Lxx8BGOP10UbZjll4e61mhAFRsWnwZVDI1CDZ02LAGjJBfe3sofrOZJI/s5Q7dt9QfzR7LQWWRYbUrZ8HqBpuzGTgdel0SD55n9gps+pHPtDdvf4KU8Oh9BQUrC4wgY2OuGIQdzogdvef1IhUgTMWpb0UFjU+Q9jy7mawCKgDrfYQlKM0lAvnF9t+g+4KfD8JKRUwhmAl2xJCA5Qm3wac5qm0k99O016Yoq1+rMX2sfJl9GZggX6JnGbpoKkZy7CSgtbXIx4S+USQAGGult+TZfLOWS5BwqdDX8KOglLeI3URU7RKYMFrf/gJC7FSw61LjRWKIpgcY+uDVx8rIt/+Hm7ZEBa/DGj94KBLH0xaR6c6m35xGzdPKzEDH7P7B/+7/HkqeOh8urvZbM8KuDHppIfHGjc+GJoZTkmUiaRESaCjX7oGnrV974vcGyzZGDQ
+X-MS-Exchange-AntiSpam-MessageData-0: f/9hX1G7DJqB2alf5gpDPCKr/+xVbZKn35AwC1sPdNnT94VyPcKah48kt3PQFoP30H6a4p16DjBtPJWnBMuhdjotl8J1YQCII3gJEmzzs+r5S31tOMUKmeyHIWHlnshpf05QsIudZQHriqAdIMfbtlIhyKGqNpA8Nhh9wE9UW28cBeYiglFJol56XXJD/Gn89BD+sPG3D5axzTfo24BpXivykzj6YeIJTpYoJrXF1d1J9q+MQiI8IEm+ou87PnXcWZ6PtDVzvXO7lzCC4cE+vqaMZe7sc18axVe7Ic+1JLCAkqD+w4cmNoEy5JFHwE7WEgD6LeldcUpv7k4N4LUKCRNtTTn6ze6/3nVarmbKqBM2tzTFu8nst3z8/QNr5xBvYtQrKxQ26SO4YX3G0ouoFgK2XHyZ5bMHOLOfVPmD9YWV9rWxF8LTxFAUepjRkV0w
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Nov 2026 08:42:50.5896 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 12da2690-e20b-4aec-c39a-08df4c626ba5
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Nov 2026 08:42:55.7514 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 358c772c-8349-406b-bb9e-08df4c626eb9
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF000166BE.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF000166BB.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6794
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7850
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,162 +125,122 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Honglei Huang <honghuan@amd.com>
 
-Add the default-disabled AMDGPU SVM configuration option and build its
-core, attribute, range and fault-handling objects when enabled.
-Register the SVM ioctl and connect context initialization and teardown
-to the compute VM lifecycle.
+Make the VM eviction lock read/write to match the drm_gpusvm notifier
+lock. This allows VM updates, MMU notifier invalidation and eviction to
+share the same rwsem.
 
-Route faults through the SVM handler when the VM has an SVM context;
-otherwise retain the existing KFD fault path. Keep disabled-build
-stubs so ordinary AMDGPU builds do not depend on SVM implementation
-objects.
+Replace the VM eviction mutex with a selectable rwsem. Updates made with
+the root BO reserved take the read side. Updates without the root BO
+reservation take the write side, as does eviction. A VM using
+drm_gpusvm can use the notifier lock as its eviction lock.
 
 Suggested-by: Christian König <christian.koenig@amd.com>
 Suggested-by: Huang Rui <ray.huang@amd.com>
+Signed-off-by: Yu Huang <Yu.Huang@amd.com>
 Signed-off-by: Honglei Huang <honghuan@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/Kconfig      | 10 ++++++++++
- drivers/gpu/drm/amd/amdgpu/Makefile     |  4 ++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c |  6 +++++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c  | 23 +++++++++++++++++++++--
- 4 files changed, 40 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c          |  9 +++++----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h          |  8 ++++----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm_internal.h | 12 ++++++++++--
+ 3 files changed, 19 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/Kconfig b/drivers/gpu/drm/amd/amdgpu/Kconfig
-index 12e4a41bf1f04..68f519b3479db 100644
---- a/drivers/gpu/drm/amd/amdgpu/Kconfig
-+++ b/drivers/gpu/drm/amd/amdgpu/Kconfig
-@@ -81,6 +81,16 @@ config DRM_AMDGPU_USERPTR
- 	  This option selects CONFIG_HMM and CONFIG_HMM_MIRROR if it
- 	  isn't already selected to enabled full userptr support.
- 
-+config DRM_AMDGPU_SVM
-+	bool "Enable AMDGPU SVM support (experimental)"
-+	depends on DRM_AMDGPU
-+	depends on DEVICE_PRIVATE
-+	select DRM_GPUSVM
-+	select HMM_MIRROR
-+	select MMU_NOTIFIER
-+	help
-+	  Experimental SVM support based on DRM GPUSVM.
-+
- config DRM_AMD_ISP
- 	bool "Enable AMD Image Signal Processor IP support"
- 	depends on DRM_AMDGPU && ACPI
-diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
-index 8687afc00c24c..ad84e57115428 100644
---- a/drivers/gpu/drm/amd/amdgpu/Makefile
-+++ b/drivers/gpu/drm/amd/amdgpu/Makefile
-@@ -330,6 +330,10 @@ amdgpu-$(CONFIG_VGA_SWITCHEROO) += amdgpu_atpx_handler.o
- amdgpu-$(CONFIG_ACPI) += amdgpu_acpi.o
- amdgpu-$(CONFIG_HMM_MIRROR) += amdgpu_hmm.o
- 
-+# svm support
-+amdgpu-$(CONFIG_DRM_AMDGPU_SVM) += amdgpu_svm.o amdgpu_svm_attr.o \
-+	amdgpu_svm_fault.o amdgpu_svm_range.o
-+
- include $(FULL_AMD_PATH)/pm/Makefile
- 
- amdgpu-y += $(AMD_POWERPLAY_FILES)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index 541f02ab4d420..97059d12eb0a6 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -50,6 +50,7 @@
- #include "amdgpu_ras.h"
- #include "amdgpu_reset.h"
- #include "amdgpu_sched.h"
-+#include "amdgpu_svm.h"
- #include "amdgpu_xgmi.h"
- #include "amdgpu_userq.h"
- #include "amdgpu_userq_fence.h"
-@@ -3124,7 +3125,10 @@ const struct drm_ioctl_desc amdgpu_ioctls_kms[] = {
- 	DRM_IOCTL_DEF_DRV(AMDGPU_USERQ_WAIT, amdgpu_userq_wait_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
- 	DRM_IOCTL_DEF_DRV(AMDGPU_GEM_LIST_HANDLES, amdgpu_gem_list_handles_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
- 	DRM_IOCTL_DEF_DRV(AMDGPU_PROC_OPTIONS, amdgpu_proc_options_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
--	DRM_IOCTL_DEF_DRV(AMDGPU_UALINK_HANDLE, amdgpu_gem_ualink_handle_ioctl, DRM_AUTH|DRM_RENDER_ALLOW)
-+	DRM_IOCTL_DEF_DRV(AMDGPU_UALINK_HANDLE, amdgpu_gem_ualink_handle_ioctl,
-+			  DRM_AUTH | DRM_RENDER_ALLOW),
-+	DRM_IOCTL_DEF_DRV(AMDGPU_GEM_SVM, amdgpu_gem_svm_ioctl,
-+			  DRM_AUTH | DRM_RENDER_ALLOW),
- };
- 
- static const struct drm_driver amdgpu_kms_driver = {
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index 7b77577aa5621..8831eb7c7cbc7 100644
+index 8831eb7c7cbc7..6f7043bdd2020 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -45,6 +45,7 @@
- #include "amdgpu_xgmi.h"
- #include "amdgpu_dma_buf.h"
- #include "amdgpu_res_cursor.h"
-+#include "amdgpu_svm.h"
- #include "kfd_svm.h"
+@@ -673,7 +673,7 @@ int amdgpu_vm_validate(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 	 * As soon as all page tables are in place we can start updating them
+ 	 * again.
+ 	 */
+-	scoped_guard(mutex, &vm->eviction_lock)
++	scoped_guard(rwsem_write, vm->eviction_lock)
+ 		vm->evicting = false;
  
- /**
-@@ -2725,6 +2726,7 @@ int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 	int r, i;
+ 	list_for_each_entry_safe(bo_base, tmp, &vm->always_valid.evicted,
+@@ -734,7 +734,7 @@ bool amdgpu_vm_ready(struct amdgpu_vm *vm)
  
- 	vm->va = RB_ROOT_CACHED;
-+	vm->svm = NULL;
- 	for (i = 0; i < AMDGPU_MAX_VMHUBS; i++)
- 		vm->reserved_vmid[i] = NULL;
+ 	amdgpu_vm_assert_locked(vm);
  
-@@ -2869,6 +2871,10 @@ int amdgpu_vm_make_compute(struct amdgpu_device *adev, struct amdgpu_vm *vm)
- 	vm->is_compute_context = true;
- 	vm->need_tlb_fence = true;
+-	scoped_guard(mutex, &vm->eviction_lock)
++	scoped_guard(rwsem_read, vm->eviction_lock)
+ 		ret = !vm->evicting;
  
-+	r = amdgpu_svm_init(adev, vm);
-+	if (r)
-+		goto unreserve_bo;
-+
- unreserve_bo:
- 	amdgpu_bo_unreserve(vm->root.bo);
- 	return r;
-@@ -2942,6 +2948,9 @@ void amdgpu_vm_fini(struct amdgpu_device *adev, struct amdgpu_vm *vm)
- 	unsigned long flags;
- 	int i;
+ 	ret &= list_empty(&vm->kernel.evicted);
+@@ -2392,7 +2392,7 @@ bool amdgpu_vm_evictable(struct amdgpu_bo *bo)
  
-+	amdgpu_svm_close(vm);
-+	amdgpu_svm_fini(vm);
-+
- 	amdgpu_amdkfd_gpuvm_destroy_cb(adev, vm);
+ 	/* Try to block ongoing updates */
+ 	vm = bo_base->vm;
+-	scoped_cond_guard(mutex_try, return false, &vm->eviction_lock) {
++	scoped_cond_guard(rwsem_write_try, return false, vm->eviction_lock) {
  
- 	root = amdgpu_bo_ref(vm->root.bo);
-@@ -3211,6 +3220,7 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
+ 		/* Don't evict VM page tables while they are updated */
+ 		if (!dma_fence_is_signaled(vm->last_unlocked))
+@@ -2767,7 +2767,8 @@ int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 	vm->last_tlb_inv = dma_fence_get_stub();
+ 	vm->generation = amdgpu_vm_generation(adev, NULL);
+ 
+-	mutex_init(&vm->eviction_lock);
++	init_rwsem(&vm->default_eviction_lock);
++	vm->eviction_lock = &vm->default_eviction_lock;
+ 	vm->evicting = false;
+ 	vm->tlb_fence_context = dma_fence_context_alloc(1);
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+index bf752c6959b5c..05e332c1e01f6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+@@ -27,6 +27,7 @@
+ #include <linux/idr.h>
+ #include <linux/kfifo.h>
+ #include <linux/rbtree.h>
++#include <linux/rwsem.h>
+ #include <drm/gpu_scheduler.h>
+ #include <drm/drm_file.h>
+ #include <drm/ttm/ttm_bo.h>
+@@ -288,10 +289,9 @@ struct amdgpu_vm {
+ 	/* tree of virtual addresses mapped */
+ 	struct rb_root_cached	va;
+ 
+-	/* Lock to prevent eviction while we are updating page tables
+-	 * use vm_eviction_lock/unlock(vm)
+-	 */
+-	struct mutex		eviction_lock;
++	/* SVM can replace this pointer with its notifier lock. */
++	struct rw_semaphore	default_eviction_lock;
++	struct rw_semaphore	*eviction_lock;
+ 	bool			evicting;
+ 
+ 	/* Memory statistics for this vm, protected by stats_lock */
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_internal.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_internal.h
+index 8a0e5fcbd55ba..920d0b3935807 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_internal.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_internal.h
+@@ -160,7 +160,12 @@ void amdgpu_vm_pt_free_dummies(struct amdgpu_device *adev);
+  */
+ static inline int amdgpu_vm_begin_critical(struct amdgpu_vm_update_params *p)
  {
- 	struct amdgpu_vm_update_params params;
- 	bool is_compute_context = false;
-+	bool use_amdgpu_svm = false;
- 	uint64_t *dst, flags[AMDGPU_VM_MAX_LEVEL];
- 	struct amdgpu_vm *vm;
- 	struct drm_exec exec;
-@@ -3230,6 +3240,7 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
- 	}
- 
- 	is_compute_context = vm->is_compute_context;
-+	use_amdgpu_svm = !!vm->svm;
- 
- 	if (is_compute_context) {
- 		__label__ drm_exec_retry;
-@@ -3241,8 +3252,16 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
- 		 */
- 		drm_exec_fini(&exec);
- 
--		if (!svm_range_restore_pages(adev, pasid, vmid,
--					     node_id, addr >> PAGE_SHIFT, ts, write_fault))
-+		if (use_amdgpu_svm)
-+			r = amdgpu_svm_handle_fault(adev, pasid,
-+						    addr >> PAGE_SHIFT,
-+						    write_fault);
-+		else
-+			r = svm_range_restore_pages(adev, pasid, vmid, node_id,
-+						    addr >> PAGE_SHIFT, ts,
-+						    write_fault);
+-	mutex_lock(&p->vm->eviction_lock);
++	/* Use the write lock to serialize updates when the root BO is unlocked. */
++	if (p->unlocked)
++		down_write(p->vm->eviction_lock);
++	else
++		down_read(p->vm->eviction_lock);
 +
-+		if (!r)
- 			return true;
+ 	p->saved_flags = memalloc_noreclaim_save();
+ 	if (p->vm->evicting)
+ 		return -EBUSY;
+@@ -178,7 +183,10 @@ static inline int amdgpu_vm_begin_critical(struct amdgpu_vm_update_params *p)
+ static inline void amdgpu_vm_end_critical(struct amdgpu_vm_update_params *p)
+ {
+ 	memalloc_noreclaim_restore(p->saved_flags);
+-	mutex_unlock(&p->vm->eviction_lock);
++	if (p->unlocked)
++		up_write(p->vm->eviction_lock);
++	else
++		up_read(p->vm->eviction_lock);
+ }
  
- 		/* Re-acquire the VM lock, could be that the VM was freed in between. */
+ #endif
 -- 
 2.53.0
 
