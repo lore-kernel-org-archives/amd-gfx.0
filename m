@@ -2,59 +2,48 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31132606A31C
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Nov 2026 11:54:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD5BE606A326
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Nov 2026 12:42:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LMCqPm3U
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=Kb1/xLam
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C9ED4112A59;
-	Fri, 27 Nov 2026 11:54:00 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 046A6112A59;
- Fri, 27 Nov 2026 11:53:54 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 018E7627A0;
- Fri, 27 Nov 2026 11:53:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 598EC1F00893;
- Fri, 27 Nov 2026 11:53:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795780432;
- bh=6tFmyAKl3TXYw7GdISc3v4tvYWnA4KFaP0LI5fdW8KM=;
- h=Date:From:Subject:Cc:To:References:In-Reply-To;
- b=LMCqPm3UyC6hhDjz1bVyrTScq6Cuy8LxDb8t6owUObO91YVDVBbRaNyWduk1hyDDl
- JP/wmYEU6R4xmV3mB8O/j3oW01CX6jsaqTizKQS/z+B0A9jTMhXA8WcLuBpcVwBE5s
- qAnLqkACrQ0LAoIOh/iqyBiFzTxEwbNqRJou09sjiVxPIus3dksSH5/ZweC5wTR1iH
- uvYGD9phpxvFwnju9TuAFcvZO3QggLw8CbZQGRoOHh6V4lkgNv4XRgcx8owWFMSzrL
- rFu8AjVkkTA7m9oBGhok2ZfcuF7UwsfGMJa6w/JCN0O9I8vh0FLkAgxkT/w+0juqiO
- S6OoKvop9IyHA==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A14D10E59B;
+	Fri, 27 Nov 2026 12:42:45 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F3B9410E59B;
+ Fri, 27 Nov 2026 12:42:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+ Date:Subject:Cc:To:From:From:Reply-To;
+ bh=jERgxngTO4Oo8qu/G1ZwCMvR724NLwpwyVHrBsn9heU=; t=1795783358; x=2111143358; 
+ b=Kb1/xLamxxIpssgPh2PlW+YB52TwkwQhlD8xC0cW11s9VA6kAW6Nct+VB39IHaD+Cud9Zj7J7q4
+ s5lSrApQUSTOgyjWvyicXGviTjCr44dJyonud7Cx1OvO43uCAnL77dY2q9BiKlwQ4W3Z3yJHpGbow
+ JGlhsNqdNR67Aq8sn9JpP1N/hK9t8RyFOrE4Q30LUga497rG3sd5Xb9gLikhu3ZIHn9Syi/0UgGeZ
+ lXTbcHMag2M4B7Ahskh4by/XuZ6Y1Qkx7EuwnHsaPZtIhgUF19fymS44Oq021Ilbfibyuqd5G150/
+ ChTtSSvbchnX+JcV1jfKkaYNkEKawQqbV0LA==;
+Received: from [81.79.79.1] (helo=localhost)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1xWvHg-00000004nLA-1iRe; Fri, 27 Nov 2026 13:42:36 +0100
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+To: dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Philipp Stanner <phasta@kernel.org>, amd-gfx@lists.freedesktop.org
+Subject: [RFC v3] drm/sched: Track sched fence scheduled and finished time
+ directly
+Date: Fri, 27 Nov 2026 12:42:34 +0000
+Message-ID: <20261127124234.80348-1-tvrtko.ursulin@igalia.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261126154200.71180-1-tvrtko.ursulin@igalia.com>
+References: <20261126154200.71180-1-tvrtko.ursulin@igalia.com>
 X-Archived-By: <archiver.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Date: Fri, 27 Nov 2026 12:53:42 +0100
-Message-Id: <DN5Z15CLM3L7.2469NKSE6ASED@kernel.org>
-From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [PATCH 0/3] dma-fence: Properly order timestamps
-Cc: <phasta@kernel.org>, "Sumit Semwal" <sumit.semwal@linaro.org>,
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, "Alex Deucher"
- <alexander.deucher@amd.com>, "David Airlie" <airlied@gmail.com>, "Simona
- Vetter" <simona@ffwll.ch>, "Matthew Brost" <matthew.brost@intel.com>,
- "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
- <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "Tvrtko
- Ursulin" <tvrtko.ursulin@igalia.com>, "Mario Limonciello (AMD)"
- <superm1@kernel.org>, "Aurabindo Pillai" <aurabindo.pillai@amd.com>,
- "Pierre-Eric Pelloux-Prayer" <pierre-eric.pelloux-prayer@amd.com>, "Gustavo
- Padovan" <gustavo.padovan@collabora.com>, "Chris Wilson"
- <chris@chris-wilson.co.uk>, "Luben Tuikov" <ltuikov89@gmail.com>, "Shashank
- Sharma" <shashank.sharma@amd.com>, "Paul E . McKenney"
- <paulmck@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- <linux-media@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>
-To: "Philipp Stanner" <phasta@mailbox.org>
-References: <20261126172046.2473303-2-phasta@kernel.org>
- <DN5YMFCMLL2E.3LMY2Z5ZQAYFG@kernel.org>
- <b6b75395da594c4bf8deb1daaf857854565c66cd.camel@mailbox.org>
-In-Reply-To: <b6b75395da594c4bf8deb1daaf857854565c66cd.camel@mailbox.org>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,25 +54,285 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-17.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Fri Nov 27, 2026 at 12:43 PM CET, Philipp Stanner wrote:
-> On Fri, 2026-11-27 at 12:34 +0100, Danilo Krummrich wrote:
-> What do you mean with that, like not backporting it?
+Philipp reports the current usage of overwriting the dma-fence timestamp
+from the free_job worker is racy and unsafe due missing memory ordering
+and especially with drivers which use own unordered submit workqueue for
+the scheduler. Consider also that the timestamp field is the union in the
+dma-fence object.
 
-No, the issue should be addressed in stable kernels as well, but that is
-different from providing a temporary hotfix.
+On top of these serious issue there is also a smaller problem where the
+said race can cause GPU time overaccounting.
 
-There's usually no reason to send a hotfix for -rc6 (this would be earliest=
- the
-patches can reach Linus's tree) for a long standing issue that was never
-reported to cause a real bug.
+Lets try and solve all issues in one swoop by stopping messing with
+dma-fence internals and just track what we want in our own derived fence
+object.
 
-If the proper solution can't be backported to stable trees for some reason,=
- then
-a separate fix for stable makes sense.
+We care about fence submit and finish times and by adding a dedicated
+lock to manage them we can safely access both and adjust the former
+without any races.
+
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+References: https://lore.kernel.org/dri-devel/20261119131830.2535266-2-phasta@kernel.org/
+References: https://lore.kernel.org/dri-devel/20261117094324.8256-1-tvrtko.ursulin@igalia.com/
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Danilo Krummrich <dakr@kernel.org>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Philipp Stanner <phasta@kernel.org>
+Cc: amd-gfx@lists.freedesktop.org
+---
+v2:
+ * Fix kerneldoc copy and paste.
+ * Grab timestamps after obtaing locks.
+ * Prevent negative job durations on canceled/timedout jobs.
+
+v3:
+ * Do not miss timestamp adjustment when multiple jobs complete.
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c    | 15 ++++-----
+ drivers/gpu/drm/scheduler/sched_entity.c   |  6 ++--
+ drivers/gpu/drm/scheduler/sched_fence.c    | 22 ++++++++++--
+ drivers/gpu/drm/scheduler/sched_internal.h | 39 ++++++++++++++++++++++
+ drivers/gpu/drm/scheduler/sched_main.c     |  8 ++---
+ include/drm/gpu_scheduler.h                | 39 ++++++++++++++++++++++
+ 6 files changed, 113 insertions(+), 16 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+index 2f0349233695..1a6985283acc 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+@@ -171,21 +171,20 @@ static unsigned int amdgpu_ctx_get_hw_prio(struct amdgpu_ctx *ctx, u32 hw_ip)
+ static ktime_t amdgpu_ctx_fence_time(struct dma_fence *fence)
+ {
+ 	struct drm_sched_fence *s_fence;
++	ktime_t start, end;
+ 
+ 	if (!fence)
+ 		return ns_to_ktime(0);
+ 
+-	/* When the fence is not even scheduled it can't have spend time */
+ 	s_fence = to_drm_sched_fence(fence);
+-	if (!test_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT, &s_fence->scheduled.flags))
+-		return ns_to_ktime(0);
++	drm_sched_fence_get_times(s_fence, &start, &end);
++
++	/* When the fence is not even scheduled it can't have spend time */
++	if (!start)
++		return start;
+ 
+ 	/* When it is still running account how much already spend */
+-	if (!test_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT, &s_fence->finished.flags))
+-		return ktime_sub(ktime_get(), s_fence->scheduled.timestamp);
+-
+-	return ktime_sub(s_fence->finished.timestamp,
+-			 s_fence->scheduled.timestamp);
++	return ktime_sub(end ?: ktime_get(), start);
+ }
+ 
+ static ktime_t amdgpu_ctx_entity_time(struct amdgpu_ctx *ctx,
+diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
+index af6cb79c8a53..80bc7c9fb9ba 100644
+--- a/drivers/gpu/drm/scheduler/sched_entity.c
++++ b/drivers/gpu/drm/scheduler/sched_entity.c
+@@ -78,8 +78,10 @@ ktime_t drm_sched_entity_stats_job_add_gpu_time(struct drm_sched_job *job)
+ 	struct drm_sched_fence *s_fence = job->s_fence;
+ 	ktime_t start, end, duration;
+ 
+-	start = dma_fence_timestamp(&s_fence->scheduled);
+-	end = dma_fence_timestamp(&s_fence->finished);
++	drm_sched_fence_get_times(s_fence, &start, &end);
++	if (WARN_ON_ONCE(!start || !end || ktime_after(start, end)))
++		return ns_to_ktime(0);
++
+ 	duration = ktime_sub(end, start);
+ 
+ 	spin_lock(&stats->lock);
+diff --git a/drivers/gpu/drm/scheduler/sched_fence.c b/drivers/gpu/drm/scheduler/sched_fence.c
+index 9f938f5a7e55..a1d16b357057 100644
+--- a/drivers/gpu/drm/scheduler/sched_fence.c
++++ b/drivers/gpu/drm/scheduler/sched_fence.c
+@@ -65,6 +65,9 @@ static void drm_sched_fence_set_parent(struct drm_sched_fence *s_fence,
+ void drm_sched_fence_scheduled(struct drm_sched_fence *fence,
+ 			       struct dma_fence *parent)
+ {
++	unsigned long flags;
++	ktime_t now;
++
+ 	/* Set the parent before signaling the scheduled fence, such that,
+ 	 * any waiter expecting the parent to be filled after the job has
+ 	 * been scheduled (which is the case for drivers delegating waits
+@@ -74,14 +77,28 @@ void drm_sched_fence_scheduled(struct drm_sched_fence *fence,
+ 	if (!IS_ERR_OR_NULL(parent))
+ 		drm_sched_fence_set_parent(fence, parent);
+ 
+-	dma_fence_signal(&fence->scheduled);
++	spin_lock_irqsave(&fence->ts_lock, flags);
++	now = ktime_get();
++	fence->start_ts = now;
++	spin_unlock_irqrestore(&fence->ts_lock, flags);
++
++	dma_fence_signal_timestamp(&fence->scheduled, now);
+ }
+ 
+ void drm_sched_fence_finished(struct drm_sched_fence *fence, int result)
+ {
++	unsigned long flags;
++	ktime_t now;
++
+ 	if (result)
+ 		dma_fence_set_error(&fence->finished, result);
+-	dma_fence_signal(&fence->finished);
++
++	spin_lock_irqsave(&fence->ts_lock, flags);
++	now = ktime_get();
++	fence->finished_ts = now;
++	spin_unlock_irqrestore(&fence->ts_lock, flags);
++
++	dma_fence_signal_timestamp(&fence->finished, now);
+ }
+ 
+ static const char *drm_sched_fence_get_driver_name(struct dma_fence *fence)
+@@ -217,6 +234,7 @@ struct drm_sched_fence *drm_sched_fence_alloc(void *owner,
+ 	fence->owner = owner;
+ 	fence->drm_client_id = drm_client_id;
+ 	spin_lock_init(&fence->lock);
++	spin_lock_init(&fence->ts_lock);
+ 
+ 	return fence;
+ }
+diff --git a/drivers/gpu/drm/scheduler/sched_internal.h b/drivers/gpu/drm/scheduler/sched_internal.h
+index 32d3ddb820be..8b7f6495b9e8 100644
+--- a/drivers/gpu/drm/scheduler/sched_internal.h
++++ b/drivers/gpu/drm/scheduler/sched_internal.h
+@@ -67,6 +67,45 @@ void drm_sched_fence_scheduled(struct drm_sched_fence *fence,
+ 			       struct dma_fence *parent);
+ void drm_sched_fence_finished(struct drm_sched_fence *fence, int result);
+ 
++/**
++ * drm_sched_fence_advance_start_time - Advance scheduler fence scheduled timestamp
++ * @fence: scheduler fence
++ * @t: time to advance to
++ *
++ * Advances the scheduler fence scheduled time to @t if the fence has already
++ * been scheduled with an older timestamp.
++ */
++static inline void
++drm_sched_fence_advance_start_time(struct drm_sched_fence *fence, ktime_t t)
++{
++	unsigned long flags;
++
++	spin_lock_irqsave(&fence->ts_lock, flags);
++	if (fence->start_ts && ktime_after(t, fence->start_ts) &&
++	    (!fence->finished_ts || !ktime_after(t, fence->finished_ts)))
++		fence->start_ts = t;
++	spin_unlock_irqrestore(&fence->ts_lock, flags);
++}
++
++/**
++ * drm_sched_fence_finished_time - Queries the scheduler fence finished timestamp
++ * @fence: scheduler fence
++ *
++ * Returns: Scheduler fence finished timestamp.
++ */
++static inline ktime_t
++drm_sched_fence_finished_time(struct drm_sched_fence *fence)
++{
++	unsigned long flags;
++	ktime_t end;
++
++	spin_lock_irqsave(&fence->ts_lock, flags);
++	end = fence->finished_ts;
++	spin_unlock_irqrestore(&fence->ts_lock, flags);
++
++	return end;
++}
++
+ /**
+  * drm_sched_entity_queue_pop - Low level helper for popping queued jobs
+  *
+diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
+index 027c1c436caa..ba2a06e22707 100644
+--- a/drivers/gpu/drm/scheduler/sched_main.c
++++ b/drivers/gpu/drm/scheduler/sched_main.c
+@@ -933,11 +933,11 @@ drm_sched_get_finished_job(struct drm_gpu_scheduler *sched)
+ 		next = list_first_entry_or_null(&sched->pending_list,
+ 						typeof(*next), list);
+ 		if (next) {
++			ktime_t ts;
++
+ 			/* make the scheduled timestamp more accurate */
+-			if (test_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT,
+-				     &next->s_fence->scheduled.flags))
+-				next->s_fence->scheduled.timestamp =
+-					dma_fence_timestamp(&job->s_fence->finished);
++			ts = drm_sched_fence_finished_time(job->s_fence);
++			drm_sched_fence_advance_start_time(next->s_fence, ts);
+ 
+ 			/* start TO timer for next job */
+ 			drm_sched_start_timeout(sched);
+diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
+index 81604b082259..3408674e9406 100644
+--- a/include/drm/gpu_scheduler.h
++++ b/include/drm/gpu_scheduler.h
+@@ -308,6 +308,25 @@ struct drm_sched_fence {
+          */
+ 	struct dma_fence		finished;
+ 
++	/**
++	 * @ts_lock: Lock used for @start_ts and @finished_ts.
++	 */
++	spinlock_t			ts_lock;
++
++	/**
++	 * @start_ts: ktime of fence GPU execution start or 0 is not started.
++	 *
++	 * Must be accessed via helpers.
++	 */
++	ktime_t				start_ts;
++
++	/**
++	 * @finished_ts: ktime of fence GPU execution end or 0 if not finished.
++	 *
++	 * Must be accessed via helpers.
++	 */
++	ktime_t				finished_ts;
++
+ 	/**
+ 	 * @deadline: deadline set on &drm_sched_fence.finished which
+ 	 * potentially needs to be propagated to &drm_sched_fence.parent
+@@ -344,6 +363,26 @@ struct drm_sched_fence {
+ 
+ struct drm_sched_fence *to_drm_sched_fence(struct dma_fence *f);
+ 
++/**
++ * drm_sched_fence_get_times() - Get scheduler fence start and finished times
++ * @fence: Scheduler fence
++ * @scheduled: Pointer to scheduled time storage
++ * @finished: Pointer to finished time storage
++ *
++ * Obtains scheduler fence scheduled and finished times.
++ */
++static inline void
++drm_sched_fence_get_times(struct drm_sched_fence *fence,
++			  ktime_t *scheduled, ktime_t *finished)
++{
++	unsigned long flags;
++
++	spin_lock_irqsave(&fence->ts_lock, flags);
++	*scheduled = fence->start_ts;
++	*finished = fence->finished_ts;
++	spin_unlock_irqrestore(&fence->ts_lock, flags);
++}
++
+ /**
+  * struct drm_sched_job - A job to be run by an entity.
+  *
+-- 
+2.56.0
+
