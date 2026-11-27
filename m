@@ -2,60 +2,64 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33241606A31C
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Nov 2026 08:29:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A230A606A31C
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Nov 2026 08:29:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=VYEWaJ0x
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=1f9pAvno
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7979E11283E;
-	Fri, 27 Nov 2026 08:29:23 +0000 (UTC)
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010042.outbound.protection.outlook.com [52.101.201.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F12110E00C
- for <amd-gfx@lists.freedesktop.org>; Fri, 27 Nov 2026 08:29:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 16FA411284E;
+	Fri, 27 Nov 2026 08:29:32 +0000 (UTC)
+Received: from BN8PR05CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11011054.outbound.protection.outlook.com [52.101.57.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0312011282C
+ for <amd-gfx@lists.freedesktop.org>; Fri, 27 Nov 2026 08:29:14 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CHwe3AsmHYHuyIUMf6S/CxByKM5tWP3FjTL0JDrcxlDAXrcXhy2g/3DUj/I/4UzZtYktva7P5PsJZmlJRTKb3FVlRmWxjWGrxOdUzKmYEjgaBEwhzz1a6vwgYmpHHeDY6PVQ/IqQ1znQ5P4ii2hj3AKyj9YfpW10Lkgl2Rf9pfbxxZtzuHCMbn91Az95COlXbngBgA32o4njceZWjdzK1uIFzeaDsgL/xitWedR4XAsU7hHigVwONS2vsmjg3Pxx9ZJGq08tpycjckSvxz1fGAJajLJA31O05+qL/fTEK8LmYBqNnYkD1wgHtrwA6wFdQ40Lt+548EOFOndWoVmw0Q==
+ b=AbpKHoqy+uGndknMOsUdzSTqM/st9dLaCd1qOjsWAhcAtFMLdyeei+tmuUAZOJm9T24eHc6WIx2/ss68dl4QuBP6ZmvOr8QjOUA6ns+wnwzKC5vNpId3msnpe+dft9n0/8XqS9LP+LGsxhyqcWkpfpXek9OeFTyFjqazaIG7d2vtP0RAKTFD6JhBcjZWe8jZOULJwq2wx9F4hpN8Ay6+A6LL9RakSJa86G+gPg3YLoDfQjj3B/h8y6k8wdcsZXU6XZ5M8qVsv3OB/aWfW7ypE9u7WDm126pGw9seb6CkuAANhHcL90yrMe4GTrbO6igoXs8wNe5X18J9o0W7wbYpag==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ypdRP6hKW4EJoShgwUeF4vpDi6HBuGbrmFNg8qW8fko=;
- b=LJ8v5zCGzrTow/qmjHaPsNamvtXgibsVx9YWvKJFDLzKu+L2oznxvCY2R22JWMCVKZoMzRMULWO7bG0T1l6wtWAHeVNoM7WSb6BNshBlV49alCgComLX/SXfJN5lklYPrX2vF6HNLSnO8IfiHSavFDdQVpsGRLaeqi8GfTu1AMpH8UP5jDdzKmVsz9GJA8pgQuoR6vo5yFfpY78yGOZEEzYY1xmc4b2Hrs7KFWODI6ts1kBlefG7oqwBctSZRojllhrJgxXlCu1nxrzAZmMCV5S+MB9EdkJx8NvBxzxntHBLOgS5AHvFeFFoFZ6WecrNGOz3dMsCec7AGr8TTVd/1Q==
+ bh=SBvsizuvKWU6AwEIbWz+U4kCJ0FYqCPSAK0ooUee3ss=;
+ b=OsOGnvJ631dzLFjWiqjpqdq+tU2BRV4Sv9uM7PTW1Gm1w0My7EH+pGVPWc/jCSVs+qOPTPdJJ1XcoPYiWSlg2MA5Aa+X8+VZeBEv5NA1/Z7l5hTkGZg0P9gcZg1T/jQzycaidPHWVGGJt0FsBPinUbDJwZe8Y1Z7HCQAYU7hJYqQ5f90oJ/gBYaIRMvfj/I4bBs8BkUXcb+xxmnFsXgQVVBNEJqC+ejDo6ZTsLHOAFlaDYk/dIjdlptOan8F0FNCQx6gerv7stFZFVyazZ3JATKKSymoLSV6JQElLWHoVF/gHSYEhRSyoPTpHskCCa9+xU989wvfgp3LlZP8tWdP2A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ypdRP6hKW4EJoShgwUeF4vpDi6HBuGbrmFNg8qW8fko=;
- b=VYEWaJ0xxwS/zA546QsyVtd4/43dBOTbzSJpOvDpnT6IG2gUxxPn3PNVjhFZpSS3AU/jghQ57ecVNuFpNc+3ibELHLOcNvt4kSLyHfdIZPaC0X8PwKIbiG++GXDoCU6r3V5ZaG/zcCQDMkf4iGTb3PmAZl2BKZp3RvOJEsgCTMw=
-Received: from DS7PR03CA0149.namprd03.prod.outlook.com (2603:10b6:5:3b4::34)
- by CH1PR12MB9719.namprd12.prod.outlook.com (2603:10b6:610:2b2::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.7; Fri, 27 Nov
- 2026 08:29:03 +0000
-Received: from DM3PEPF000265B1.namprd02.prod.outlook.com
- (2603:10b6:5:3b4:cafe::7b) by DS7PR03CA0149.outlook.office365.com
- (2603:10b6:5:3b4::34) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.662.7 via Frontend Transport; Fri, 27
- Nov 2026 08:29:03 +0000
+ bh=SBvsizuvKWU6AwEIbWz+U4kCJ0FYqCPSAK0ooUee3ss=;
+ b=1f9pAvnoD9/sF3zro8LJ11u/YIM2BldZm4dUgSLW4wOzGV2RCEoxLWgJ1rZ+v0s99Is9LFbgNSh2u5gFBFpsTV4WUKq0EzudZP3kN6ovyXbAs5Z/vHLn3j49Hy7zIRkyZwS8aQq2D2klW8yNWrgUqAJ8YaluDe+fQi/hFJSlSfI=
+Received: from MW4PR04CA0259.namprd04.prod.outlook.com (2603:10b6:303:88::24)
+ by CY8PR12MB7539.namprd12.prod.outlook.com (2603:10b6:930:96::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.9; Fri, 27 Nov
+ 2026 08:29:09 +0000
+Received: from MWH0EPF000DD310.namprd05.prod.outlook.com
+ (2603:10b6:303:88:cafe::27) by MW4PR04CA0259.outlook.office365.com
+ (2603:10b6:303:88::24) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.662.11 via Frontend Transport; Fri,
+ 27 Nov 2026 08:29:09 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- DM3PEPF000265B1.mail.protection.outlook.com (10.167.23.40) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ MWH0EPF000DD310.mail.protection.outlook.com (10.167.249.8) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.688.5 via Frontend Transport; Fri, 27 Nov 2026 08:29:02 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.688.5 via Frontend Transport; Fri, 27 Nov 2026 08:29:09 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Fri, 27 Nov
- 2026 02:29:02 -0600
+ 2026 02:29:08 -0600
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Fri, 27 Nov
+ 2026 02:29:08 -0600
 Received: from rtgbeta01.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.57 via Frontend
- Transport; Fri, 27 Nov 2026 02:28:59 -0600
+ Transport; Fri, 27 Nov 2026 02:29:05 -0600
 From: Priya Hosur <Priya.Hosur@amd.com>
 To: <amd-gfx@lists.freedesktop.org>, Strahinja Stamenkovic
  <strahinja.stamenkovic@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
@@ -64,40 +68,42 @@ To: <amd-gfx@lists.freedesktop.org>, Strahinja Stamenkovic
 CC: Priya Hosur <Priya.Hosur@amd.com>, Pratik Vishwakarma
  <Pratik.Vishwakarma@amd.com>, Veerabadhran Gopalakrishnan
  <Veerabadhran.Gopalakrishnan@amd.com>
-Subject: [PATCH 0/2] drm/amdkfd: report realistic free/total memory on
- GTT-backed APUs
-Date: Fri, 27 Nov 2026 13:58:52 +0530
-Message-ID: <20261127082854.112025-1-Priya.Hosur@amd.com>
+Subject: [PATCH 2/2] drm/amdkfd: bound the APU GTT pool size by KFD's system
+ memory limit
+Date: Fri, 27 Nov 2026 13:58:54 +0530
+Message-ID: <20261127082854.112025-3-Priya.Hosur@amd.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261127082854.112025-1-Priya.Hosur@amd.com>
+References: <20261127082854.112025-1-Priya.Hosur@amd.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM3PEPF000265B1:EE_|CH1PR12MB9719:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1b2f501f-073e-42ac-96cd-08df4c607e37
+X-MS-TrafficTypeDiagnostic: MWH0EPF000DD310:EE_|CY8PR12MB7539:EE_
+X-MS-Office365-Filtering-Correlation-Id: 803d6a3d-2bc4-4fca-1886-08df4c6081fa
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|36860700016|82310400026|376014|261022105027099003|10067099003|261026140227099003|56012099006|261021121427099003|261028144727099003|261026121527099003|261021123027099003|261102123227099003|18002099003|11063799006|261009223027099003;
-X-Microsoft-Antispam-Message-Info: jHkNCnfcaZwS0xa7Kk3rco3snousf6XdssULSmRqQYEsCOjz/1469Ifa89idZ1s2sV//aLLCscXo5z1MJR0bBU+V18tmcUIIrcLKcZelILvrDmS3b2yZ96SnIhFudFGH5bmnrnRBbX9WBeFYqfAfPbTumCA1hoKkDOycvWAB1CjpjCSfp65pYaPzbCH5wrDmjljF0zHREV8CUibN9WofrbK5te+PPLutLNSp5xhzwFXm6dgBk2GKe3ixK0k+JdlU+EySFiFr+2O7QaxhX9oi88N5dd7QjiHghv/OsK6bfD8MkRo0YtcKj9TiqHRx6Pea5R7GcAjAeDtD0qN0YtONLIytvXTxkOjOBmd+dC4OPn+pCNciRKMI5TEaQ3TlHOZy76tbh0TeJM0X5d81NDD5nIQLGa60AkGS6PS5u38vlLlzu2z4nRI+n7YmmLw1BczV/Pv/au5Lo/q8LIMwPpOGqmXzLwXAITPq/2b+oMAL8OEi1p79Svxz5HgHpgn0EB4iycYKVa2o5CYJdTr7rM3OSKEwsBkcdbrOmQ75ouFkdUI8pKWNTFqcaRTYCk2F7hzoUYTDmykFlRoIGLiw7Fppc4kwZHdRJovfFr5UfKT5Uni1zL3YwLXjGcC2tJyfdjBHaz2DPAKomBJ117iKTKiwiIspmqYtDFYhr1vVhi4QnE0KlT5L6LnkiP+gOYpyJEdFsNtsjlcDWA0VyfvUk+GL4Q==
+ ARA:13230040|23010399003|376014|82310400026|36860700016|1800799024|11063799006|6133799003|261009223027099003|22082099003|18002099003|10067099003|56012099006|261028144727099003|261026121527099003|261026140227099003|261022105027099003|261102123227099003|261021123027099003|261021121427099003;
+X-Microsoft-Antispam-Message-Info: RKdhip9fgNxEcJq1J3ocSkNHn48ouZCQ50EJ7dCrfDnCdWYGLXQX3cMp2q7hHg4owedb4igu272jkuM0dq5Jyy64HY7NGjG/OtahEtXAFSeWh/goWJWz4v8HzJ8FeXRQ/SVfo8SpUVOSxSR/hotryqEWtfs9vo1J5wwUdrwtArXaTBmek45i9xDZm36advy97QqEK7V1xYpO19hYplaEwxDhiNXOBvpZx8jyDTT0aiJwTo3fv5LnYIDK5KlGJ0835Ljg8LT1pOnOv4D0KKoax/ywCbVvtl534J/Mb9xweojaDDC/tAjkBn2X1JMe9cWTPdgFFJvWGWJIO9U+EJW1c19fgPQSknKWbE/rYzRBll35i+vTXYn0hO6XGEMaieJY4EHB7QLOYXlqEA2Po1pvZUkQH+p0nairpg8ic0e1Wbboj2KbMq5kiVdLWBmTOwRxS4mYcHXQkUBDNwzPdwod/idg9euKNgV3fSkHSmpKAIYLxT2o0jEHf6pghDuy1QHv+rb6ptU/C/FtHCfWJbbhYquNVRNU24DtWZH24QFdd1x2cfD9syU7SefeYCdyx5vIs3LmPNTMd5EHypju8j4EHi1T78cuKAqzjBKWnpJiaCl9dEO48jsioH4DTCDj3SGwFbiKymNCWC6ljTLseGanJbkKYvDjgOGPa20zvW4/IgLOH96CxbAvZJ8q7j35jLN9BG4qRYqVYyg3uwaTSHYDSQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(36860700016)(82310400026)(376014)(261022105027099003)(10067099003)(261026140227099003)(56012099006)(261021121427099003)(261028144727099003)(261026121527099003)(261021123027099003)(261102123227099003)(18002099003)(11063799006)(261009223027099003);
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(82310400026)(36860700016)(1800799024)(11063799006)(6133799003)(261009223027099003)(22082099003)(18002099003)(10067099003)(56012099006)(261028144727099003)(261026121527099003)(261026140227099003)(261022105027099003)(261102123227099003)(261021123027099003)(261021121427099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: uwXEFufSklSMBTNB5mYfBTuSpeoCrupUvDeHRwNaNz1xbYYnebo4CuQyovEuxZ60PYcyB8ryhLzBxogxNMVwvKWRvLV+ywF7KW+IutM8oWT6ic+musV1XDzIfbgNkbUw2KpeJi9tVrAW4gFc6yGRukuRDSLLNGA5VNwQDKH8lu4c362AtZreVW4VrmOFu4A4+LSm85kBSEIMQIxbBFnVF5798NeNURUNJEb6CVVONiiKNDEMIYFXib6tIM/XJd9Ohp7Lo4VF8ou9T2faonULTaRp/mufxRBkR0cbfa32PgnSrbEquDDlM1losz06zuMJ2tA1l44NVnAkVynEwfK2D22JeIQH2FfevxnJo0oe2qRc1QPrUAiNxHD3WeOwn3heq3skVPebdn/itdl1agkYvu5RoampRt6mYbDtlj46Wk8JxgCLuGBFHA4N24OS/rj1
+X-MS-Exchange-AntiSpam-MessageData-0: w//zIGkMnF1bHWsqONFaAjO61lgksH6Mfgxb8B046GuKba/dbTN1pzC75MyznhTLWWsi+5ksPKmD4azgHcDqMmBfQaih618V5/UbArw5N+/f9X67dgzNjYZ+PKpZB7CitXUxk8aYd3pEQY6eh93Q6D9CyJwp0A2dYYnZmyg3b8QXgzd+xcMndie1scV4hu+kAPMfCoyew+aI3TJnUcR4BXbbi7ZjnUR4TrpNQmmkUNp7QVEm9QLdrOEOEog/z08+wndxvtbi5/ibDrTgbZkfXTvgJfpqmBsb9u9yeGgRbRMtGltUwJ1GXiJQIhJ3Y1RwJqUgQ0VeUEQq10cTlIJBekPkXjP2U8+OiBSNM4eQuH34ja4YGFSJ8kPuZHxf71HRCL/85w0c3s63gEi3xJ/S0F6y+uimeTULd2jnupmsjUd11uqSXZo3rdQvbO2pzqFX
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Nov 2026 08:29:02.7697 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1b2f501f-073e-42ac-96cd-08df4c607e37
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Nov 2026 08:29:09.0311 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 803d6a3d-2bc4-4fca-1886-08df4c6081fa
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM3PEPF000265B1.namprd02.prod.outlook.com
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000DD310.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PR12MB9719
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7539
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,69 +114,121 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On APUs where KFD serves VRAM allocations from GTT (apu_prefer_gtt),
-the memory reported to user space does not match what can be allocated:
+With apu_prefer_gtt, KFD reports ttm_tt_pages_limit() as the local
+memory size, which HIP exposes as the device's total memory. TTM may
+legitimately be configured above physical memory, since it can swap
+buffers out, but KFD allocations are additionally bounded by
+kfd_mem_limit.max_system_mem_limit, which is derived from physical
+memory. KFD therefore advertises a pool it will never allocate from: on
+a Ryzen AI MAX+ 395 with 62 GiB RAM and ttm.pages_limit set to 80 GiB,
+HIP reports 80 GiB total while KFD caps allocations at 59.69 GiB, so
+applications sizing against a fraction of total fail.
 
-- Free (AMDKFD_IOC_AVAILABLE_MEMORY -> hipMemGetInfo()) only subtracts
-  KFD's own allocations, so host memory used by other processes is
-  ignored.
-- Total (topology local memory size) is the TTM pages limit, which may
-  be above physical RAM, while KFD refuses allocations beyond its
-  system memory limit.
+Report the smaller of the TTM limit and KFD's system memory limit, via a
+new amdgpu_amdkfd_system_mem_limit() accessor. When no_system_mem_limit
+is set to allow overcommit, the TTM limit is reported unchanged. GTT and
+TTM sizing are not affected.
 
-Frameworks such as vLLM, llama.cpp and PyTorch size buffers from these
-values and over-commit, ending in the OOM killer.
+Co-developed-by: Strahinja Stamenkovic <strahinja.stamenkovic@amd.com>
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Priya Hosur <Priya.Hosur@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c       | 15 +++++++++++++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h       |  6 ++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c |  9 +++++++++
+ 3 files changed, 28 insertions(+), 2 deletions(-)
 
-Patch 1 bounds the reported free memory by si_mem_available(). Patch 2
-bounds the reported pool size by KFD's system memory limit. Only the
-reported values change; allocation limits and GTT/TTM sizing are not
-touched. Both are skipped with no_system_mem_limit=1. Carve-out backed
-APUs and dGPUs are not affected.
-
-Tested on gfx1151 (Ryzen AI MAX+ 395, 62 GiB RAM), HIP free/total vs
-MemAvailable (GiB):
-
-  ttm.pages_limit = 80 GiB              stock 7.0.0-44   patched
-  total                                       80.00        59.69
-  40 GiB held by another process
-    free / MemAvailable               59.67 / 20.39  19.60 / 19.60
-
-  default ttm.pages_limit (31.08 GiB)   patched
-  total                                       31.08 (unchanged)
-  40 GiB held: free / MemAvailable    19.16 / 19.16
-
-With no_system_mem_limit=1 the reported values are the same as without
-this series. kfdtest (KFDMemoryTest, KFDLocalMemoryTest,
-KFDTopologyTest, KFDOpenCloseKFDTest) results are identical with and
-without the series at ttm.pages_limit = 80 GiB. Not tested: MI300A, dGPU.
-
-Strahinja found the issue and wrote the original patches; he is listed
-as Co-developed-by. Strahinja, please reply with your Signed-off-by for
-both patches so it can be added next to the Co-developed-by tags.
-
-Changes in v1:
-- Initial version, based on amd-staging-drm-next. In patch 1 the bound
-  is applied in the amdgpu_amdkfd_get_available_memory() wrapper, since
-  __get_available_memory() is also used by the is_app_apu allocation
-  path after commit 32abf4fe544b ("drm/amdkfd: correct vram_available
-  calculation").
-
-Priya Hosur (2):
-  drm/amdkfd: bound APU available memory by host available memory
-  drm/amdkfd: bound the APU GTT pool size by KFD's system memory limit
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c    | 15 +++++++++++++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h    |  6 ++++++
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 19 +++++++++++++++++++
- 3 files changed, 38 insertions(+), 2 deletions(-)
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+index 0dab267eb382..17c12edca437 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+@@ -521,6 +521,17 @@ uint32_t amdgpu_amdkfd_get_fw_version(struct amdgpu_device *adev,
+ 	return 0;
+ }
+ 
++/*
++ * Size of the GTT-backed pool reported on APUs. TTM may be configured above
++ * physical RAM, but KFD will not allocate beyond its system memory limit, so
++ * don't report more than that.
++ */
++static u64 amdgpu_amdkfd_gtt_pool_size(void)
++{
++	return min((u64)ttm_tt_pages_limit() << PAGE_SHIFT,
++		   amdgpu_amdkfd_system_mem_limit());
++}
++
+ void amdgpu_amdkfd_get_local_mem_info(struct amdgpu_device *adev,
+ 				      struct kfd_local_mem_info *mem_info,
+ 				      struct amdgpu_xcp *xcp)
+@@ -535,7 +546,7 @@ void amdgpu_amdkfd_get_local_mem_info(struct amdgpu_device *adev,
+ 			mem_info->local_mem_size_private =
+ 					KFD_XCP_MEMORY_SIZE(adev, xcp->id);
+ 	} else if (adev->apu_prefer_gtt) {
+-		mem_info->local_mem_size_public = (ttm_tt_pages_limit() << PAGE_SHIFT);
++		mem_info->local_mem_size_public = amdgpu_amdkfd_gtt_pool_size();
+ 		mem_info->local_mem_size_private = 0;
+ 	} else {
+ 		mem_info->local_mem_size_public = adev->gmc.visible_vram_size;
+@@ -863,7 +874,7 @@ u64 amdgpu_amdkfd_xcp_memory_size(struct amdgpu_device *adev, int xcp_id)
+ 
+ 		return ALIGN_DOWN(tmp, PAGE_SIZE);
+ 	} else if (adev->apu_prefer_gtt) {
+-		return (ttm_tt_pages_limit() << PAGE_SHIFT);
++		return amdgpu_amdkfd_gtt_pool_size();
+ 	} else {
+ 		return adev->gmc.real_vram_size;
+ 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+index 74dc307e5140..f504f133f2a4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+@@ -400,6 +400,7 @@ void amdgpu_amdkfd_release_notify(struct amdgpu_bo *bo);
+ void amdgpu_amdkfd_account_vram_pin(struct amdgpu_bo *bo, int xcp_id);
+ void amdgpu_amdkfd_account_vram_unpin(struct amdgpu_bo *bo, int xcp_id);
+ void amdgpu_amdkfd_reserve_system_mem(uint64_t size);
++u64 amdgpu_amdkfd_system_mem_limit(void);
+ #else
+ static inline
+ void amdgpu_amdkfd_gpuvm_init_mem_limits(void)
+@@ -426,6 +427,11 @@ static inline
+ void amdgpu_amdkfd_account_vram_unpin(struct amdgpu_bo *bo, int xcp_id)
+ {
+ }
++
++static inline u64 amdgpu_amdkfd_system_mem_limit(void)
++{
++	return U64_MAX;
++}
+ #endif
+ 
+ #if IS_ENABLED(CONFIG_HSA_AMD_SVM)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+index 0a04516e137e..5b530ddf06b1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+@@ -130,6 +130,15 @@ void amdgpu_amdkfd_gpuvm_init_mem_limits(void)
+ 		(kfd_mem_limit.max_ttm_mem_limit >> 20));
+ }
+ 
++/* Returns U64_MAX if the system memory limit is disabled or not yet set up. */
++u64 amdgpu_amdkfd_system_mem_limit(void)
++{
++	if (no_system_mem_limit || !kfd_mem_limit.max_system_mem_limit)
++		return U64_MAX;
++
++	return kfd_mem_limit.max_system_mem_limit;
++}
++
+ void amdgpu_amdkfd_reserve_system_mem(uint64_t size)
+ {
+ 	kfd_mem_limit.system_mem_used += size;
 -- 
 2.43.0
 
