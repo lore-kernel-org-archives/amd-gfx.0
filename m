@@ -2,44 +2,59 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5074D606A31E
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Nov 2026 11:45:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31132606A31C
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Nov 2026 11:54:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XIUwOYBO
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LMCqPm3U
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E138C10E9D3;
-	Fri, 27 Nov 2026 11:45:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C9ED4112A59;
+	Fri, 27 Nov 2026 11:54:00 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA74410E470;
- Fri, 27 Nov 2026 11:45:47 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 046A6112A59;
+ Fri, 27 Nov 2026 11:53:54 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id E5F6062A13;
- Fri, 27 Nov 2026 11:45:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48C391F0089A;
- Fri, 27 Nov 2026 11:45:46 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 018E7627A0;
+ Fri, 27 Nov 2026 11:53:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 598EC1F00893;
+ Fri, 27 Nov 2026 11:53:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795779946;
- bh=bjscMvn08cu5vuibkkmXhFX9YHaCU1LmqOCXviWhHmc=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=XIUwOYBO2xm+Au/+5WP0D6JcQ0JMk34TF192wzqhQR+I+mActigaEJoz5iz4oEOQ3
- YLHTRZkG57cy/mWOEeu+55aEqfClW40Z/VYakzUZ2wqOYK2LPIfHZJFnQek/tYcM8V
- RNyHVb0Y5yuM1YSvCCopY0/W7Y6OllATAbL4M/DR+Qm/V9+1Swskc10BLI1nyttIje
- iywhJIhiWKzZMcB+imyK+lpSRXHsAeQc4JiBASK7i5QyvjUD6KBz2Gcx2EbJAY3Zw6
- KtySwWJpbPGjVfxHIiypBDzJPdjMfKcqJ7CsE8pT3UeDWCpk6R95ghm6zOr+eem7Dc
- /BKWa8SAcun+Q==
-Message-ID: <sashiko-outbox-237273@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [RFC v2] drm/sched: Track sched fence scheduled and finished
- time directly
-To: "Tvrtko Ursulin" <tvrtko.ursulin@igalia.com>,
- dri-devel@lists.freedesktop.org
-Cc: amd-gfx@lists.freedesktop.org
-In-Reply-To: <20261127112818.79237-1-tvrtko.ursulin@igalia.com>
-References: <20261126154200.71180-1-tvrtko.ursulin@igalia.com>
- <20261127112818.79237-1-tvrtko.ursulin@igalia.com>
-Content-Type: text/plain; charset=utf-8
+ s=k20260515; t=1795780432;
+ bh=6tFmyAKl3TXYw7GdISc3v4tvYWnA4KFaP0LI5fdW8KM=;
+ h=Date:From:Subject:Cc:To:References:In-Reply-To;
+ b=LMCqPm3UyC6hhDjz1bVyrTScq6Cuy8LxDb8t6owUObO91YVDVBbRaNyWduk1hyDDl
+ JP/wmYEU6R4xmV3mB8O/j3oW01CX6jsaqTizKQS/z+B0A9jTMhXA8WcLuBpcVwBE5s
+ qAnLqkACrQ0LAoIOh/iqyBiFzTxEwbNqRJou09sjiVxPIus3dksSH5/ZweC5wTR1iH
+ uvYGD9phpxvFwnju9TuAFcvZO3QggLw8CbZQGRoOHh6V4lkgNv4XRgcx8owWFMSzrL
+ rFu8AjVkkTA7m9oBGhok2ZfcuF7UwsfGMJa6w/JCN0O9I8vh0FLkAgxkT/w+0juqiO
+ S6OoKvop9IyHA==
+X-Archived-By: <archiver.kernel.org>
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 27 Nov 2026 11:45:45 +0000
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 27 Nov 2026 12:53:42 +0100
+Message-Id: <DN5Z15CLM3L7.2469NKSE6ASED@kernel.org>
+From: "Danilo Krummrich" <dakr@kernel.org>
+Subject: Re: [PATCH 0/3] dma-fence: Properly order timestamps
+Cc: <phasta@kernel.org>, "Sumit Semwal" <sumit.semwal@linaro.org>,
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, "Alex Deucher"
+ <alexander.deucher@amd.com>, "David Airlie" <airlied@gmail.com>, "Simona
+ Vetter" <simona@ffwll.ch>, "Matthew Brost" <matthew.brost@intel.com>,
+ "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
+ <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "Tvrtko
+ Ursulin" <tvrtko.ursulin@igalia.com>, "Mario Limonciello (AMD)"
+ <superm1@kernel.org>, "Aurabindo Pillai" <aurabindo.pillai@amd.com>,
+ "Pierre-Eric Pelloux-Prayer" <pierre-eric.pelloux-prayer@amd.com>, "Gustavo
+ Padovan" <gustavo.padovan@collabora.com>, "Chris Wilson"
+ <chris@chris-wilson.co.uk>, "Luben Tuikov" <ltuikov89@gmail.com>, "Shashank
+ Sharma" <shashank.sharma@amd.com>, "Paul E . McKenney"
+ <paulmck@kernel.org>, "Gary Guo" <gary@garyguo.net>,
+ <linux-media@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>
+To: "Philipp Stanner" <phasta@mailbox.org>
+References: <20261126172046.2473303-2-phasta@kernel.org>
+ <DN5YMFCMLL2E.3LMY2Z5ZQAYFG@kernel.org>
+ <b6b75395da594c4bf8deb1daaf857854565c66cd.camel@mailbox.org>
+In-Reply-To: <b6b75395da594c4bf8deb1daaf857854565c66cd.camel@mailbox.org>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,84 +64,26 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] drm/sched: skipped start_ts update in
-  drm_sched_fence_advance_start_time()
---
+On Fri Nov 27, 2026 at 12:43 PM CET, Philipp Stanner wrote:
+> On Fri, 2026-11-27 at 12:34 +0100, Danilo Krummrich wrote:
+> What do you mean with that, like not backporting it?
 
-commit 8d03d09146f11c7c74e02c09d184c1146771b9ad
-Author: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+No, the issue should be addressed in stable kernels as well, but that is
+different from providing a temporary hotfix.
 
-drm/sched: Track sched fence scheduled and finished time directly
+There's usually no reason to send a hotfix for -rc6 (this would be earliest=
+ the
+patches can reach Linus's tree) for a long standing issue that was never
+reported to cause a real bug.
 
-This commit adds dedicated start_ts and finished_ts fields protected by
-ts_lock to struct drm_sched_fence so that scheduled and finished
-timestamps can be tracked and adjusted without modifying dma_fence
-internals directly.
-
-> diff --git a/drivers/gpu/drm/scheduler/sched_internal.h b/drivers/gpu/drm=
-/scheduler/sched_internal.h
-> index 32d3ddb820be6..b24bb1d7d4893 100644
-> --- a/drivers/gpu/drm/scheduler/sched_internal.h
-> +++ b/drivers/gpu/drm/scheduler/sched_internal.h
-> @@ -67,6 +67,45 @@ void drm_sched_fence_scheduled(struct drm_sched_fence =
-*fence,
->  			       struct dma_fence *parent);
->  void drm_sched_fence_finished(struct drm_sched_fence *fence, int result);
-> =20
-> +/**
-> + * drm_sched_fence_advance_start_time - Advance scheduler fence schedule=
-d timestamp
-> + * @fence: scheduler fence
-> + * @t: time to advance to
-> + *
-> + * Advances the scheduler fence scheduled time to @t if the fence has al=
-ready
-> + * been scheduled with an older timestamp.
-> + */
-> +static inline void
-> +drm_sched_fence_advance_start_time(struct drm_sched_fence *fence, ktime_=
-t t)
-> +{
-> +	unsigned long flags;
-> +
-> +	spin_lock_irqsave(&fence->ts_lock, flags);
-> +	if (fence->start_ts && !fence->finished_ts &&
-> +	    ktime_after(t, fence->start_ts))
-> +		fence->start_ts =3D t;
-> +	spin_unlock_irqrestore(&fence->ts_lock, flags);
-> +}
-
-[Severity: Medium]
-Does checking !fence->finished_ts here prevent start_ts from being
-advanced when multiple pipelined jobs complete before work_free_job
-runs?
-
-drm_sched_job_done_cb() runs in interrupt context when the parent fence
-signals and calls drm_sched_fence_finished(), setting finished_ts
-immediately and queueing work_free_job.  If a second job on pending_list
-also completes before the worker calls drm_sched_get_finished_job() for
-the first job, next->s_fence->finished_ts is already non-zero.
-drm_sched_fence_advance_start_time() then leaves next->s_fence->start_ts
-at its ring-submission timestamp, causing
-drm_sched_entity_stats_job_add_gpu_time() and amdgpu_ctx_fence_time() to
-overaccount GPU time across completed batches.
-
-Should this check that fence->finished_ts is either zero or not before t
-(e.g. !fence->finished_ts || !ktime_after(t, fence->finished_ts))
-instead?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261127112818.7923=
-7-1-tvrtko.ursulin@igalia.com?part=3D1
+If the proper solution can't be backported to stable trees for some reason,=
+ then
+a separate fix for stable makes sense.
