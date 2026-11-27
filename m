@@ -2,123 +2,96 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06AFC606A31C
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Nov 2026 21:35:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2125B606A31F
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Nov 2026 21:46:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=rCEWDDfg
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=pa+gEHHA
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 94A70112906;
-	Fri, 27 Nov 2026 21:35:01 +0000 (UTC)
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011020.outbound.protection.outlook.com
- [40.93.194.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 516D5112906
- for <amd-gfx@lists.freedesktop.org>; Fri, 27 Nov 2026 21:34:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5FF9C10E12B;
+	Fri, 27 Nov 2026 21:46:16 +0000 (UTC)
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013031.outbound.protection.outlook.com
+ [40.107.201.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C84D10E12B
+ for <amd-gfx@lists.freedesktop.org>; Fri, 27 Nov 2026 21:46:10 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=aKDN4wiQeIxJbrILDHT9FlMXijjECIOiuBnHGxQjtWzp+aWUB+DwMHgg9BDm7ufV7xfConjPJkAS9n93FjwrytuxEEpfXgrHfwCffZ2N9wQhBdeoGsk0WzO7WT1cX2bwfek6Vos5dCO3cj6/6YAq+LV1pknTFmG1RsM+ELZ/vV/zaIHPFQN2AXV+Iyr5JneDFTJsyrIl7bZ60OCTHY6eNd8o0/CbD49lVTwA21KB9cIRNVakeYaPgVjQweg9INX35l5aB6ALmGK1dV8D8iRA9nMepIfACpnB8OqiWMOWlGgghmFpVYh4NsmiK9FvTj6cO4wefAZnv/i8MTqHTqeR3g==
+ b=UvaiWlPyeFb9+CKrnxf8tAkA+a8E5RbXAoIQxUhFXlS/GVZZEV7Ydw6vsMqaS3TOaltXW0bCkhlGIUiFWjo83CHiHPrTnyYGseBYaVbpQIYEfM/cYAu3FIhj4pnu718zVB7IudPzLc+HxLOdqgwCqGJ/d1bv6lUyozDN7FQQlWbJFmHQnVWp2QdJ9YCjqPRrPHMuk8BtQnH1u1t29WvBb5xivQeU9G6l78OwQb9hlq3uacGj8m35qXn9HXPhWGWGrrk3of+6QGRc+9StlELSUat9O8lLe4JYPgg8SPAXI9iW66toLvfhMrGlRfg/CtoFlRGlTyp22nUPpQEXNqpaVA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iV3N40/AHuSmaXCRcUxddbDqiGiujB63ONGLNPO+MEc=;
- b=twkKp/Vr+76wGIml5mX9jTdkB/TnKSzLQFpzrmBFj3qsgYx041D5urmyG/i2doU1P+V8SiYF7sR4w7Y0hH4NM/GcoQMmu7jHAymO8D1JH+cKfLxoGLigqzxAQIrMVa+C50MmEet/Uv5s+YUJnKGx0erqIrlXKEz4RtqzmFnjLlrW0OvLB/6IeNLIjytfcrbLFGgt01/HvRaFB01JuJdPXLrmkbN7IvACExqtb11obKMygdSSrqnkiQXqvR6COd9z3gCiREXYP/vm4cbymzDFyOLMVRe2KL61HzMvX15rK2JdL7ywVn70RDXm4YJPCScGwtjxNwD0t88gAt3VbFjPZQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=GOKWFi/bmQ3LRRPardliOPfjHgJaNAoTNvhBZwdTxTY=;
+ b=ImZ48vczc8SGVsjhvb4mxjR64hzFbG1yokGgcSrxqwWD+qv/hOX8rzQrKa2VAgnH9PzQYFqJ6I3Pg1Q2L2GhVUSlwkKeP+UXEIsSWizsYdcUKvcZijuQbdvJIOd1lm7HJ/gjlfITxEWtaIWLfq17sf84gQjDc/5W0HOyfqc6RA2dakIG5XXrSQFbVvothyMTblFKEx/nHWpISX4BDh17wsxTPTwvXL7TLvgoNFNkOPHaCDS5bVZZuFeQkQo99jgxyqEYisVulW877oNupq7ojmrM6On3C3jV7nA5WSDpDEeFL3EYh/9QAF4FI+yAd/MDk9c5VrS99ulpWY0g3pwlWA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iV3N40/AHuSmaXCRcUxddbDqiGiujB63ONGLNPO+MEc=;
- b=rCEWDDfghRAfz2SXZDDQd3IUqWKlOoyLITa4FySckoMmNpgmktFj+45RiqPq8Uusdw7Qrk4zy3O0r9zrXxGhqqPSCykIlNxERH/jXObSG+ez9uhQBLZx9ZjkW1xDmbAu3i50LPilRkXdVUlEx/Xh7bubAhJC+7AV/znUAgy5TbM=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB5167.namprd12.prod.outlook.com (2603:10b6:5:396::10)
- by IA0PR12MB8863.namprd12.prod.outlook.com (2603:10b6:208:488::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.11; Fri, 27 Nov
- 2026 21:34:52 +0000
-Received: from DM4PR12MB5167.namprd12.prod.outlook.com
- ([fe80::4588:54c1:bc29:2c7c]) by DM4PR12MB5167.namprd12.prod.outlook.com
- ([fe80::4588:54c1:bc29:2c7c%3]) with mapi id 15.21.0662.007; Fri, 27 Nov 2026
- 21:34:52 +0000
-Content-Type: multipart/alternative;
- boundary="------------Ukp0Ol4XufQAGEbpGB5MAR0w"
-Message-ID: <7affc853-ec24-4620-a883-b344f4ded38e@amd.com>
-Date: Fri, 27 Nov 2026 16:34:50 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 1/3] drm/amdkfd: Add awareness of THP of device and
- system RAM in kfd svm driver
-To: "Xiaogang.Chen" <xiaogang.chen@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20261122202653.274580-1-xiaogang.chen@amd.com>
- <20261122202653.274580-2-xiaogang.chen@amd.com>
-Content-Language: en-US
-From: Philip Yang <yangp@amd.com>
-In-Reply-To: <20261122202653.274580-2-xiaogang.chen@amd.com>
-X-ClientProxiedBy: YT4PR01CA0099.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:d7::20) To DM4PR12MB5167.namprd12.prod.outlook.com
- (2603:10b6:5:396::10)
+ bh=GOKWFi/bmQ3LRRPardliOPfjHgJaNAoTNvhBZwdTxTY=;
+ b=pa+gEHHAwKvgoaKKNJUL4PSJZ4rO3xd6gLYFWlQbYw5KuMzUNN5zwuP0vWbOyCnv0lf+Zug63+53HN0f/Z8IxmP3wftrFffClIs3BhzTKo7dAFsBsntZfDkXWTBAOmqQPUsdm3R4VkCfhWfIvxWe8QETpiN2nEtCV9hKyNtAV8Y=
+Received: from BY5PR13CA0025.namprd13.prod.outlook.com (2603:10b6:a03:180::26)
+ by SA0PR12MB7076.namprd12.prod.outlook.com (2603:10b6:806:2d5::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.9; Fri, 27 Nov
+ 2026 21:46:03 +0000
+Received: from SJ5PEPF00000204.namprd05.prod.outlook.com
+ (2603:10b6:a03:180:cafe::85) by BY5PR13CA0025.outlook.office365.com
+ (2603:10b6:a03:180::26) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.688.6 via Frontend Transport; Fri, 27
+ Nov 2026 21:46:03 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ5PEPF00000204.mail.protection.outlook.com (10.167.244.37) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.688.5 via Frontend Transport; Fri, 27 Nov 2026 21:46:03 +0000
+Received: from 0yonsun-linux-dev.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.57; Fri, 27 Nov 2026 15:46:02 -0600
+From: Yongqiang Sun <Yongqiang.Sun@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Yongqiang Sun <Yongqiang.Sun@amd.com>
+Subject: [PATCH] drm/amdkfd: refuse XNACK for a secondary context
+Date: Fri, 27 Nov 2026 16:45:44 -0500
+Message-ID: <20261127214544.1058794-1-Yongqiang.Sun@amd.com>
+X-Mailer: git-send-email 2.43.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5167:EE_|IA0PR12MB8863:EE_
-X-MS-Office365-Filtering-Correlation-Id: 055376c7-145f-4c13-b1d2-08df4cce453a
+X-MS-TrafficTypeDiagnostic: SJ5PEPF00000204:EE_|SA0PR12MB7076:EE_
+X-MS-Office365-Filtering-Correlation-Id: ac5b0704-3c6e-4c71-fde8-08df4ccfd56a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|376014|366016|261026140227099003|261026121527099003|261021121427099003|261021123027099003|261022075727099003|261022113327099003|261022105027099003|261028144727099003|261102123227099003|261102130727099003|4143699003|11063799006|56012099006|10067099003|261009223027099003|22082099003|18002099003|6133799003|8096899003;
-X-Microsoft-Antispam-Message-Info: eQoYvPz3HlCv7y3QNsaaOnDo/zREsVrYZJZlUZW3CjEMuEcJ4UNdPyLZ02b7PRUIXZhV+wnQ8UmGzEZLknP0efJAk+9aWQcKriBfcUOFeUlI4/s51dpWyqnNHxw74ogwDlzNcBlQwHfFuyHhYvB80qLJbIcIPOQj1ZrJDwMn0AEUEuWJlGA0WSntJMJieNJfpRbiCInKmYVpoim8UOYHruJY+aj06XJH8WdVNwCCPDxFwSK+lT60Pjtr8HmRAvwd0eobJs/iVMSj6pEDOGxZVy9QrjNVcX5hkPzjmm4OZL8KyIu+3Vr4SmIrEyrgF8N6q02C+FZjsnQRq5RDkN2KkGc+Vo3+A2MX1LL6plOQTy2/Bb0/4mKb/R+wPQBtbcDu4FG32Lma9HeVtqIB4xDtMKfVD8eSA/gP3LvwGgC8w2+foX5ePVPZeNTPdxyxJVK3A6xyGP00ja2Xz25D9V24FmlFg/Wc6Jk30XHSB+32qlTEXF1TSRDsyw5Ix+iELObwsFPvIYT8JaTSmq1D8twj73CNhD18AZR3mvQDg7bjeKA9VBKvGD2egsQUy6ajZdmOs8p0ss8ABfHmGL8zv+B533aGAG5o3eRVO2rxmGle40dFEoAbj202OAuYCVOAFTwQMephvt2LJ4gmV/wK5L8x6sSw+foQ+b24KpiuIggHB5Q=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5167.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(261026140227099003)(261026121527099003)(261021121427099003)(261021123027099003)(261022075727099003)(261022113327099003)(261022105027099003)(261028144727099003)(261102123227099003)(261102130727099003)(4143699003)(11063799006)(56012099006)(10067099003)(261009223027099003)(22082099003)(18002099003)(6133799003)(8096899003);
+ ARA:13230040|376014|82310400026|36860700016|1800799024|23010399003|11063799006|261009223027099003|18002099003|10067099003|56012099006|261102123227099003|261021123027099003|261026140227099003|261021121427099003|261028144727099003|261026121527099003|261022105027099003|261022075727099003|261022115727099003;
+X-Microsoft-Antispam-Message-Info: YaKbV42DFdPSHgMDzrw7wCJTOr6s54hkstceXKH/PjC1A16nur/aPIzFIDdPt8XEo3jVk6vnhDHPPN2q5gu6Sa9dKEDluUu0suBHc9B9VnET+irbVxWSr7o/Q7l5DVGiy1VtLHGTjLVt1VN38Aaa4BrE7vimcCxMwP0PyFvQ1MSQY8x/G+KoCdI/E/2sIFFkJ4SHAJwrlnMILzZGGKyabVS/CYKfk3joSHrNQ17lU/MjKH4NCRckwcATLitXxFE+TfgLYqmYPmyFMmkWVHWY+jsVWTlhMbEX48yYcZEcS8pd+GGAmVoc0B4ZMF5Svz7nn3PoFdDqTs1Atk1LmixJKZNKoseO22Mu4ucSvNplixqUymYWcikzIQVoNaqDIjflSHoq4IP3SqE6+RkfY4s0+zczV9Evb0A4xzIP2881k+ww4lPkidcxfRp93odbvcNzmVFVkVIrN1z/Oq4v39PzoFntlEbYorVMu/wtJJeDJmsGObh7MpQgTbe6WZzcai80VreYuS5BvnQOFkFQaNejKWrjtgNb/vU6RPLxCaaTYiMK0CqS9VMiUugeiPYkm7IROpz0GECS4ZDeeLxwhzd5g7YCss1HTGNqoFc9fF89uvL1VGJ7ce3DDoBVnmnXJ8eUO2r0VpEgkN6h9cNrILAasYNcafMFD1HK5Wpa/7+vS6cNPNcv2RVYsQ8/EBqHzGahTwyzk/QVyOIW8s0NtSXJNw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(82310400026)(36860700016)(1800799024)(23010399003)(11063799006)(261009223027099003)(18002099003)(10067099003)(56012099006)(261102123227099003)(261021123027099003)(261026140227099003)(261021121427099003)(261028144727099003)(261026121527099003)(261022105027099003)(261022075727099003)(261022115727099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UlN6dUNaRk5pTXFwRTRzdTB2ak5nQmdLaGlHSXVCeU02aXJvM3EwNTlVOXVn?=
- =?utf-8?B?S3gzYlAxN1cvUkt2cnkrNEFSVzZkR2RPTVgrWFp6dTIzZ0cvcUFkZnhZeHlU?=
- =?utf-8?B?OWMzbVNuUW9yT2pqZGhGK0d3U25PR1RjMzhvYWNYdHBGMXlSUVFYelVIZHZo?=
- =?utf-8?B?UzgrRU9NVncyOEpJdlZSMGZJdjNvS05EOFRXbUR0bUxLTmZzeEJOa29KYjJv?=
- =?utf-8?B?dHZhRTNWV1hBMEtielYvbnh1dzZJS2dSMmVtNER6SHlYTjd6WStVcVR4WkFP?=
- =?utf-8?B?aGVWMVNLQ3Q1R05jNDY3dEtRcTNkY2xMWjAycGlBUnpEaEFLUUE4dWNCck85?=
- =?utf-8?B?bC9ha1NSamI4NzNBUXc0eGhEQzM3VGs0ckNobm80YlNhYkZFY2J5Vng0R0VO?=
- =?utf-8?B?UkxtcUxsQkhxVWFjOHJkRW1UY3psdXhoMjVIWmxwQ2lWNWU1STFjWUorbHRS?=
- =?utf-8?B?NEh2SUpKSzZMMXNSWGRFTFh6S205bzA3TTE0Ty9Sd3JqdGltc21LQk1pSnRk?=
- =?utf-8?B?QTRJdkE2c0hYeVR0SU5VQUNBVmVqVDJoYkJCaHZhd0pnRnI3b0ZrMXF5ZDR0?=
- =?utf-8?B?NHI5WUdEK2U4dVFFTEJkSkxBTTlEUVhnektyb2ZpdElGcVlrSlFoejJSUWFG?=
- =?utf-8?B?SkR6a2x0dlhMdDRKSDlXY2Y4MEIydUk0WmgrMmpRT09kc21wSk9oQndWdjMw?=
- =?utf-8?B?WkZwQStVc2d3NTlXcjVmUDVoKzR0Tk9VUjEzeVdleTRialhJcHZpS2VqTHkx?=
- =?utf-8?B?UjUrb2ZxWWNVQ3FRL015N00vT2dqNkRKVFZEeklMZ2E1OUtONFJuODd5dllF?=
- =?utf-8?B?R2VWbTB0cHNDekhONlVza0Mya2lzWWlDaW5zbDQyT3dhbS9FMEFSNlhYL25X?=
- =?utf-8?B?NTY3OUVzU3hkS05yYXhPdjZIM1hCUk9vMDBWY01IWUhNSktWNkNmL2lBYy84?=
- =?utf-8?B?a1J2YW1XUXlRVWlINHhPbnF5eC9VYm5qSEZtSElFenFQRDNxcnBPcEEyQW1M?=
- =?utf-8?B?SFBvQmFZbnFYR2ZpdnBadThGV1Q3MFJFNHRBWndNc0IxWldxQllYeDVnMytB?=
- =?utf-8?B?TTVNVVR2RUVRc1pKQkVtL0VJSEtoYmtyK2htNnRNb0xtbDdmV2p1VDJKOW5Y?=
- =?utf-8?B?Z21JQWFCTUdYREo3Y1Q1WCtJcXA4RWJWaFhJZWlZSW9QTWQ3eHNOSUkyS2Jy?=
- =?utf-8?B?QVJwWUxJVEJEMzZRQjdCcEtIdUhYOFRjN2lZUDAxMHlTc0NzMDRkNnlidVUr?=
- =?utf-8?B?NkpteExzTld5ZXV3ckkvNUtQS29nNDNJS1U4UlVhM3NBeXhTL3M4VThpQmRS?=
- =?utf-8?B?YkdOc3JQTWVvNzAyL0NsOVh5bGI1N3k0a3I4M3FUY3ZNVStJTVFJV3NXTndC?=
- =?utf-8?B?WTlzUDNKSHZDUERISU0vODFYM3QxOVVuTThBTHEwamNLcE5ndkNFeTNsMk8z?=
- =?utf-8?B?cEx6L25kMVB1Sjl6ZThFbDhKaURWMU5TMHlFQ01zaHd3dXM0bnlPV05SVS92?=
- =?utf-8?B?YlJZTDM4TkdjWGM5TzJYYUJVWERIcG1PY281WmQ5V3AzZUZQVUZXbVE3Vmo5?=
- =?utf-8?B?d3MzWWFsWnZmT2NPZWV4aDg4UnF6Z1NYRlpqOWF3N0FDTDBuMHR1K1lCUnNB?=
- =?utf-8?B?WE5UMXhBWDExOGhwSWhyVld6dEE0WWJNbE1sTXZaaUU3SEc5RFZTc1VLb2lG?=
- =?utf-8?B?YkVUcDlvc3lMZ1dRd2xOWkpIRW9YNllwSS94Y0VmUFF0Ymx2MWVVR2c2YitT?=
- =?utf-8?B?ZXg5Z1c2MnN5R3ZYMEFVdUpUQXdSUXdiSU1nUXMxdGJMVk5tdE96b1FRNUZn?=
- =?utf-8?B?eEE0SUNPc0hpbkFEcXp2Y0gzQ29id1ZGSHdEc2xxVjBxbTRYeVVienlUcUc0?=
- =?utf-8?B?dms1QXk0VHp4KzhIWUltaytmYmUxQkpka0VOQXhIeWIyREh0UlFpK1FoTHlZ?=
- =?utf-8?B?OEtQYnRpY1d3MmNXdlNMSVh3QmZFdGJ2WHFlZHFEb0VueFZScVd2V3VRc29X?=
- =?utf-8?B?UERRdlBYcmNTTUd4ZDcrWm8rSExha2NrY3BFTXMyQ1A0ZGhjRE50S0dieXdJ?=
- =?utf-8?B?d3NQamxoY2ZwUWc2dzlwN1lzbWgrc2NuaS9oc2R5UStCWWpMS0p0UGY0dTNE?=
- =?utf-8?B?aVVjaXJFN1VlRytpM0xHa2ZxV20zQXNkSWhiQU5wYjl4SjU2UVhFbEFBN0w5?=
- =?utf-8?B?a1dJTkVKM2FRbVR5MnRHSlk0bWZXa1hyZ1E2N2w5NUVTM3pzY0VoTlY2VFov?=
- =?utf-8?B?YUNCQ1ZhNXlobkxNYTljZjc1cFFob3FsKzN5aEtieFNTVmxlOC8xS2drYXpP?=
- =?utf-8?Q?0oh6nXrS/WeHNE5i/m?=
+X-MS-Exchange-AntiSpam-MessageData-0: Qn0AwInFCe0oWSzy0DxAtdkq/YocZhyT/qkLuUKB+xJxcDHBQ5VWRConIMU8iQoUDqaAanCDVwDLfhQpW0dPjlGFaeT6xJViuS18JGT80zWlJA53ntzmZ02/xTOSYi04lOYkEhbED343aQny1e6LoM/PdETe45yEPblJTYH+5MakQs2DOaugIdn2LWDgIQ26JA9arXRWBqenDdY3BQPLvaPmIrMP/fMyUBuG8Egt/mJO8F3y134/EzTDFImMZnn34O2sioTTbCu1O5u7Bo5ggJMsGLEOzhlI+arh+H7Q+ZLZGMWb5Lpo4RTgh/IAUR7mWSpNl+csDcydK2do7xxQgKzf4coRCYiffadcsJ6mcdoExbRhX5f4yH/dNISp8t/gUOJIPgQZb4TxmmWRK/liYwPmo/5wOCBKj08W/9qKeJY+h923CnHbAsBmiN/ljiI4
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 055376c7-145f-4c13-b1d2-08df4cce453a
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5167.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Nov 2026 21:34:52.0621 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Nov 2026 21:46:03.1670 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ac5b0704-3c6e-4c71-fde8-08df4ccfd56a
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: J1LC3YrAHOzEeBBFf0LeUbV3VwHBKnxSCrMxALx8UCs5kXhDG/arwTbxQXlIzRhC
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8863
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF00000204.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB7076
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,790 +102,89 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-14.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	HTML_MESSAGE,INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham
-	autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
---------------Ukp0Ol4XufQAGEbpGB5MAR0w
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+A secondary kfd_process shares the caller's mm but registers no MMU
+notifier and is not torn down when that mm exits. With XNACK enabled,
+svm_range_restore_pages() still maps host pages for its PASID, and the
+queue keeps those mappings after the pages are freed.
 
+On an unpatched gfx942 kernel, a shader on the secondary context stored
+to an unmapped malloc buffer, the process exec'd while that /dev/kfd fd
+stayed open, and the GPU then wrote 0x5a5a5a5a into 64 KiB of memory
+owned by the new image.
 
+Do not enable XNACK for a non-primary context, reject
+AMDKFD_IOC_SET_XNACK_MODE that asks for it, and drop a retry fault that
+arrives for one before any host page is mapped.
 
-On 2026-11-22 15:26, Xiaogang.Chen wrote:
-> From: Xiaogang Chen<xiaogang.chen@amd.com>
->
-> Extend kfd/svm functions to allocate HPAGE_PMD_SIZE based device memory by
-> buddy allocator, each drm_buddy_block is HPAGE_PMD_SIZE aligned; and to
-> allocate THP system ram by vma_alloc_folio.
->
-> Introduce SVM_RANGE_DMA_THP flag that indicates dma map of THP. THP dma
-> addresss will use this flag.
->
-> Add dev_pagemap_ops->folio_split callback that is called by folio_split when
-> core MM splits device memory folio.
->
-> Reset compound folio of device memory after it got released from core HMM.
-> So, TTM can reuse this VRAM as 4K pages on next range.
->
-> These are preparations for following support for (THP) migration of zone
-> device-private memory, no function change.
->
-> Signed-off-by: Xiaogang Chen<xiaogang.chen@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 112 ++++++++++++++++++++---
->   drivers/gpu/drm/amd/amdkfd/kfd_svm.c     |  39 ++++++--
->   drivers/gpu/drm/amd/amdkfd/kfd_svm.h     |  18 ++++
->   3 files changed, 152 insertions(+), 17 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-> index 1eb92ac6eb05..5ead98a604b1 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-> @@ -218,17 +218,45 @@ svm_migrate_addr_to_pfn(struct amdgpu_device *adev, unsigned long addr)
->   	return (addr + adev->kfd.pgmap.range.start) >> PAGE_SHIFT;
->   }
->   
-> +/*
-> + * TTM can reuse a 2MB VRAM block that was previously a device THP.
-> + * Reset unused pages so the next 4K init does not see leftover head/tail.
-> + */
-> +static void svm_migrate_clear_compound_pages(struct page *page, unsigned int nr,
-> +					      struct dev_pagemap *pgmap)
-> +{
-> +	unsigned int i;
-> +
-> +	for (i = 0; i < nr; i++, page++) {
-> +		struct folio *new_folio = (struct folio *)page;
-> +
-> +		if (page_count(page))
-> +			continue;
-> +
-> +		page->flags.f &= ~0xffUL;
-> +#ifdef NR_PAGES_IN_LARGE_FOLIO
-> +		((struct folio *)(page - 1))->_nr_pages = 0;
-> +#endif
-> +		new_folio->mapping = NULL;
-> +		new_folio->pgmap = pgmap;
-> +		new_folio->share = 0;
-> +		page->zone_device_data = NULL;
-> +	}
-> +}
-> +
-This is not needed. Commit 12b2285bf3d1 ("mm/zone_device: reinitialize
-large zone device private folios") already makes zone_device_page_init()
-clear any leftover head/tail state when a page is handed out again.
-svm_migrate_get_vram_page() calls zone_device_folio_init() for every VRAM
-page it hands out, so the page is reinitialized when it is reused, as a 4K
-page or as part of a new THP. There is no need to clear the compound pages
-when the folio is freed.
->   static void
-> -svm_migrate_get_vram_page(struct svm_range *prange, unsigned long pfn)
-> +svm_migrate_get_vram_page(struct svm_range *prange, unsigned long pfn,
-> +			   int order)
->   {
-> -	struct page *page;
-> +	struct page *page = pfn_to_page(pfn);
->   
-> -	page = pfn_to_page(pfn);
-> -	svm_range_bo_ref(prange->svm_bo);
-> +	/* Init this pfn, not page_folio() — that follows a leftover tail to the old head. */
-> +	zone_device_folio_init((struct folio *)page, page_pgmap(page), order);
->   	page->zone_device_data = prange->svm_bo;
-Please use folio_set_zone_device_data(page_folio(page), prange->svm_bo).
-The result is the same, since page is always the head page here, but it
-adds a sanity check and matches how other drivers do it.
-> -	zone_device_page_init(page, page_pgmap(page), 0);
-> +	svm_range_bo_ref(prange->svm_bo);
->   }
->   
-> +
->   static void
->   svm_migrate_put_vram_page(struct amdgpu_device *adev, unsigned long addr)
->   {
-> @@ -249,11 +277,45 @@ svm_migrate_addr(struct amdgpu_device *adev, struct page *page)
->   }
->   
->   static struct page *
-> -svm_migrate_get_sys_page(struct vm_area_struct *vma, unsigned long addr)
-> +svm_migrate_get_sys_page(struct vm_area_struct *vma, unsigned long addr,
-> +			  unsigned long order)
->   {
->   	struct page *page;
->   
-> -	page = alloc_page_vma(GFP_HIGHUSER, vma, addr);
-> +	if (order) {
-> +#ifdef CONFIG_TRANSPARENT_HUGEPAGE
-The caller only passes order > 0 on the THP compound page path, so this
-#ifdef is not needed.
-> +		struct folio *folio;
-> +		gfp_t gfp;
-> +
-> +		/*
-> +		 * Honour MADV_NOHUGEPAGE and prctl(PR_SET_THP_DISABLE). The
-> +		 * sysfs THP policy (thp_vma_allowable_orders()) and
-> +		 * vma_thp_gfp_mask() are not exported to modules.
-> +		 */
-> +		if (vma_thp_disabled(vma, vma->vm_flags, false))
-> +			return NULL;
-> +
-> +		/*
-> +		 * Used by every VRAM to RAM migration (CPU/GPU fault,
-> +		 * prefetch, TTM eviction), and the caller falls back to 4K
-> +		 * pages on failure. Fail fast like the default "madvise"
-> +		 * defrag policy: no direct reclaim or compaction unless the
-> +		 * VMA asked for huge pages. Eviction in particular runs under
-> +		 * memory pressure, where compaction stalls are most costly.
-> +		 */
-> +		gfp = GFP_TRANSHUGE_LIGHT;
-> +		if (vma->vm_flags & VM_HUGEPAGE)
-> +			gfp |= __GFP_DIRECT_RECLAIM;
-> +
-I think this mixes up the madvise THP policy with THP page migration.
-They are separate settings. GFP_TRANSHUGE_LIGHT/GFP_TRANSHUGE are used
-internally by core mm (THP fault, khugepaged, NUMA migration), not by
-drivers. For the migration destination, please use GFP_HIGHUSER, the same
-flag other drivers use in their migrate-to-RAM paths.
-
-> +		folio = vma_alloc_folio(gfp, order, vma, addr);
-> +		page = folio ? folio_page(folio, 0) : NULL;
-> +#else
-> +		return NULL;
-> +#endif
-> +	} else {
-> +		page = alloc_page_vma(GFP_HIGHUSER, vma, addr);
-> +	}
-> +
->   	if (page)
->   		lock_page(page);
->   
-> @@ -267,8 +329,13 @@ static unsigned long svm_migrate_successful_pages(struct migrate_vma *migrate)
->   
->   	for (i = 0; i < migrate->npages; i++) {
->   		if (migrate->dst[i] & MIGRATE_PFN_VALID &&
-> -		    migrate->src[i] & MIGRATE_PFN_MIGRATE)
-> -			mpages++;
-> +			migrate->src[i] & MIGRATE_PFN_MIGRATE) {
-Wrong indentation change.
-> +
-> +			if (migrate->dst[i] & MIGRATE_PFN_COMPOUND)
-> +				mpages += SVM_HPAGE_PMD_NR;
-For a compound page, the remaining dst entries are zero, so skip them:
-
-                 i += HPAGE_PMD_NR - 1;
-
-> +			else
-> +				mpages++;
-> +		}
->   	}
->   	return mpages;
->   }
-> @@ -312,7 +379,7 @@ svm_migrate_copy_to_vram(struct kfd_node *node, struct svm_range *prange,
->   				migrate->dst[i] = 0;
->   				spage = NULL;
->   			} else {
-> -				svm_migrate_get_vram_page(prange, migrate->dst[i]);
-> +				svm_migrate_get_vram_page(prange, migrate->dst[i], 0);
->   				migrate->dst[i] = migrate_pfn(migrate->dst[i]);
->   				mpages++;
->   			}
-> @@ -626,10 +693,17 @@ svm_migrate_ram_to_vram(struct svm_range *prange, uint32_t best_loc,
->   	return r < 0 ? r : 0;
->   }
->   
-> +/* folio can be compound folio or single page */
->   static void svm_migrate_folio_free(struct folio *folio)
->   {
->   	struct page *page = &folio->page;
->   	struct svm_range_bo *svm_bo = page->zone_device_data;
-> +	struct dev_pagemap *pgmap = folio->pgmap;
-> +	unsigned int order = folio_order(folio);
-> +
-> +	/* So TTM can reuse this VRAM as 4K pages on the next range. */
-> +	if (order)
-> +		svm_migrate_clear_compound_pages(page, 1U << order, pgmap);
->   
-As above, please remove this.
-
->   	if (svm_bo) {
->   		pr_debug_ratelimited("ref: %d\n", kref_read(&svm_bo->kref));
-> @@ -688,7 +762,7 @@ svm_migrate_copy_to_ram(struct amdgpu_device *adev, struct svm_range *prange,
->   			j = 0;
->   		}
->   
-> -		dpage = svm_migrate_get_sys_page(migrate->vma, addr);
-> +		dpage = svm_migrate_get_sys_page(migrate->vma, addr, 0);
->   		if (!dpage) {
->   			pr_debug("failed get page svms 0x%p [0x%lx 0x%lx]\n",
->   				 prange->svms, prange->start, prange->last);
-> @@ -1091,9 +1165,25 @@ static vm_fault_t svm_migrate_to_ram(struct vm_fault *vmf)
->   	return r ? VM_FAULT_SIGBUS : 0;
->   }
->   
-> +static void svm_migrate_folio_split(struct folio *head, struct folio *tail)
-> +{
-> +	struct svm_range_bo *svm_bo;
-> +
-> +	if (tail == NULL)
-> +		return;
-> +
-> +	tail->pgmap = head->pgmap;
-> +	tail->mapping = head->mapping;
-> +
-> +	svm_bo = folio_zone_device_data(head);
-> +	folio_set_zone_device_data(tail, svm_bo);
-> +	svm_range_bo_ref(svm_bo);
-> +}
-> +
->   static const struct dev_pagemap_ops svm_migrate_pgmap_ops = {
->   	.folio_free		= svm_migrate_folio_free,
->   	.migrate_to_ram		= svm_migrate_to_ram,
-> +	.folio_split		= svm_migrate_folio_split,
->   };
->   
->   /* Each VRAM page uses sizeof(struct page) on system memory */
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> index 421d3f65fcf1..35cebdad5651 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> @@ -246,7 +246,16 @@ void svm_range_dma_unmap_dev(struct device *dev, dma_addr_t *dma_addr,
->   		if (!svm_is_valid_dma_mapping_addr(dev, dma_addr[i]))
->   			continue;
->   		pr_debug_ratelimited("unmap 0x%llx\n", dma_addr[i] >> PAGE_SHIFT);
-> -		dma_unmap_page(dev, dma_addr[i], PAGE_SIZE, dir);
-> +
-> +		/* dma unmap of THP */
-> +		if (dma_addr[i] & SVM_RANGE_DMA_THP) {
-> +			dma_addr[i] &= ~SVM_RANGE_DMA_THP;
-> +			dma_unmap_page(dev, dma_addr[i], PAGE_SIZE*SVM_HPAGE_PMD_NR,
-> +				       DMA_BIDIRECTIONAL);
-Clear the entry and skip the rest of the THP here:
-
-             dma_addr[i] = 0;
-             i += HPAGE_PMD_NR - 1;
-
-
-> +		} else {
-> +			dma_unmap_page(dev, dma_addr[i], PAGE_SIZE, dir);
-                                    dma_addr[i] = 0;
-> +		}
-> +
->   		dma_addr[i] = 0;
-Then this line can be removed.
-
-Regards,
-Philip
->   	}
->   }
-> @@ -579,10 +588,20 @@ svm_range_vram_node_new(struct kfd_node *node, struct svm_range *prange,
->   	}
->   
->   	memset(&bp, 0, sizeof(bp));
-> +	/*
-> +	 * Keep bp.size equal to the prange size so it matches the
-> +	 * amdgpu_amdkfd_reserve_mem_limit() reservation made by the caller.
-> +	 * A 2MB byte_align makes the VRAM manager allocate 2MB-aligned 2MB
-> +	 * buddy blocks and trim only the last one to the requested size, so
-> +	 * every full 2MB chunk can still back a device THP.
-> +	 */
->   	bp.size = prange->npages * PAGE_SIZE;
-> +	if (SVM_THP_ENABLED && prange->npages >= SVM_HPAGE_PMD_NR)
-> +		bp.byte_align = SVM_HPAGE_PMD_SIZE;
-> +	else
-> +		bp.byte_align = PAGE_SIZE;
->   	bp.bo_ptr_size = sizeof(struct svm_range_bo);
->   	bp.destroy = svm_range_bo_destroy;
-> -	bp.byte_align = PAGE_SIZE;
->   	bp.domain = AMDGPU_GEM_DOMAIN_VRAM;
->   	bp.flags = AMDGPU_GEM_CREATE_NO_CPU_ACCESS;
->   	bp.flags |= clear ? AMDGPU_GEM_CREATE_VRAM_CLEARED : 0;
-> @@ -594,9 +613,16 @@ svm_range_vram_node_new(struct kfd_node *node, struct svm_range *prange,
->   
->   	r = amdgpu_bo_create(node->adev, &bp, &bo);
->   	if (r) {
-> -		pr_debug("failed %d to create bo\n", r);
-> -		mmput(mm);
-> -		goto create_bo_failed;
-> +		if (bp.byte_align == SVM_HPAGE_PMD_SIZE) {
-> +			/* fall back PAGE_SIZE granularity */
-> +			bp.byte_align = PAGE_SIZE;
-> +			r = amdgpu_bo_create(node->adev, &bp, &bo);
-> +		}
-> +		if (r) {
-> +			pr_debug("failed %d to create bo\n", r);
-> +			mmput(mm);
-> +			goto create_bo_failed;
-> +		}
->   	}
->   
->   	svm_bo = to_svm_range_bo(bo);
-> @@ -957,6 +983,7 @@ svm_range_copy_array(void *psrc, size_t size, uint64_t num_elements,
->   	*vram_pages = 0;
->   	for (i = 0; i < num_elements; i++) {
->   		dma_addr_t *temp;
-> +
->   		temp = (dma_addr_t *)dst + i;
->   		*temp = *((dma_addr_t *)src + i);
->   		if (*temp&SVM_RANGE_VRAM_DOMAIN)
-> @@ -1675,7 +1702,7 @@ static int svm_range_reserve_bos(struct svm_validate_context *ctx, bool intr)
->   	uint32_t gpuidx;
->   	int r;
->   
-> -	drm_exec_init(&ctx->exec, intr ? DRM_EXEC_INTERRUPTIBLE_WAIT: 0, 0);
-> +	drm_exec_init(&ctx->exec, intr ? DRM_EXEC_INTERRUPTIBLE_WAIT : 0, 0);
->   	drm_exec_until_all_locked(&ctx->exec) {
->   		for_each_set_bit(gpuidx, ctx->bitmap, MAX_GPU_INSTANCE) {
->   			pdd = kfd_process_device_from_gpuidx(ctx->process, gpuidx);
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-> index 38744e716f74..8767a784e679 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-> @@ -35,6 +35,24 @@
->   #include "kfd_priv.h"
->   
->   #define SVM_RANGE_VRAM_DOMAIN (1UL << 0)
-> +#define SVM_RANGE_DMA_THP (1UL << 1)
-> +
-> +/*
-> + * Size of a PMD-mapped device or system THP. HPAGE_PMD_* expand to
-> + * BUILD_BUG() without CONFIG_TRANSPARENT_HUGEPAGE, so the SVM code uses
-> + * these instead. Without THP, SVM_THP_ENABLED is false, no compound
-> + * migration is requested, and HMM never reports MIGRATE_PFN_COMPOUND, so
-> + * the THP paths still compile but are never taken.
-> + */
-> +#ifdef CONFIG_TRANSPARENT_HUGEPAGE
-> +#define SVM_HPAGE_PMD_ORDER	HPAGE_PMD_ORDER
-> +#else
-> +#define SVM_HPAGE_PMD_ORDER	(PMD_SHIFT - PAGE_SHIFT)
-> +#endif
-> +#define SVM_HPAGE_PMD_NR	(1UL << SVM_HPAGE_PMD_ORDER)
-> +#define SVM_HPAGE_PMD_SIZE	(PAGE_SIZE << SVM_HPAGE_PMD_ORDER)
-> +#define SVM_THP_ENABLED		IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE)
-> +
->   #define SVM_ADEV_PGMAP_OWNER(adev)\
->   			((adev)->hive ? (void *)(adev)->hive : (void *)(adev))
->   
-
---------------Ukp0Ol4XufQAGEbpGB5MAR0w
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html><html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <br>
-    <br>
-    <div class="moz-cite-prefix">On 2026-11-22 15:26, Xiaogang.Chen
-      wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:20261122202653.274580-2-xiaogang.chen@amd.com">
-      <pre wrap="" class="moz-quote-pre">From: Xiaogang Chen <a class="moz-txt-link-rfc2396E" href="mailto:xiaogang.chen@amd.com">&lt;xiaogang.chen@amd.com&gt;</a>
-
-Extend kfd/svm functions to allocate HPAGE_PMD_SIZE based device memory by
-buddy allocator, each drm_buddy_block is HPAGE_PMD_SIZE aligned; and to
-allocate THP system ram by vma_alloc_folio.
-
-Introduce SVM_RANGE_DMA_THP flag that indicates dma map of THP. THP dma
-addresss will use this flag.
-
-Add dev_pagemap_ops-&gt;folio_split callback that is called by folio_split when
-core MM splits device memory folio.
-
-Reset compound folio of device memory after it got released from core HMM.
-So, TTM can reuse this VRAM as 4K pages on next range.
-
-These are preparations for following support for (THP) migration of zone
-device-private memory, no function change.
-
-Signed-off-by: Xiaogang Chen <a class="moz-txt-link-rfc2396E" href="mailto:xiaogang.chen@amd.com">&lt;xiaogang.chen@amd.com&gt;</a>
+Signed-off-by: Yongqiang Sun <Yongqiang.Sun@amd.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 112 ++++++++++++++++++++---
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c     |  39 ++++++--
- drivers/gpu/drm/amd/amdkfd/kfd_svm.h     |  18 ++++
- 3 files changed, 152 insertions(+), 17 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c |  4 +++-
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c |  8 ++++++--
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c     | 10 ++++++++++
+ 3 files changed, 19 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-index 1eb92ac6eb05..5ead98a604b1 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-@@ -218,17 +218,45 @@ svm_migrate_addr_to_pfn(struct amdgpu_device *adev, unsigned long addr)
- 	return (addr + adev-&gt;kfd.pgmap.range.start) &gt;&gt; PAGE_SHIFT;
- }
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+index ae5b430a00310..b589f8eaa0832 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+@@ -1775,7 +1775,9 @@ static int kfd_ioctl_set_xnack_mode(struct file *filep,
+ 		if (p->xnack_enabled == args->xnack_enabled)
+ 			goto out_unlock;
  
-+/*
-+ * TTM can reuse a 2MB VRAM block that was previously a device THP.
-+ * Reset unused pages so the next 4K init does not see leftover head/tail.
-+ */
-+static void svm_migrate_clear_compound_pages(struct page *page, unsigned int nr,
-+					      struct dev_pagemap *pgmap)
-+{
-+	unsigned int i;
-+
-+	for (i = 0; i &lt; nr; i++, page++) {
-+		struct folio *new_folio = (struct folio *)page;
-+
-+		if (page_count(page))
-+			continue;
-+
-+		page-&gt;flags.f &amp;= ~0xffUL;
-+#ifdef NR_PAGES_IN_LARGE_FOLIO
-+		((struct folio *)(page - 1))-&gt;_nr_pages = 0;
-+#endif
-+		new_folio-&gt;mapping = NULL;
-+		new_folio-&gt;pgmap = pgmap;
-+		new_folio-&gt;share = 0;
-+		page-&gt;zone_device_data = NULL;
-+	}
-+}
-+</pre>
-    </blockquote>
-    This is not needed. Commit 12b2285bf3d1 (&quot;mm/zone_device:
-    reinitialize<br>
-    large zone device private folios&quot;) already makes
-    zone_device_page_init()<br>
-    clear any leftover head/tail state when a page is handed out again.<br>
-    svm_migrate_get_vram_page() calls zone_device_folio_init() for every
-    VRAM<br>
-    page it hands out, so the page is reinitialized when it is reused,
-    as a 4K<br>
-    page or as part of a new THP. There is no need to clear the compound
-    pages<br>
-    when the folio is freed.
-    <blockquote type="cite" cite="mid:20261122202653.274580-2-xiaogang.chen@amd.com">
-      <pre wrap="" class="moz-quote-pre">
- static void
--svm_migrate_get_vram_page(struct svm_range *prange, unsigned long pfn)
-+svm_migrate_get_vram_page(struct svm_range *prange, unsigned long pfn,
-+			   int order)
- {
--	struct page *page;
-+	struct page *page = pfn_to_page(pfn);
- 
--	page = pfn_to_page(pfn);
--	svm_range_bo_ref(prange-&gt;svm_bo);
-+	/* Init this pfn, not page_folio() — that follows a leftover tail to the old head. */
-+	zone_device_folio_init((struct folio *)page, page_pgmap(page), order);
- 	page-&gt;zone_device_data = prange-&gt;svm_bo;</pre>
-    </blockquote>
-    Please use folio_set_zone_device_data(page_folio(page),
-    prange-&gt;svm_bo).<br>
-    The result is the same, since page is always the head page here, but
-    it<br>
-    adds a sanity check and matches how other drivers do it.
-    <blockquote type="cite" cite="mid:20261122202653.274580-2-xiaogang.chen@amd.com">
-      <pre wrap="" class="moz-quote-pre">
--	zone_device_page_init(page, page_pgmap(page), 0);
-+	svm_range_bo_ref(prange-&gt;svm_bo);
- }
- 
-+
- static void
- svm_migrate_put_vram_page(struct amdgpu_device *adev, unsigned long addr)
- {
-@@ -249,11 +277,45 @@ svm_migrate_addr(struct amdgpu_device *adev, struct page *page)
- }
- 
- static struct page *
--svm_migrate_get_sys_page(struct vm_area_struct *vma, unsigned long addr)
-+svm_migrate_get_sys_page(struct vm_area_struct *vma, unsigned long addr,
-+			  unsigned long order)
- {
- 	struct page *page;
- 
--	page = alloc_page_vma(GFP_HIGHUSER, vma, addr);
-+	if (order) {
-+#ifdef CONFIG_TRANSPARENT_HUGEPAGE</pre>
-    </blockquote>
-    The caller only passes order &gt; 0 on the THP compound page path,
-    so this<br>
-    #ifdef is not needed.
-    <blockquote type="cite" cite="mid:20261122202653.274580-2-xiaogang.chen@amd.com">
-      <pre wrap="" class="moz-quote-pre">
-+		struct folio *folio;
-+		gfp_t gfp;
-+
-+		/*
-+		 * Honour MADV_NOHUGEPAGE and prctl(PR_SET_THP_DISABLE). The
-+		 * sysfs THP policy (thp_vma_allowable_orders()) and
-+		 * vma_thp_gfp_mask() are not exported to modules.
-+		 */
-+		if (vma_thp_disabled(vma, vma-&gt;vm_flags, false))
-+			return NULL;
-+</pre>
-    </blockquote>
-    <blockquote type="cite" cite="mid:20261122202653.274580-2-xiaogang.chen@amd.com">
-      <pre wrap="" class="moz-quote-pre">
-+		/*
-+		 * Used by every VRAM to RAM migration (CPU/GPU fault,
-+		 * prefetch, TTM eviction), and the caller falls back to 4K
-+		 * pages on failure. Fail fast like the default &quot;madvise&quot;
-+		 * defrag policy: no direct reclaim or compaction unless the
-+		 * VMA asked for huge pages. Eviction in particular runs under
-+		 * memory pressure, where compaction stalls are most costly.
-+		 */
-+		gfp = GFP_TRANSHUGE_LIGHT;
-+		if (vma-&gt;vm_flags &amp; VM_HUGEPAGE)
-+			gfp |= __GFP_DIRECT_RECLAIM;
-+</pre>
-    </blockquote>
-    I think this mixes up the madvise THP policy with THP page
-    migration.<br>
-    They are separate settings. GFP_TRANSHUGE_LIGHT/GFP_TRANSHUGE are
-    used<br>
-    internally by core mm (THP fault, khugepaged, NUMA migration), not
-    by<br>
-    drivers. For the migration destination, please use GFP_HIGHUSER, the
-    same<br>
-    flag other drivers use in their migrate-to-RAM paths.<br>
-    <br>
-    <blockquote type="cite" cite="mid:20261122202653.274580-2-xiaogang.chen@amd.com">
-      <pre wrap="" class="moz-quote-pre">
-+		folio = vma_alloc_folio(gfp, order, vma, addr);
-+		page = folio ? folio_page(folio, 0) : NULL;
-+#else
-+		return NULL;
-+#endif
-+	} else {
-+		page = alloc_page_vma(GFP_HIGHUSER, vma, addr);
-+	}
-+
- 	if (page)
- 		lock_page(page);
- 
-@@ -267,8 +329,13 @@ static unsigned long svm_migrate_successful_pages(struct migrate_vma *migrate)
- 
- 	for (i = 0; i &lt; migrate-&gt;npages; i++) {
- 		if (migrate-&gt;dst[i] &amp; MIGRATE_PFN_VALID &amp;&amp;
--		    migrate-&gt;src[i] &amp; MIGRATE_PFN_MIGRATE)
--			mpages++;
-+			migrate-&gt;src[i] &amp; MIGRATE_PFN_MIGRATE) {</pre>
-    </blockquote>
-    Wrong indentation change.
-    <blockquote type="cite" cite="mid:20261122202653.274580-2-xiaogang.chen@amd.com">
-      <pre wrap="" class="moz-quote-pre">
-+
-+			if (migrate-&gt;dst[i] &amp; MIGRATE_PFN_COMPOUND)
-+				mpages += SVM_HPAGE_PMD_NR;</pre>
-    </blockquote>
-    For a compound page, the remaining dst entries are zero, so skip
-    them:<br>
-    <br>
-    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; i += HPAGE_PMD_NR - 1;<br>
-    <br>
-    <blockquote type="cite" cite="mid:20261122202653.274580-2-xiaogang.chen@amd.com">
-      <pre wrap="" class="moz-quote-pre">
-+			else
-+				mpages++;
-+		}
- 	}
- 	return mpages;
- }
-@@ -312,7 +379,7 @@ svm_migrate_copy_to_vram(struct kfd_node *node, struct svm_range *prange,
- 				migrate-&gt;dst[i] = 0;
- 				spage = NULL;
- 			} else {
--				svm_migrate_get_vram_page(prange, migrate-&gt;dst[i]);
-+				svm_migrate_get_vram_page(prange, migrate-&gt;dst[i], 0);
- 				migrate-&gt;dst[i] = migrate_pfn(migrate-&gt;dst[i]);
- 				mpages++;
- 			}
-@@ -626,10 +693,17 @@ svm_migrate_ram_to_vram(struct svm_range *prange, uint32_t best_loc,
- 	return r &lt; 0 ? r : 0;
- }
- 
-+/* folio can be compound folio or single page */
- static void svm_migrate_folio_free(struct folio *folio)
- {
- 	struct page *page = &amp;folio-&gt;page;
- 	struct svm_range_bo *svm_bo = page-&gt;zone_device_data;
-+	struct dev_pagemap *pgmap = folio-&gt;pgmap;
-+	unsigned int order = folio_order(folio);
-+
-+	/* So TTM can reuse this VRAM as 4K pages on the next range. */
-+	if (order)
-+		svm_migrate_clear_compound_pages(page, 1U &lt;&lt; order, pgmap);
- </pre>
-    </blockquote>
-    As above, please remove this.<br>
-    <br>
-    <blockquote type="cite" cite="mid:20261122202653.274580-2-xiaogang.chen@amd.com">
-      <pre wrap="" class="moz-quote-pre">
- 	if (svm_bo) {
- 		pr_debug_ratelimited(&quot;ref: %d\n&quot;, kref_read(&amp;svm_bo-&gt;kref));
-@@ -688,7 +762,7 @@ svm_migrate_copy_to_ram(struct amdgpu_device *adev, struct svm_range *prange,
- 			j = 0;
+-		if (args->xnack_enabled && !kfd_process_xnack_mode(p, true)) {
++		if (args->xnack_enabled &&
++		    (p->context_id != KFD_CONTEXT_ID_PRIMARY ||
++		     !kfd_process_xnack_mode(p, true))) {
+ 			r = -EPERM;
+ 			goto out_unlock;
  		}
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+index 5dc657f32d38c..0c153f9951b38 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+@@ -1782,8 +1782,12 @@ struct kfd_process *create_process(const struct task_struct *thread, bool primar
+ 	if (err != 0)
+ 		goto err_init_apertures;
  
--		dpage = svm_migrate_get_sys_page(migrate-&gt;vma, addr);
-+		dpage = svm_migrate_get_sys_page(migrate-&gt;vma, addr, 0);
- 		if (!dpage) {
- 			pr_debug(&quot;failed get page svms 0x%p [0x%lx 0x%lx]\n&quot;,
- 				 prange-&gt;svms, prange-&gt;start, prange-&gt;last);
-@@ -1091,9 +1165,25 @@ static vm_fault_t svm_migrate_to_ram(struct vm_fault *vmf)
- 	return r ? VM_FAULT_SIGBUS : 0;
- }
+-	/* Check XNACK support after PDDs are created in kfd_init_apertures */
+-	process->xnack_enabled = kfd_process_xnack_mode(process, false);
++	/* Check XNACK support after PDDs are created in kfd_init_apertures.
++	 * Only a primary context is torn down with its address space (it owns
++	 * the MMU notifier), so XNACK retry faults must never map host pages
++	 * into a secondary context.
++	 */
++	process->xnack_enabled = primary && kfd_process_xnack_mode(process, false);
  
-+static void svm_migrate_folio_split(struct folio *head, struct folio *tail)
-+{
-+	struct svm_range_bo *svm_bo;
-+
-+	if (tail == NULL)
-+		return;
-+
-+	tail-&gt;pgmap = head-&gt;pgmap;
-+	tail-&gt;mapping = head-&gt;mapping;
-+
-+	svm_bo = folio_zone_device_data(head);
-+	folio_set_zone_device_data(tail, svm_bo);
-+	svm_range_bo_ref(svm_bo);
-+}
-+
- static const struct dev_pagemap_ops svm_migrate_pgmap_ops = {
- 	.folio_free		= svm_migrate_folio_free,
- 	.migrate_to_ram		= svm_migrate_to_ram,
-+	.folio_split		= svm_migrate_folio_split,
- };
- 
- /* Each VRAM page uses sizeof(struct page) on system memory */
+ 	err = svm_range_list_init(process);
+ 	if (err)
 diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index 421d3f65fcf1..35cebdad5651 100644
+index 32f2ca5b1fdfd..f48eea7cc9e92 100644
 --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
 +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -246,7 +246,16 @@ void svm_range_dma_unmap_dev(struct device *dev, dma_addr_t *dma_addr,
- 		if (!svm_is_valid_dma_mapping_addr(dev, dma_addr[i]))
- 			continue;
- 		pr_debug_ratelimited(&quot;unmap 0x%llx\n&quot;, dma_addr[i] &gt;&gt; PAGE_SHIFT);
--		dma_unmap_page(dev, dma_addr[i], PAGE_SIZE, dir);
-+
-+		/* dma unmap of THP */
-+		if (dma_addr[i] &amp; SVM_RANGE_DMA_THP) {
-+			dma_addr[i] &amp;= ~SVM_RANGE_DMA_THP;
-+			dma_unmap_page(dev, dma_addr[i], PAGE_SIZE*SVM_HPAGE_PMD_NR,
-+				       DMA_BIDIRECTIONAL);</pre>
-    </blockquote>
-    Clear the entry and skip the rest of the THP here:<br>
-    <br>
-    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; dma_addr[i] = 0;<br>
-    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; i += HPAGE_PMD_NR - 1;<br>
-    <br>
-    <br>
-    <blockquote type="cite" cite="mid:20261122202653.274580-2-xiaogang.chen@amd.com">
-      <pre wrap="" class="moz-quote-pre">
-+		} else {
-+			dma_unmap_page(dev, dma_addr[i], PAGE_SIZE, dir);</pre>
-    </blockquote>
-    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;dma_addr[i] = 0;
-    <blockquote type="cite" cite="mid:20261122202653.274580-2-xiaogang.chen@amd.com">
-      <pre wrap="" class="moz-quote-pre">
-+		}
-+
- 		dma_addr[i] = 0;</pre>
-    </blockquote>
-    Then this line can be removed.<br>
-    <br>
-    Regards,<br>
-    Philip
-    <blockquote type="cite" cite="mid:20261122202653.274580-2-xiaogang.chen@amd.com">
-      <pre wrap="" class="moz-quote-pre">
+@@ -3158,6 +3158,16 @@ svm_range_restore_pages(struct amdgpu_device *adev, unsigned int pasid,
  	}
- }
-@@ -579,10 +588,20 @@ svm_range_vram_node_new(struct kfd_node *node, struct svm_range *prange,
- 	}
+ 	svms = &p->svms;
  
- 	memset(&amp;bp, 0, sizeof(bp));
-+	/*
-+	 * Keep bp.size equal to the prange size so it matches the
-+	 * amdgpu_amdkfd_reserve_mem_limit() reservation made by the caller.
-+	 * A 2MB byte_align makes the VRAM manager allocate 2MB-aligned 2MB
-+	 * buddy blocks and trim only the last one to the requested size, so
-+	 * every full 2MB chunk can still back a device THP.
++	/* A secondary context has no MMU notifier and is not torn down with
++	 * its address space, so it must never map host pages on a retry fault.
 +	 */
- 	bp.size = prange-&gt;npages * PAGE_SIZE;
-+	if (SVM_THP_ENABLED &amp;&amp; prange-&gt;npages &gt;= SVM_HPAGE_PMD_NR)
-+		bp.byte_align = SVM_HPAGE_PMD_SIZE;
-+	else
-+		bp.byte_align = PAGE_SIZE;
- 	bp.bo_ptr_size = sizeof(struct svm_range_bo);
- 	bp.destroy = svm_range_bo_destroy;
--	bp.byte_align = PAGE_SIZE;
- 	bp.domain = AMDGPU_GEM_DOMAIN_VRAM;
- 	bp.flags = AMDGPU_GEM_CREATE_NO_CPU_ACCESS;
- 	bp.flags |= clear ? AMDGPU_GEM_CREATE_VRAM_CLEARED : 0;
-@@ -594,9 +613,16 @@ svm_range_vram_node_new(struct kfd_node *node, struct svm_range *prange,
- 
- 	r = amdgpu_bo_create(node-&gt;adev, &amp;bp, &amp;bo);
- 	if (r) {
--		pr_debug(&quot;failed %d to create bo\n&quot;, r);
--		mmput(mm);
--		goto create_bo_failed;
-+		if (bp.byte_align == SVM_HPAGE_PMD_SIZE) {
-+			/* fall back PAGE_SIZE granularity */
-+			bp.byte_align = PAGE_SIZE;
-+			r = amdgpu_bo_create(node-&gt;adev, &amp;bp, &amp;bo);
-+		}
-+		if (r) {
-+			pr_debug(&quot;failed %d to create bo\n&quot;, r);
-+			mmput(mm);
-+			goto create_bo_failed;
-+		}
- 	}
- 
- 	svm_bo = to_svm_range_bo(bo);
-@@ -957,6 +983,7 @@ svm_range_copy_array(void *psrc, size_t size, uint64_t num_elements,
- 	*vram_pages = 0;
- 	for (i = 0; i &lt; num_elements; i++) {
- 		dma_addr_t *temp;
++	if (p->context_id != KFD_CONTEXT_ID_PRIMARY) {
++		pr_debug("retry fault on non-primary kfd process, pasid 0x%x\n",
++			 pasid);
++		r = -EFAULT;
++		goto out;
++	}
 +
- 		temp = (dma_addr_t *)dst + i;
- 		*temp = *((dma_addr_t *)src + i);
- 		if (*temp&amp;SVM_RANGE_VRAM_DOMAIN)
-@@ -1675,7 +1702,7 @@ static int svm_range_reserve_bos(struct svm_validate_context *ctx, bool intr)
- 	uint32_t gpuidx;
- 	int r;
+ 	pr_debug("restoring svms 0x%p fault address 0x%llx\n", svms, addr);
  
--	drm_exec_init(&amp;ctx-&gt;exec, intr ? DRM_EXEC_INTERRUPTIBLE_WAIT: 0, 0);
-+	drm_exec_init(&amp;ctx-&gt;exec, intr ? DRM_EXEC_INTERRUPTIBLE_WAIT : 0, 0);
- 	drm_exec_until_all_locked(&amp;ctx-&gt;exec) {
- 		for_each_set_bit(gpuidx, ctx-&gt;bitmap, MAX_GPU_INSTANCE) {
- 			pdd = kfd_process_device_from_gpuidx(ctx-&gt;process, gpuidx);
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-index 38744e716f74..8767a784e679 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-@@ -35,6 +35,24 @@
- #include &quot;kfd_priv.h&quot;
- 
- #define SVM_RANGE_VRAM_DOMAIN (1UL &lt;&lt; 0)
-+#define SVM_RANGE_DMA_THP (1UL &lt;&lt; 1)
-+
-+/*
-+ * Size of a PMD-mapped device or system THP. HPAGE_PMD_* expand to
-+ * BUILD_BUG() without CONFIG_TRANSPARENT_HUGEPAGE, so the SVM code uses
-+ * these instead. Without THP, SVM_THP_ENABLED is false, no compound
-+ * migration is requested, and HMM never reports MIGRATE_PFN_COMPOUND, so
-+ * the THP paths still compile but are never taken.
-+ */
-+#ifdef CONFIG_TRANSPARENT_HUGEPAGE
-+#define SVM_HPAGE_PMD_ORDER	HPAGE_PMD_ORDER
-+#else
-+#define SVM_HPAGE_PMD_ORDER	(PMD_SHIFT - PAGE_SHIFT)
-+#endif
-+#define SVM_HPAGE_PMD_NR	(1UL &lt;&lt; SVM_HPAGE_PMD_ORDER)
-+#define SVM_HPAGE_PMD_SIZE	(PAGE_SIZE &lt;&lt; SVM_HPAGE_PMD_ORDER)
-+#define SVM_THP_ENABLED		IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE)
-+
- #define SVM_ADEV_PGMAP_OWNER(adev)\
- 			((adev)-&gt;hive ? (void *)(adev)-&gt;hive : (void *)(adev))
- 
-</pre>
-    </blockquote>
-    <br>
-  </body>
-</html>
+ 	if (atomic_read(&svms->drain_pagefaults)) {
+-- 
+2.43.0
 
---------------Ukp0Ol4XufQAGEbpGB5MAR0w--
