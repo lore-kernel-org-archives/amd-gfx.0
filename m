@@ -2,85 +2,102 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F6F5606A32D
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Nov 2026 09:59:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37E48606A681
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Nov 2026 10:10:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ka5sAEOI
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=q+zFeWn9
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D86B2112987;
-	Fri, 27 Nov 2026 09:59:11 +0000 (UTC)
-Received: from mail-wr2-f10.google.com (mail-wr2-f10.google.com
- [74.125.225.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3036810E416
- for <amd-gfx@lists.freedesktop.org>; Fri, 27 Nov 2026 00:06:53 +0000 (UTC)
-Received: by mail-wr2-f10.google.com with SMTP id
- ffacd0b85a97d-48ded18b8d9so1938602f8f.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Nov 2026 16:06:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795738011; x=1796342811; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:subject:from:cc:to
- :content-language:user-agent:mime-version:date:message-id:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=JHqtsUs0ik0BieRJ8Sc/408xRW33ZRqGcrC9WKJdgzo=;
- b=ka5sAEOIFn1dxC0P56Qt7ALzTKZtPShFN0fP4q9MnWoviTcMOkGhDPD3SBqdWIgWs9
- xeXWOkXHqIjD5X8beAlRiXHRGnDupBl0d8kIZkqRDLjLAuj9psxIWi7P2KtBmzB2n4Sy
- xSSHbvtfdob/Tbj50EsCPPJotNKVaOhog9WCLiV4E31Vwm0BZMW3YEAKxO0A7T4F+ihg
- dIRIvUtvIESoCo+4d05BI48spWfDwi9VXn90gnLGvl37wIEVsaTLr0XoXggQSbK8TEd0
- 1kw8SvvR80UQjz8X20V5of6+lqG/g74wznEGywLpaWNlMKQXOdJnEIcoFD44AWlqaTly
- 1HLg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795738011; x=1796342811;
- h=content-transfer-encoding:content-type:subject:from:cc:to
- :content-language:user-agent:mime-version:date:message-id:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=JHqtsUs0ik0BieRJ8Sc/408xRW33ZRqGcrC9WKJdgzo=;
- b=GYOSD7CjUFfXZrWwlDpNTNFodRG0yJ5Ui6pA4EIoNM6JqFznISSvYo7L7H1u4duAnK
- fogF63twC5u7f4pmvFVkgILmwWZxz5i42yoj7O6fd1LClp0cmMyCIV4VpnZBa0f9gb+9
- Yknhys6QcK6dEVroKslxV2VYRrx1fUZZBZMbxr/GJVh9vX8x3IRR/3+IPqWBo8M2A1aR
- /XcHDY7jGI6CpT07W6zhEySfXTZv3gxxXNDLUgu44mGgzMyXA5Yr6EWJzwfPpYPejsOK
- 2VqpNs5n2mdgvV+r6tGUSmXkq9nbP1/YRFaBQ/yzlcVNNtuQ0SRds0rLGHSsbnTMTdBM
- YiVA==
-X-Gm-Message-State: APuU4Z/M3r8Pl+IU4OGjajvaKDpyOdSdDMx7zLa49Z5TeGu/fHZM1tIp
- PYtUhELVhScodSdLt3XvRRhFxenCqCqBPm4mQ0x0JOTE0OANFUPwZbXVpgQ3naeMqYU=
-X-Gm-Gg: AZFdTZe4uyBTILvPIROCsVSE98S5Xre/TFGh+HU64wNf3ChZeZ4YEG1yHGrZ2zCTng6
- KHJ1e82Eei2/sKilq59dDoYMS04S6YV/kftPTouUxyTHrtKM+kLiWrRiTE4p1vk+C0UTWKGiSdX
- bh7uZiSAqaMKITefw0l49DwoQfxiEcfAxc7scuwq6QBte9vm3E3PuO+p/F39FcV8Z7z3exOnqJw
- H5wp1CUXFIXjZv07Uqn28SWUfkj1lfkeDP060V4qPSh9ph61wYrr/XB1AauWp6qkpGvMl1SvQs6
- lWDl/6mJrrKhOPjHItyjrKl5K92WESuvuDD0DT4tR90zmhfqyDsUIbQKY0e+r0TJqkTdu8/LkIN
- Ws716V0C3wmG8pvLQBSSRWwm/ao1ME4SYQTbKgm4dVX6BpLIrOuwxx38z6R3pgG4CEeBCdkP7Z9
- /xt93AU62C3qejyt3vZFLezDb71KqLe+qIgi/uFPPIurTmbEy34lhrATuDKOMKf1EYw/4CUHglK
- pewInKaOkCvOMx406jE1sZm5TDgef9t/7nbcVLf08wC68j4KOlH0nopekAkCdQz6U8QGwGJw7dR
- 3V8NHMy/UkxhDLD4UBMey+1irVThFWpxllfDfa0Dv+tcZ3a2SDK0gCoaQQ==
-X-Received: by 2002:a05:6000:4381:b0:4a6:5a2a:f5a3 with SMTP id
- ffacd0b85a97d-4abaa9773abmr47659974f8f.3.1795738011470; 
- Thu, 26 Nov 2026 16:06:51 -0800 (PST)
-Received: from [192.168.1.11] ([31.94.68.154])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4ab69bf61e8sm45145550f8f.11.2026.11.26.16.06.49
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 26 Nov 2026 16:06:49 -0800 (PST)
-Message-ID: <59629f46-5add-4fc8-aefc-c9e02b4d59d0@gmail.com>
-Date: Fri, 27 Nov 2026 00:06:48 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB9AB112980;
+	Fri, 27 Nov 2026 10:09:55 +0000 (UTC)
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011039.outbound.protection.outlook.com [40.107.208.39])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 93E50112980
+ for <amd-gfx@lists.freedesktop.org>; Fri, 27 Nov 2026 10:09:49 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=tvTddEo/wIpMUJ8wsBIoBxEnRwqvKY3b58Ry54FjLwFkvI2XWp4YvkIgPL3pTYfnb3shBURieaEIPfTM3K811vlW3V9eMFGwAC5FXtpjsrUDvbmA3G5JFGRmLjs561r2mcoRlvsfV3M5xIjktiyvKSzwZVGWYq82Ng+v0IOsGyXBs+xAS125s4YKsQ0b39oNkgrd3lwBKtPNpUBd4cVq6D9ZPNBdWEKMN4vm4wRtAKMgEjg1JTReHmZN2qz0S1MsGFGRz7h3v9+FEmppeL1C5Y9Fk9BFzC+HEAk/Q7aj8+TOCFBAr8S2tVEsS3/e7+422gmEWp+wWxG3nDhkOl9F7A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vp8q6nBEGxIhyU96h0MvJFvOnYjuVZW8GrgdXvzvunY=;
+ b=jy+bpA9FvqBKS6NLw87YCGsmhq76/MjB+Ruhmnjvg+JpafXEWeIe7wYNjcmDmQvvP6aFSyWGSGdZ4mWN2SHPaREcM5Uh8Ws3vY69VB24uP2+4Gzqoi7jUKFavNNLnYuXIadS9nngDvp67nNTYOYtKiRvAYbuw26vMtu8Bh5dKf+JnjzRoGPj5tKYTphUFlWrT4HEl8CaG3v26MLogM7u/AB6MwrynHpGvVx+o7hcteCizxX8PZ5sD04c5RHZ43l1KXo/thYjVyu/Wn0V4lOvK59UV481nlUlGn5lCbZ6o4nvRc/SsbwwFgWeQMsmpL7BeybJR+NlOvEhvS2XFBjG6w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=vp8q6nBEGxIhyU96h0MvJFvOnYjuVZW8GrgdXvzvunY=;
+ b=q+zFeWn96kfpmCNzhtfIqsct8X2btmhiHRSre8zjEuhxNZOePXaHbipoBhkgxf0P1bBNcnOfYy/GtUX+5B35RzaxVpZleJTPvQcL/w4xop9OOiUS/0hjquZjyLxqqYO9IEx2KwS75GmcNWSD3Gv3NEQs4QaJt27izdVmEqIKUes=
+Received: from BYAPR05CA0014.namprd05.prod.outlook.com (2603:10b6:a03:74::33)
+ by CYYPR12MB8869.namprd12.prod.outlook.com (2603:10b6:930:bf::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.9; Fri, 27 Nov
+ 2026 10:09:44 +0000
+Received: from SJ1PEPF000023CC.namprd02.prod.outlook.com
+ (2603:10b6:a03:74:cafe::1f) by BYAPR05CA0014.outlook.office365.com
+ (2603:10b6:a03:74::33) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.688.6 via Frontend Transport; Fri, 27
+ Nov 2026 10:09:44 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SJ1PEPF000023CC.mail.protection.outlook.com (10.167.244.6) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.688.5 via Frontend Transport; Fri, 27 Nov 2026 10:09:43 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Fri, 27 Nov
+ 2026 04:09:43 -0600
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Fri, 27 Nov
+ 2026 04:09:43 -0600
+Received: from JesseDEV.amd.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.57 via Frontend
+ Transport; Fri, 27 Nov 2026 04:09:41 -0600
+From: Jesse Zhang <Jesse.Zhang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Alexander.Deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, 
+ Sunil Khatri <sunil.khatri@amd.com>, Jesse Zhang <Jesse.Zhang@amd.com>
+Subject: [PATCH] drm/amdgpu: validate the WPTR BO before handing its address
+ to the MES
+Date: Fri, 27 Nov 2026 18:09:30 +0800
+Message-ID: <20261127100941.738014-1-Jesse.Zhang@amd.com>
+X-Mailer: git-send-email 2.50.1
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Richard Lane <richardlanedev@gmail.com>
-From: Richard Lane <richardlanedev@gmail.com>
-Subject: [PATCH v4 3/3] drm/amd/display: report synced displays to PowerPlay
- on DCE <= 10
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 27 Nov 2026 09:58:44 +0000
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000023CC:EE_|CYYPR12MB8869:EE_
+X-MS-Office365-Filtering-Correlation-Id: cb4b61cc-a100-4edd-aa83-08df4c6e8ef2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|1800799024|36860700016|82310400026|23010399003|6133799003|18002099003|261009223027099003|10067099003|261026140227099003|261026121527099003|261102123227099003|261028144727099003|261021121427099003|261022075727099003|261022105027099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info: FNSq8+nyLduNg4mT3OXvTlBe993C06C3wIyNrWiR3YJ8anUJYxGTbIwHnXFTyNC9Ep6D0Rn+V7sICse19Jtu4WuKqZzqDoRxWMdZ8R6lWRsXDB1Ci0GQ0pdY//nWvDEBBb5a2IchD7n6rXY+ZI8Fyj8c61CI1Od5fGVPVlDH8TZ2fALAYp4T1MZTWHUMcYTD8UvIYFvrDGHdRhTsB/5KJtjl3hpQc4eauFap7l2O3btpIMovjfH+OBa1t1rFbhjUo1ptV99GkBA4msQ+xL9vsWR+0cZudDI0NizGkfB3TuzMK1nYSWfeVzOVhQpfyKslFGu0Zc1YYM2Fx0qms5unJ6ngThXaCt3BTyd7osrvLAlvOAgRU2gRdEFIUjal5vgbFqM6PEQTl7rNWimi0/K+e44TPi+J8FGZddDO0zK4zaBzE1733KftiDRWuBwvJ2jPRXRbqGtDnY8PKfUFbOKESpsS2tbND01OogXVvArAjA+gA5UQH5ocwCqaUGJ0dBOtukZ5EEReipNf2pwg0yVAeSN/KdF3lcn6Y/glELJQzx3mz0ATXQiNAscT21gQNZ4imBTFMBJPPqUjBPTGQ7jwmfkdId6j7eIC4UugRlhIgi4SxHBtAReA0jeNhB3ZgRyxWqy6wMXpsrppo1P64jrWXJm6Ua7TWJcGz50ZsHncGG0xqjcdm9C6m4TqM1fKOqhWsjBOegw3V4AsHYvGD+k3dw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(36860700016)(82310400026)(23010399003)(6133799003)(18002099003)(261009223027099003)(10067099003)(261026140227099003)(261026121527099003)(261102123227099003)(261028144727099003)(261021121427099003)(261022075727099003)(261022105027099003)(11063799006)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 8aaUxgYiu2kuFDoLO3h5zkJoa12oyAp6qkjmCHl7a5UI352yM6CLiCMJO4LKq0naIBSVrtYsY1LpCncINeBIL5JWOGhp4ZMzAlsmojrM5l203z5WiDH2xRVvyzmCh2/il1c5aBl4Z9p56j9jYfr0s5NGMPMhYyg65ZWXMv80GMW+W3ks05PvIkw6r45QVrkiKD9YzQ2gKv0ucq7E8ER0WBzH4A8QTXHIU5/rovJhUn91Rs5o4bqUaIScSuxEwHWUJSQlcm0jQnwAyhq22BDFVS04aLkjCRgTzJ2N6MzS9qp8CAhHGpijQY9Q5adYUjjC6fBDlHN2ukScFFrsuaOHWWyc4mumlge70Yhm83orxlaS9+XquCxiQopZpbRP1CDEbsYi7grEZ0vacKvWi2k8d+H1cnytucwTrUe9vJCOaH7xMpuFE78FOr61vWcCSSzT
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Nov 2026 10:09:43.7549 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: cb4b61cc-a100-4edd-aa83-08df4c6e8ef2
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000023CC.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8869
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,80 +108,64 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-14.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On DCE 11.0 and 11.2, bw_calcs() computes all_displays_in_sync via
-resource_are_streams_timing_synchronizable(), and
-dce11_pplib_apply_display_requirements() copies it to
-pp_display_cfg->all_displays_in_sync.
+The unpinned WPTR BO can be evicted to SYSTEM before queue creation.
+amdgpu_evf_mgr_attach_fence() skips validation when the eviction fence
+is already signaled, leaving the BO in SYSTEM. Since resource->start
+is zero, amdgpu_ttm_alloc_gart() also returns success without allocating
+or binding GART space. mes_userq_create_wptr_mapping() then passes an
+invalid GPU address to MES.
 
-However, DCE 6, 8, and 10 (including iMac15,1 on DCE 8 and iMac17,1 on
-DCE 10) use dce100_validate_bandwidth()—which does not call
-bw_calcs()—and dce_pplib_apply_display_requirements() in
-dce_clk_mgr.c, leaving pp_display_cfg->all_displays_in_sync unset
-(false). Because PowerPlay is not informed that the streams have
-synchronized vertical blanking intervals, SMU7 prevents MCLK switching
-at idle or causes modeset underflows.
+On Navi31, creating SDMA user queues during GTT eviction triggers:
 
-Set context->bw_ctx.bw.dce.all_displays_in_sync in
-dce100_validate_bandwidth() using
-resource_are_streams_timing_synchronizable() and copy it to
-pp_display_cfg->all_displays_in_sync in
-dce_pplib_apply_display_requirements(), matching the existing DCE 11
-flow.
+  WARNING: amdgpu_object.c:1550 at amdgpu_bo_gpu_offset
+   mes_userq_create_wptr_mapping
+   mes_userq_mqd_create
+   amdgpu_userq_ioctl
 
-Signed-off-by: Richard Lane <richardlanedev@gmail.com>
+followed by page faults at address 0 and GPU resets.
+
+Validate the BO into its allowed domains before allocating GART space,
+as the restore path does. This removes the warning and address-zero
+faults in the same test.
+
+Fixes: 7264bc10c7c6 ("drm/amdgpu: dont pin wptr bo instead use eviction fence")
+Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
 ---
- .../gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c  | 3 +++
- .../drm/amd/display/dc/resource/dce100/dce100_resource.c | 9 +++++++++
- 2 files changed, 12 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/mes_userqueue.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
-index d891b3bfe2a1..1dd302ad19aa 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
-@@ -320,6 +320,9 @@ static void dce_pplib_apply_display_requirements(
+diff --git a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+index 7abb9d95ef59..105c9866b2a3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
++++ b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+@@ -37,6 +37,7 @@ mes_userq_create_wptr_mapping(struct amdgpu_device *adev,
+ 			      struct amdgpu_usermode_queue *queue,
+ 			      uint64_t wptr)
  {
- 	struct dm_pp_display_configuration *pp_display_cfg = &context->pp_display_cfg;
- 
-+	pp_display_cfg->all_displays_in_sync =
-+		context->bw_ctx.bw.dce.all_displays_in_sync;
-+
- 	dce110_fill_display_configs(context, pp_display_cfg);
- 
- 	if (memcmp(&dc->current_state->pp_display_cfg, pp_display_cfg, sizeof(*pp_display_cfg)) !=  0)
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dce100/dce100_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dce100/dce100_resource.c
-index 97ea22af5d2b..0d25c2ddb661 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dce100/dce100_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dce100/dce100_resource.c
-@@ -888,6 +888,14 @@ enum dc_status dce100_validate_bandwidth(
- 		/* TODO implement when needed but for now hardcode max value*/
- 		context->bw_ctx.bw.dce.dispclk_khz = 681000;
- 		context->bw_ctx.bw.dce.yclk_khz = 250000 * MEMORY_TYPE_MULTIPLIER_CZ;
-+		context->bw_ctx.bw.dce.all_displays_in_sync = context->stream_count > 1;
-+		for (i = 1; i < context->stream_count; i++) {
-+			if (!resource_are_streams_timing_synchronizable(
-+				    context->streams[0], context->streams[i])) {
-+				context->bw_ctx.bw.dce.all_displays_in_sync = false;
-+				break;
-+			}
-+		}
- 	} else {
- 		/* On DCE 6.0 and 6.4 the PLL0 is both the display engine clock and
- 		 * the DP clock, and shouldn't be turned off. Just select the display
-@@ -900,6 +908,7 @@ enum dc_status dce100_validate_bandwidth(
- 			context->bw_ctx.bw.dce.dispclk_khz = 0;
- 
- 		context->bw_ctx.bw.dce.yclk_khz = 0;
-+		context->bw_ctx.bw.dce.all_displays_in_sync = false;
++	struct ttm_operation_ctx ctx = { false, false };
+ 	struct amdgpu_bo_va_mapping *wptr_mapping;
+ 	struct amdgpu_userq_obj *wptr_obj = &queue->wptr_obj;
+ 	struct amdgpu_bo *obj;
+@@ -84,6 +85,12 @@ mes_userq_create_wptr_mapping(struct amdgpu_device *adev,
+ 		goto fail_map;
  	}
  
- 	return DC_OK;
++	/* The BO may have been evicted, it needs a GPU address for the MES */
++	amdgpu_bo_placement_from_domain(wptr_obj->obj, wptr_obj->obj->allowed_domains);
++	ret = ttm_bo_validate(&wptr_obj->obj->tbo, &wptr_obj->obj->placement, &ctx);
++	if (ret)
++		goto fail_map;
++
+ 	ret = amdgpu_ttm_alloc_gart(&wptr_obj->obj->tbo);
+ 	if (ret) {
+ 		DRM_ERROR("Failed to bind wptr bo to GART. ret %d\n", ret);
 -- 
-2.55.0
+2.50.1
+
