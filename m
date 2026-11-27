@@ -2,41 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18919606A31C
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Nov 2026 10:37:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E0DC606A31C
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Nov 2026 10:43:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lcjQslaY
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Znf432fT
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ABA5E10E4C0;
-	Fri, 27 Nov 2026 10:37:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C1A610E073;
+	Fri, 27 Nov 2026 10:42:57 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 366A010E4C0
- for <amd-gfx@lists.freedesktop.org>; Fri, 27 Nov 2026 10:37:13 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 44FF01129DF;
+ Fri, 27 Nov 2026 10:42:51 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 4C66E613A9;
- Fri, 27 Nov 2026 10:37:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE4C61F0089A;
- Fri, 27 Nov 2026 10:37:11 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 5B35A60E37;
+ Fri, 27 Nov 2026 10:42:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88E6F1F00897;
+ Fri, 27 Nov 2026 10:42:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795775831;
- bh=UYedC4RxNMo6dP3lc87iGL4579tFMw1tYSjjpAT4iDQ=;
- h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
- b=lcjQslaYDVMbriK3BmO4SyIsZ50VjtBQJFmww+OIGFOtxPuMh0QBC9Pf697VSJ3zC
- ByS+q+tKtlTzVbclIDTZg75hdzvo9gfbB3E7c4heubxyQvfM4xR13OVpN1u0if4Jbm
- xVZJGeAqy8kLuSIclWYLt/9tR96rLxW1RliW0/Kee3U+7sbrnfOqQssERS+nH9uI+d
- jtoOyX+8DMyDkdRnpoumv3FCAWOe9PDus5QeKq2Xiy9Yl40WeXj3VeuLyAp0bCspX9
- gI+YBIW0VYlXIvF5a3SrWFzGf49cZc1TUaTsJsSL3o6OpJeFc6WUT6GSVouHV/vDlD
- APFUA1eIuYDeA==
-Message-ID: <sashiko-outbox-237145@kernel.org>
+ s=k20260515; t=1795776169;
+ bh=Y46f3sYwR4Ngu8CaMapA8yyuVt7Iea9tXG5cfMLV8t4=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Znf432fTaJMf4trrfKnv7RXa/DIP3+af9BgEtTc7SABjNYh9L4RZG2uEQ2Uc4N87V
+ EjT6qkMoQrZFhOYM9ooV6dxNXoF4mXX1a7p9S8TKcWyWOdTg6R5ZdnKQVWzSygZ2dH
+ YzmHak+UXdbAG/kwi2kYA9uKv+zT7o8BXs4dmxGWQKQZ8V4DlYdryHyowwEyJd9v2U
+ cCvsyumx0IcpDNdtzTv2UnFnbLpjH9fdqW1U3gGqV1pyJy62vDatUpr0CFv0YfguIu
+ N0JrQpgq9ELdqkNIsasKyOJR4FaWjQT1X0i02AtHZUFHpv5LUrrDh4XHIfGbIXdxtx
+ Oz2TAug1yKr+w==
+Message-ID: <sashiko-outbox-237161@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/amdgpu: validate the WPTR BO before handing its
- address to the MES
-To: "Jesse Zhang" <Jesse.Zhang@amd.com>, amd-gfx@lists.freedesktop.org
-In-Reply-To: <20261127100941.738014-1-Jesse.Zhang@amd.com>
-References: <20261127100941.738014-1-Jesse.Zhang@amd.com>
+Subject: Re: [RFC PATCH 4/8] dma-buf: dma-fence: Improve dma_fence_timestamp()
+To: "Philipp Stanner" <phasta@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, media-ci@linuxtv.org
+In-Reply-To: <20261127101812.2706432-6-phasta@kernel.org>
+References: <20261127101812.2706432-2-phasta@kernel.org>
+ <20261127101812.2706432-6-phasta@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 27 Nov 2026 10:37:11 +0000
+Date: Fri, 27 Nov 2026 10:42:49 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,75 +60,75 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential
 issue to consider:
-- [High] drm/amdgpu: missing userptr and domain checks in
-  mes_userq_create_wptr_mapping()
+- [Medium] dma-buf: redundant ktime_get() on signaled fences in
+  __dma_fence_unwrap_merge()
 --
 
-commit c8808f07dff4b49d4c3e4db4a9b93588681aeec7
-Author: Jesse Zhang <Jesse.Zhang@amd.com>
+commit e022bd65ff0c3c874a861f648d1911f74f6646f1
+Author: Philipp Stanner <phasta@kernel.org>
 
-drm/amdgpu: validate the WPTR BO before handing its address to the MES
+dma-buf: dma-fence: Improve dma_fence_timestamp()
 
-This commit validates wptr_obj->obj into its allowed domains before calling
-amdgpu_ttm_alloc_gart() in mes_userq_create_wptr_mapping().
+This commit changes dma_fence_timestamp() to write the completion
+timestamp through an output pointer and return an integer status code,
+updating callers across dma-buf and drm/sched.
 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c b/drivers/gpu/drm=
-/amd/amdgpu/mes_userqueue.c
-> index 7abb9d95ef59a..105c9866b2a3f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-> @@ -37,6 +37,7 @@ mes_userq_create_wptr_mapping(struct amdgpu_device *ade=
-v,
->  			      struct amdgpu_usermode_queue *queue,
->  			      uint64_t wptr)
->  {
-> +	struct ttm_operation_ctx ctx =3D { false, false };
->  	struct amdgpu_bo_va_mapping *wptr_mapping;
->  	struct amdgpu_userq_obj *wptr_obj =3D &queue->wptr_obj;
->  	struct amdgpu_bo *obj;
-> @@ -84,6 +85,12 @@ mes_userq_create_wptr_mapping(struct amdgpu_device *ad=
-ev,
->  		goto fail_map;
+> diff --git a/drivers/dma-buf/dma-fence-unwrap.c b/drivers/dma-buf/dma-fen=
+ce-unwrap.c
+> index 120fe0c2a75af..a1e9b1ee2c325 100644
+> --- a/drivers/dma-buf/dma-fence-unwrap.c
+> +++ b/drivers/dma-buf/dma-fence-unwrap.c
+> @@ -136,10 +136,14 @@ struct dma_fence *__dma_fence_unwrap_merge(size_t n=
+um_fences,
+>  				unsignaled =3D dma_fence_get(tmp);
+>  				++count;
+>  			} else {
+> -				ktime_t t =3D dma_fence_timestamp(tmp);
+> -
+> -				if (ktime_after(t, timestamp))
+> -					timestamp =3D t;
+> +				ktime_t fence_ts =3D ktime_get();
+> +				/* Leaves fence_ts unchanged if fence is not yet
+> +				 * signaled.
+> +				 */
+> +				dma_fence_timestamp(tmp, &fence_ts);
+> +
+> +				if (ktime_after(fence_ts, timestamp))
+> +					timestamp =3D fence_ts;
+>  			}
+>  		}
 >  	}
-> =20
-> +	/* The BO may have been evicted, it needs a GPU address for the MES */
-> +	amdgpu_bo_placement_from_domain(wptr_obj->obj, wptr_obj->obj->allowed_d=
-omains);
-> +	ret =3D ttm_bo_validate(&wptr_obj->obj->tbo, &wptr_obj->obj->placement,=
- &ctx);
-> +	if (ret)
-> +		goto fail_map;
+> @@ -168,10 +172,14 @@ struct dma_fence *__dma_fence_unwrap_merge(size_t n=
+um_fences,
+>  			if (!dma_fence_is_signaled(tmp)) {
+>  				array[count++] =3D dma_fence_get(tmp);
+>  			} else {
+> -				ktime_t t =3D dma_fence_timestamp(tmp);
+> -
+> -				if (ktime_after(t, timestamp))
+> -					timestamp =3D t;
+> +				ktime_t fence_ts =3D ktime_get();
+> +				/* Leaves fence_ts unchanged if fence is not yet
+> +				 * signaled.
+> +				 */
+> +				dma_fence_timestamp(tmp, &fence_ts);
+> +
+> +				if (ktime_after(fence_ts, timestamp))
+> +					timestamp =3D fence_ts;
+>  			}
+>  		}
+>  	}
 
-[Severity: High]
-Can calling ttm_bo_validate() with wptr_obj->obj->allowed_domains cause a
-NULL pointer dereference in amdgpu_ttm_tt_pin_userptr() or leave
-wptr_obj->obj outside GTT?
+[Severity: Medium]
+Does initializing fence_ts with ktime_get() in both else branches perform
+an unnecessary clocksource read for every signaled fence?
 
-Before 7264bc10c7c6 ("drm/amdgpu: dont pin wptr bo instead use eviction fen=
-ce"),
-amdgpu_bo_pin(wptr_obj->obj, AMDGPU_GEM_DOMAIN_GTT) rejected userptr BOs
-via amdgpu_ttm_tt_get_usermm() and validated the BO into
-AMDGPU_GEM_DOMAIN_GTT.
-
-If userspace registers a userptr BO without AMDGPU_GEM_USERPTR_VALIDATE
-while the eviction fence is in its initial signaled stub state, the BO
-stays in TTM_PL_SYSTEM with allowed_domains =3D AMDGPU_GEM_DOMAIN_GTT and
-ttm->pages[0] =3D=3D NULL.  Validating it directly here moves it to TTM_PL_=
-TT
-without fetching user pages via amdgpu_ttm_tt_get_user_pages(), so
-amdgpu_bo_move() -> amdgpu_ttm_backend_bind() ->
-amdgpu_ttm_tt_pin_userptr() passes the unpopulated ttm->pages array to
-sg_alloc_table_from_pages() and dma_map_sgtable().
-
-In addition, if wptr_obj->obj was created with AMDGPU_GEM_DOMAIN_CPU or
-non-contiguous AMDGPU_GEM_DOMAIN_VRAM, validating into allowed_domains
-leaves it in TTM_PL_SYSTEM or TTM_PL_VRAM, causing amdgpu_ttm_alloc_gart()
-to return 0 without binding GART space and amdgpu_bo_gpu_offset() to warn
-and pass an invalid GPU address to MES.
-
-Should mes_userq_create_wptr_mapping() reject userptr BOs and require
-AMDGPU_GEM_DOMAIN_GTT placement?
+Both branches only run after dma_fence_is_signaled(tmp) returns true, so
+DMA_FENCE_FLAG_SIGNALED_BIT is already set on tmp->flags and
+dma_fence_timestamp(tmp, &fence_ts) will always overwrite fence_ts with
+tmp->timestamp.  Before this change, ktime_get() was only called on the
+unsignaled fallback path inside dma_fence_timestamp().
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261127100941.7380=
-14-1-Jesse.Zhang@amd.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261127101812.2706=
+432-2-phasta@kernel.org?part=3D4
