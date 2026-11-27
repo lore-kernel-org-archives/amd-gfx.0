@@ -2,61 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4274B606A31E
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Nov 2026 10:21:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D81C4606A330
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Nov 2026 10:27:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OC8Foa0M
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dW1bY2Q2
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CABB91129D0;
-	Fri, 27 Nov 2026 10:20:57 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A32501129D4;
- Fri, 27 Nov 2026 10:20:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 590B8112982;
+	Fri, 27 Nov 2026 10:27:00 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2FF141129E1;
+ Fri, 27 Nov 2026 10:26:03 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 7C5C543C01;
- Fri, 27 Nov 2026 10:20:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE2D21F00925;
- Fri, 27 Nov 2026 10:20:45 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 6E4F96277D;
+ Fri, 27 Nov 2026 10:26:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6CC71F00899;
+ Fri, 27 Nov 2026 10:26:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795774851;
- bh=LJAOAOmUEmG/SIqbDw1V2AKXbo1TznTck0yy9LpnC3E=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=OC8Foa0MNiS34e6fL7RZdfr4ORrStCI7g2Vvlf1MeFKS+ntVkpsSOodYrAK1Wjzz0
- PxQb1GhcqM3PYiI/axiF5lh+7T9vwe5V/rjBdOilW7wyISUKtfdrsjoXqoi9l+SVEZ
- y8uoeQ4wG+5Pxud4f5IRr6CEI7eDlmQvToc6w056iCgF4OjUeCaIpQS6qoekqwJ1xV
- mt39fr05NrBizGhX08CF7vEMkkSjXr7WqmRiwZ3jDbtXviHWoh6bVNpl2nPWGMfJ8X
- KVgB9RMza6zO7owH7uzkaVFSfmvsH2G3Zv/t60aOTYutgI2ODWmwBvqhErp76m+Du7
- kAu9GJ68IvTkQ==
-From: Philipp Stanner <phasta@kernel.org>
-To: Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Philipp Stanner <phasta@kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Matthew Brost <matthew.brost@intel.com>,
- Danilo Krummrich <dakr@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- "Mario Limonciello (AMD)" <superm1@kernel.org>,
- Ruslan Vagner <rusya92266@gmail.com>,
- Gustavo Padovan <gustavo.padovan@collabora.com>,
- Chris Wilson <chris@chris-wilson.co.uk>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org
-Subject: [RFC PATCH 8/8] dma-buf: dma-fence: Remove TIMESTAMP bit
-Date: Fri, 27 Nov 2026 11:18:13 +0100
-Message-ID: <20261127101812.2706432-10-phasta@kernel.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261127101812.2706432-2-phasta@kernel.org>
+ s=k20260515; t=1795775162;
+ bh=GoB63DtN9Oy0jScWwu1FwYjE4Q+RSkfSjv7LTIGqp7U=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=dW1bY2Q2h2sPM2GfG/uP+po6aEdJzAgnXxaaY7PtwNPjzfOYp8DHBvq2DhzSp/+qX
+ FOgqNJvJV2i6zVV+hGAY87tofOass5JweMc7xopXJWo/NQ/d2CqFTX2Hki0496q4/H
+ e7hUoQ4r3k3TmhTn9wfwzA/1wCxHpI1DJM0OuhSTb81btco21COyrrA0eU4z+UCNcL
+ FkG+IZcMFwjkuv6zK/pCYTf4htHBRUhx9EbQ4vwxSML2+In1gfcwyv491lOzLJ0LSI
+ fqxV+CniGUmWs4Mylh7qsCh4V37CcThr06syjQntK8VM3A3HouPhdMN0l4rZ+QwCcZ
+ 75e8dvYNrrU5w==
+Message-ID: <sashiko-outbox-237126@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [RFC PATCH 6/8] dma-buf: sync_debug: don't use TIMESTAMP bit
+To: "Philipp Stanner" <phasta@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, media-ci@linuxtv.org
+In-Reply-To: <20261127101812.2706432-8-phasta@kernel.org>
 References: <20261127101812.2706432-2-phasta@kernel.org>
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ <20261127101812.2706432-8-phasta@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 27 Nov 2026 10:26:01 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,57 +48,76 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-All users of DMA_FENCE_FLAG_TIMESTAMP_BIT have been removed. Remove the
-bit now, too.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [High] dma-buf: sync_debug: recursive spinlock deadlock in
+  sync_print_fence()
+--
 
-Signed-off-by: Philipp Stanner <phasta@kernel.org>
----
- drivers/dma-buf/dma-fence.c | 2 --
- include/linux/dma-fence.h   | 2 --
- 2 files changed, 4 deletions(-)
+commit 771cc9b6d800a1a39680e74552adf1782c101ea3
+Author: Philipp Stanner <phasta@kernel.org>
 
-diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
-index ab02afdb0f18..58faee7166ae 100644
---- a/drivers/dma-buf/dma-fence.c
-+++ b/drivers/dma-buf/dma-fence.c
-@@ -376,9 +376,7 @@ void dma_fence_signal_timestamp_locked(struct dma_fence *fence,
- 
- 	/* Stash the cb_list before replacing it with the timestamp */
- 	list_replace(&fence->cb_list, &cb_list);
--
- 	fence->timestamp = timestamp;
--	set_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT, &fence->flags);
- 
- 	list_for_each_entry_safe(cur, tmp, &cb_list, node) {
- 		INIT_LIST_HEAD(&cur->node);
-diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
-index 70bb8434ac1a..bab0aa339e05 100644
---- a/include/linux/dma-fence.h
-+++ b/include/linux/dma-fence.h
-@@ -52,7 +52,6 @@ struct seq_file;
-  * DMA_FENCE_FLAG_INITIALIZED_BIT - fence was initialized
-  * DMA_FENCE_FLAG_INLINE_LOCK_BIT - use inline spinlock instead of external one
-  * DMA_FENCE_FLAG_SIGNALED_BIT - fence is already signaled
-- * DMA_FENCE_FLAG_TIMESTAMP_BIT - timestamp recorded for fence signaling
-  * DMA_FENCE_FLAG_ENABLE_SIGNAL_BIT - enable_signaling might have been called
-  * DMA_FENCE_FLAG_USER_BITS - start of the unused bits, can be used by the
-  * implementer of the fence for its own purposes. Can be used in different
-@@ -114,7 +113,6 @@ enum dma_fence_flag_bits {
- 	DMA_FENCE_FLAG_INLINE_LOCK_BIT,
- 	DMA_FENCE_FLAG_SEQNO64_BIT,
- 	DMA_FENCE_FLAG_SIGNALED_BIT,
--	DMA_FENCE_FLAG_TIMESTAMP_BIT,
- 	DMA_FENCE_FLAG_ENABLE_SIGNAL_BIT,
- 
- 	DMA_FENCE_FLAG_USER_BITS, /* must always be last member */
--- 
-2.56.0
+dma-buf: sync_debug: don't use TIMESTAMP bit
 
+This commit replaces the direct DMA_FENCE_FLAG_TIMESTAMP_BIT check in
+sync_print_fence() with a call to dma_fence_timestamp().
+
+> diff --git a/drivers/dma-buf/sync_debug.c b/drivers/dma-buf/sync_debug.c
+> index 9e5d662cd4e84..58c0d00ba5b3c 100644
+> --- a/drivers/dma-buf/sync_debug.c
+> +++ b/drivers/dma-buf/sync_debug.c
+> @@ -46,6 +46,8 @@ static void sync_print_fence(struct seq_file *s,
+>  			     struct dma_fence *fence, bool show)
+>  {
+>  	struct sync_timeline *parent =3D dma_fence_parent(fence);
+> +	struct timespec64 ts64;
+> +	ktime_t ts;
+>  	int status;
+> =20
+>  	status =3D dma_fence_get_status_locked(fence);
+> @@ -55,10 +57,8 @@ static void sync_print_fence(struct seq_file *s,
+>  		   show ? "_" : "",
+>  		   sync_status_str(status));
+> =20
+> -	if (test_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT, &fence->flags)) {
+> -		struct timespec64 ts64 =3D
+> -			ktime_to_timespec64(fence->timestamp);
+> -
+> +	if (dma_fence_timestamp(fence, &ts) =3D=3D 0) {
+> +		ts64 =3D ktime_to_timespec64(ts);
+>  		seq_printf(s, "@%ptSp", &ts64);
+>  	}
+
+[Severity: High]
+Does calling dma_fence_timestamp() here self-deadlock on obj->lock?
+
+sync_pt_create() initializes each sync_pt fence with &obj->lock as its
+external fence spinlock, and sync_print_obj() already holds obj->lock when =
+it
+calls sync_print_fence() (which is why dma_fence_get_status_locked() is used
+above):
+
+sync_info_debugfs_show()
+  spin_lock_irq(&sync_timeline_list_lock)
+  sync_print_obj()
+    spin_lock(&obj->lock)
+    sync_print_fence()
+      dma_fence_timestamp()
+        dma_fence_lock_irqsave()  <-- spins forever on &obj->lock
+
+Reading /sys/kernel/debug/sync/info while any sync_timeline has a sync_pt on
+obj->pt_list will deadlock the CPU with interrupts disabled.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261127101812.2706=
+432-2-phasta@kernel.org?part=3D6
