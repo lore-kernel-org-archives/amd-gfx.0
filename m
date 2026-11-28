@@ -2,96 +2,86 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E77B606A31C
-	for <amd-gfx@archiver.kernel.org>; Sat, 28 Nov 2026 01:14:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B41F606A31C
+	for <amd-gfx@archiver.kernel.org>; Sat, 28 Nov 2026 08:13:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=L/5b54TB
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J+WEAXCg
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A8F4C112E5E;
-	Sat, 28 Nov 2026 01:14:15 +0000 (UTC)
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012034.outbound.protection.outlook.com
- [40.107.200.34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A5A7C112E5E
- for <amd-gfx@lists.freedesktop.org>; Sat, 28 Nov 2026 01:14:09 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=tn6savi2MMicJhIO4CC6PqV50WHf46blf5wjkCUNVYB4Y1lxVdPhTMynyhxfP9lWTVtkPNYvY6CBuoW6fWmwoahNDDeWZlTxzBPG/1ooCKYn4TrKFEBwCeqFB7/a2PDjLswnbxiaqQEYeAIzOyrei7I+KhyhKT9JEmdgBH+WGmqF0PK6MCcgUV5HQJ/pNmtvtM/Vicsevksh+NURppYb2IK5hqeYUV5Cpj7Sr9XXqW1PhKkMxKOrAU03qutHq9le0ZqZy4Y9/2zL01+ZKKDxRVqyim9cVSUnl9eT/+6Rk/AlhrdclBWg1/jy3ewT2YWVZkcsFZfJ3xc3mutvhEZvfQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=remb/ejmc4gAQj0N9ENJyc3Bmyqa97igNJV8J0xMBBM=;
- b=l9Pew2twByX7+XQEXTZGQP6+xeQ6y5O13ov7TcV6VlAFlQrAcnp/PI4+XSiHa1Ix1Wk+7mf9MwRqOHfydrHUmjxGsqAfK6eE781EW7lOlH0GWrGDewRi01sLuxidK8/MJXwhTDS7piWC7hrnlwMKlzve6g+U3QHA0gkPvCSzV+ihIpUEEwjUQh/D2UTK4i/RFnoTY6by0J/HBDlFtio38lYxXi1jSERAA8J36iZzV3BcEfpXA/NJPou3RkE6E4ounrmfYCgvWCrOcfxSg5aEye8L1ely8K7zpLcLvuwvcwJunPhtuek1aHgNd3GAFC3OcHPLoRz1zPdLUeb/JSovXg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=remb/ejmc4gAQj0N9ENJyc3Bmyqa97igNJV8J0xMBBM=;
- b=L/5b54TBhDNLeVwaPw4zBXUtPhpliXwcqBI9FJAC+XsftFyYEAzOtKn0i4WdiAZG05MMUlA4E1EhuOCgMKjQZIirishpF5rF4XQMnmOPkG1IFB0UB8N1rP+2cB+yc/N7dEFj6jKT6TpvdQ/RgxuR+VvcHI9kmRjGq0l5jffPPqc=
-Received: from CH0PR03CA0073.namprd03.prod.outlook.com (2603:10b6:610:cc::18)
- by DM3PR12MB9349.namprd12.prod.outlook.com (2603:10b6:0:49::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.4; Sat, 28 Nov
- 2026 01:14:02 +0000
-Received: from CH2PEPF00016D48.namprd02.prod.outlook.com
- (2603:10b6:610:cc:cafe::c) by CH0PR03CA0073.outlook.office365.com
- (2603:10b6:610:cc::18) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.662.11 via Frontend Transport; Sat,
- 28 Nov 2026 01:14:02 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CH2PEPF00016D48.mail.protection.outlook.com (10.167.244.117) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.688.5 via Frontend Transport; Sat, 28 Nov 2026 01:14:01 +0000
-Received: from 0yonsun-linux-dev.amd.com (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.57; Fri, 27 Nov 2026 19:14:00 -0600
-From: Yongqiang Sun <Yongqiang.Sun@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Yongqiang Sun <Yongqiang.Sun@amd.com>
-Subject: [PATCH] drm/amdkfd: refuse XNACK for a secondary context
-Date: Fri, 27 Nov 2026 20:13:45 -0500
-Message-ID: <20261128011345.1116041-1-Yongqiang.Sun@amd.com>
-X-Mailer: git-send-email 2.43.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id C0CEE10E165;
+	Sat, 28 Nov 2026 08:13:18 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BCEF010E401
+ for <amd-gfx@lists.freedesktop.org>; Sat, 28 Nov 2026 08:13:12 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id BBDF96022E;
+ Sat, 28 Nov 2026 08:13:11 +0000 (UTC)
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+ t=1795853591;
+ b=k9HG8OqtAymflkXKSxHq45TXXKKBHyzeQcr7XAGOwHTkq3TcpXI3kpKSPVu5zX4mOMwq
+ B8h7GjrBvfwRnhFpjkHtB01DblV+dSDCjNWfr3oxlPYegucCf9lbeGOnPDQx5s/6mXFuH
+ C+Pq/iNmkDDAtJVGKIPOuXDYWxPyFNOjMdJiBdJLsMlidtNkSb+5tr3DMXlquoh1ZaWky
+ QjTlVC/6k6NcWfANx5cWL74D5Tj/8HZvIN4tK5EgAvna0EDxXPEvMeIQLuOIUU2eCHUAK
+ n/aFBeGFq3DalioXSyKNsrqmcy39UMHO8prZBu85Ou8AxQhTG5B2APyvsdvDf8Vu/VQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+ c=relaxed/relaxed; t=1795853591;
+ h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+ Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
+ X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+ X-Original-From:Reply-To;
+ bh=wNeVPLmBM2JBebE7QuxrwybwLxIp+JYcBP3ZaLJWm5o=;
+ b=e2vnfhghuqeiVzOvkmzKq2RCJFIBXadA+qamGcEx/b9kJRCaZMfg3Dh85a4rpIzU+Zl1
+ Tf8MybPjKpT+vhLGN0hH0ZkBwK3GRsbhBFgyzL6XiWXKze4FiqAHFXUpxzdfwKtHKRl/8
+ 7FITliNaer1rOQkUORAtVgpYdc4J8OqrPPkgh2oIuUc0RkgMN50HdkKWZ3HpTIbd1qOXt
+ uV3fJNc7GGxTNeG4OcMIOOXlKTJRh+j69Woqsq2naZutNXNFDSuZrTqXd9xZloj+fJlt9
+ UsESwBtHBSnrcH9ORRQ71i6dprkB18t3TUQav73kdOTxK1iyx05tNlZeFE9cwh10H/Q==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+ arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+ (No client certificate requested)
+ by smtp.kernel.org (Postfix) with ESMTPS id E08261F00893;
+ Sat, 28 Nov 2026 08:13:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795853591;
+ bh=wNeVPLmBM2JBebE7QuxrwybwLxIp+JYcBP3ZaLJWm5o=;
+ h=From:Date:Subject:To:Cc:Reply-To;
+ b=J+WEAXCgXaOnWN0apGtL38OtcelhoCtNZZ4uJbaL0KxS0d/1Tiijj0z28gQX+EG1H
+ 5QoCmMueaeIdxcvLnT5JukMEwQqZStE5zTkOBr8zoWh9kQZtjii2Dwm1FtKV26ij9p
+ sqgGMVzq1ZQvWa1NgVelIqogTT6cX9bJp+GtQNYsM0ck5eMznH8G6bIikb3YYLTLoF
+ VVuWKexs6EFy465torEVWw5U0KBmWCeknIEPZXe3AJdrXP5b9rArh5eBbCEeSoXJXU
+ ScKjbTNitAitQSeLR4AlVxDhEbEVOEKdBrsxV9u6R9bJQcFjBV+f3uttRXhtGQn9bJ
+ xlaba3b6qnT6Q==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+ by lkml.kernel.org (Postfix) with ESMTP id 746FE4E02D;
+ Sat, 28 Nov 2026 08:13:10 +0000 (UTC)
+From: Dickson Wu via B4 Relay <devnull+dickson.wu.certik.com@kernel.org>
+Date: Sat, 28 Nov 2026 08:10:35 +0000
+Subject: [PATCH 6.1.y] drm/amdgpu/vcn4: avoid rereading IB param length
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF00016D48:EE_|DM3PR12MB9349:EE_
-X-MS-Office365-Filtering-Correlation-Id: 597f4d67-5a50-445d-27b1-08df4cece2f4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|376014|36860700016|23010399003|18002099003|18092099006|261022075727099003|261021121427099003|56012099006|11063799006|261028144727099003|261021123027099003|261009223027099003|261022105027099003|261102123227099003|261022115727099003|261026121527099003|261026140227099003|10067099003;
-X-Microsoft-Antispam-Message-Info: joDtIrm6CCLh17lzMpTIsUrNX53rgGhmYGwK9lpfvogaJf8tnV4xzCbQ0pxSn8zC5NHfv5clV9DI4nTe6uDYexEh74G6TQ/pYTeeLklSIW/iuoRc8GYoZJCuamGhpbzllfObJAKI5frokETXaxADbbOX6ratXj7rbKEJ1t72qNcGMB0SSya6L7P+g6vvxEUisneqfgGOH+yR6w9PZ95v6ue48YelxGcXtxgTYwSrzIZLeXFhZ3GqdAvBaxnN9Oq+5MLXfC3NuP1n4UNyacgbwrNBY7qjNxGDIqt1V18Mp1rO6ON4yIGOUFphBcz3rawjRktyfQhbvRBEBCxy0JpmN7Co0KF0fJ3juW7wqPEO8sahEzZK4WJY7epZp+ufI2q04WSCjwyseDAvA/sCuZBQwFAN5AIOFgsQxs9EbBwfpiL6D7YtaAvwSLXOE9H9A9IcMpTT7pNt8nTExxk09+Jniltpc2qHtEXCWNMx13uRJRM0EMrFZmH1lCO0iApkOSVrRiFW/TRSeGVTJ92WOfzkP2JoHDQXdcsAw5dRLurUhfGaYgGWVzJ7y29WSBJ0uLSxo80RVEzKimvtCQe/OYa9d/od7ceuiG0jX7VS1vjT/tkkq62/th+TYDpsIKCJsypd1MMbpDwgC/oq2pgSqmxDK+UXn+FwEF9Ip1K7mrL1jI6E7QkeD0HE6oIkwyDlRpgDn04uGtTKQcoJROPGTQg6LQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(376014)(36860700016)(23010399003)(18002099003)(18092099006)(261022075727099003)(261021121427099003)(56012099006)(11063799006)(261028144727099003)(261021123027099003)(261009223027099003)(261022105027099003)(261102123227099003)(261022115727099003)(261026121527099003)(261026140227099003)(10067099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: j3qpiLfUPPt61SsD5OrHacm6IAqzfPMXDtjCtVlDpi0nWqMkeKv11z0gPZpn3MSb6RvkHi2jKi/t8lrj+7v6nXzSyNm0EwRJOIN75g6+mkjaF5W809UE9KMa+5HXL1+OE32gDVMuMMv2eFDl2Cz1SRVUAXwbRhP8NHCGKEK+BE0Tnz1ONxAWSgHfSuIiKT2mrUzov3TCMxePpgH4PyYt7pYNsKj4Lq6pdP2TPxtOeqVarwdNjxAJXiy6VnryH5zJ6xvPbEO6CyU0DMpuHMNcE9VkG/flJQcxodBHuIC0y8giKpJFrEPaK7Xel4BN1xGugdtPkKknY2SZzT1gZjkogDpanKDZUxIBJzkUSsuMARtgyGmDlUH0LaWgvYnKjnfsvIwN4+2k4VTBvJAuUNrOz6CxbZ2ZzpEwlirS7wMS+o9AhDlRmtdnx7d+fjcPWXSb
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Nov 2026 01:14:01.2982 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 597f4d67-5a50-445d-27b1-08df4cece2f4
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF00016D48.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PR12MB9349
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261128-amdgpu-vcn4-61c-v1-1-0f4b00ae33c2@certik.com>
+X-B4-Tracking: v=1; b=H4sIAHqMCmsC/12NzQ6CMBCEX4Xs2UXbaBVexXjozwI12pIuEA3h3
+ W315nG+zHyzAlPyxNBWKyRaPPsYchC7CuygQ0/oXc4gD1IJIS+on64fZ1xsOKISFrvGOXk2nTr
+ JBvJqTNT519d4BVWL+g23H+bZ3MlOxVaKRjOhSTrYoSCm4KYYH1j4/u8Ftu0D9DmZo6oAAAA=
+X-Change-ID: 20261128-amdgpu-vcn4-61c-f9dd27bf6529
+To: stable@vger.kernel.org
+Cc: Boyuan Zhang <boyuan.zhang@amd.com>, David Rosca <david.rosca@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795853434; l=3713;
+ i=dickson.wu@certik.com; s=dickson-b4; h=from:subject:message-id;
+ bh=B+Yz49Bh1ZXTZrWyQ6EaWYVQ18dVN1NAYdlgp9oDZIo=;
+ b=VN0w0FK7GEQeCtbfURpyQ6h84Y7Jk7uCkQ2EKL98dKjnG2GEnKXU+wE9OfX5/gMooCA/936Fu
+ ZC29xmdLv1rBXJD1vt39OSwnqtJvnzrgM2R16xVVHW9TUr2I7MecZ12
+X-Developer-Key: i=dickson.wu@certik.com; a=ed25519;
+ pk=fxH7FS4FdojeJSGLJzgKdfO51Rvr4EW30yinj2mc1vg=
+X-Endpoint-Received: by B4 Relay for dickson.wu@certik.com/dickson-b4 with
+ auth_id=1647
+X-Original-From: Dickson Wu <dickson.wu@certik.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,6 +91,7 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: dickson.wu@certik.com
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
@@ -109,102 +100,103 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-A secondary kfd_process shares the caller's mm but registers no MMU
-notifier and is not torn down when that mm exits. With XNACK enabled,
-svm_range_restore_pages() still maps host pages for its PASID, and the
-queue keeps those mappings after the pages are freed.
+From: Boyuan Zhang <boyuan.zhang@amd.com>
 
-On an unpatched gfx942 kernel, a shader on the secondary context stored
-to an unmapped malloc buffer, the process exec'd while that /dev/kfd fd
-stayed open, and the GPU then wrote 0x5a5a5a5a into 64 KiB of memory
-owned by the new image.
+commit 3b4082fabc67c9780b06eb959e59dd92fa79c0f0 upstream.
 
-Do not enable XNACK for a non-primary context, reject
-AMDKFD_IOC_SET_XNACK_MODE that asks for it, and drop a retry fault that
-arrives for one before any host page is mapped.
+Reuse the parameter length returned by
+vcn_v4_0_enc_find_ib_param() instead of rereading it from
+the IB.
 
-Signed-off-by: Yongqiang Sun <Yongqiang.Sun@amd.com>
+This avoids a potential TOCTOU issue if the IB contents
+change between reads.
+
+Signed-off-by: Boyuan Zhang <boyuan.zhang@amd.com>
+Reviewed-by: David Rosca <david.rosca@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit dbb02b4755f8c1f3773263f2d779872c1c0c073a)
+Cc: stable@vger.kernel.org
+Signed-off-by: Dickson Wu <dickson.wu@certik.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 13 ++++++++-----
- drivers/gpu/drm/amd/amdkfd/kfd_process.c |  8 ++++++--
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c     | 10 ++++++++++
- 3 files changed, 24 insertions(+), 7 deletions(-)
+This one went to 6.6.y in 6.6.148, but 6.1.y didn't have the VCN4 IB
+parser fixes yet at that point. Those came to 6.1.y in 6.1.191
+(d19dd814b5b7 and 92724364702f), so 6.1 now has the loop this fixes
+and the patch applies cleanly.
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index ae5b430a00310..38ece99f70db9 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -1775,7 +1775,9 @@ static int kfd_ioctl_set_xnack_mode(struct file *filep,
- 		if (p->xnack_enabled == args->xnack_enabled)
- 			goto out_unlock;
+Tested on 6.1.193: allmodconfig W=1 build of vcn_v4_0.o, base vs
+patched, no new warnings, and the patched kernel boots under QEMU. No
+VCN4 hardware here, so the encode path itself wasn't exercised.
+
+The backport and the test runs were prepared with AI coding tools
+(OpenAI Codex agents, with review by Claude). I went over the result
+before signing off.
+---
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c | 15 +++++++++------
+ 1 file changed, 9 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+index 83d997f8d500..5df81a21c522 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+@@ -1719,14 +1719,17 @@ static int vcn_v4_0_dec_msg(struct amdgpu_cs_parser *p, struct amdgpu_job *job,
+ #define RENCODE_IB_PARAM_SESSION_INIT			0x00000003
  
--		if (args->xnack_enabled && !kfd_process_xnack_mode(p, true)) {
-+		if (args->xnack_enabled &&
-+		    (p->context_id != KFD_CONTEXT_ID_PRIMARY ||
-+		     !kfd_process_xnack_mode(p, true))) {
- 			r = -EPERM;
- 			goto out_unlock;
+ /* return the offset in ib if id is found, -1 otherwise */
+-static int vcn_v4_0_enc_find_ib_param(struct amdgpu_ib *ib, uint32_t id, int start)
++static int vcn_v4_0_enc_find_ib_param(struct amdgpu_ib *ib, uint32_t id, int start, uint32_t *length)
+ {
+ 	int i;
+ 	uint32_t len;
+ 
+ 	for (i = start; (len = amdgpu_ib_get_value(ib, i)) >= 8; i += len / 4) {
+-		if (amdgpu_ib_get_value(ib, i + 1) == id)
++		if (amdgpu_ib_get_value(ib, i + 1) == id) {
++			if (length)
++				*length = len;
+ 			return i;
++		}
+ 	}
+ 	return -1;
+ }
+@@ -1736,14 +1739,14 @@ static int vcn_v4_0_ring_patch_cs_in_place(struct amdgpu_cs_parser *p,
+ 					   struct amdgpu_ib *ib)
+ {
+ 	struct amdgpu_ring *ring = amdgpu_job_ring(job);
+-	uint32_t val;
++	uint32_t val, len;
+ 	int idx = 0, sidx;
+ 
+ 	/* The first instance can decode anything */
+ 	if (!ring->me)
+ 		return 0;
+ 
+-	while ((idx = vcn_v4_0_enc_find_ib_param(ib, RADEON_VCN_ENGINE_INFO, idx)) >= 0) {
++	while ((idx = vcn_v4_0_enc_find_ib_param(ib, RADEON_VCN_ENGINE_INFO, idx, &len)) >= 0) {
+ 		val = amdgpu_ib_get_value(ib, idx + 2); /* RADEON_VCN_ENGINE_TYPE */
+ 		if (val == RADEON_VCN_ENGINE_TYPE_DECODE) {
+ 			uint32_t valid_buf_flag = amdgpu_ib_get_value(ib, idx + 6);
+@@ -1756,12 +1759,12 @@ static int vcn_v4_0_ring_patch_cs_in_place(struct amdgpu_cs_parser *p,
+ 				amdgpu_ib_get_value(ib, idx + 8);
+ 			return vcn_v4_0_dec_msg(p, job, msg_buffer_addr);
+ 		} else if (val == RADEON_VCN_ENGINE_TYPE_ENCODE) {
+-			sidx = vcn_v4_0_enc_find_ib_param(ib, RENCODE_IB_PARAM_SESSION_INIT, idx);
++			sidx = vcn_v4_0_enc_find_ib_param(ib, RENCODE_IB_PARAM_SESSION_INIT, idx, NULL);
+ 			if (sidx >= 0 &&
+ 			    amdgpu_ib_get_value(ib, sidx + 2) == RENCODE_ENCODE_STANDARD_AV1)
+ 				return vcn_v4_0_limit_sched(p, job);
  		}
-@@ -2369,14 +2371,15 @@ static int criu_restore_process(struct kfd_process *p,
+-		idx += amdgpu_ib_get_value(ib, idx) / 4;
++		idx += len / 4;
  	}
- 
- 	pr_debug("Setting XNACK mode\n");
--	if (process_priv.xnack_mode && !kfd_process_xnack_mode(p, true)) {
-+	if (process_priv.xnack_mode &&
-+	    (p->context_id != KFD_CONTEXT_ID_PRIMARY ||
-+	     !kfd_process_xnack_mode(p, true))) {
- 		pr_err("xnack mode cannot be set\n");
- 		ret = -EPERM;
- 		goto exit;
--	} else {
--		pr_debug("set xnack mode: %d\n", process_priv.xnack_mode);
--		p->xnack_enabled = process_priv.xnack_mode;
- 	}
-+	pr_debug("set xnack mode: %d\n", process_priv.xnack_mode);
-+	p->xnack_enabled = process_priv.xnack_mode;
- 
- exit:
- 	return ret;
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-index 5dc657f32d38c..0c153f9951b38 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -1782,8 +1782,12 @@ struct kfd_process *create_process(const struct task_struct *thread, bool primar
- 	if (err != 0)
- 		goto err_init_apertures;
- 
--	/* Check XNACK support after PDDs are created in kfd_init_apertures */
--	process->xnack_enabled = kfd_process_xnack_mode(process, false);
-+	/* Check XNACK support after PDDs are created in kfd_init_apertures.
-+	 * Only a primary context is torn down with its address space (it owns
-+	 * the MMU notifier), so XNACK retry faults must never map host pages
-+	 * into a secondary context.
-+	 */
-+	process->xnack_enabled = primary && kfd_process_xnack_mode(process, false);
- 
- 	err = svm_range_list_init(process);
- 	if (err)
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index 32f2ca5b1fdfd..f48eea7cc9e92 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -3158,6 +3158,16 @@ svm_range_restore_pages(struct amdgpu_device *adev, unsigned int pasid,
- 	}
- 	svms = &p->svms;
- 
-+	/* A secondary context has no MMU notifier and is not torn down with
-+	 * its address space, so it must never map host pages on a retry fault.
-+	 */
-+	if (p->context_id != KFD_CONTEXT_ID_PRIMARY) {
-+		pr_debug("retry fault on non-primary kfd process, pasid 0x%x\n",
-+			 pasid);
-+		r = -EFAULT;
-+		goto out;
-+	}
-+
- 	pr_debug("restoring svms 0x%p fault address 0x%llx\n", svms, addr);
- 
- 	if (atomic_read(&svms->drain_pagefaults)) {
--- 
-2.43.0
+ 	return 0;
+ }
+
+---
+base-commit: 1ca1436ccc68275d0b43b6a730b3940fcc46b7c2
+change-id: 20261128-amdgpu-vcn4-61c-f9dd27bf6529
+
+Best regards,
+--  
+Dickson Wu <dickson.wu@certik.com>
+
 
