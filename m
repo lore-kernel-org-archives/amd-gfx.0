@@ -2,50 +2,59 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EC2C606A31C
-	for <amd-gfx@archiver.kernel.org>; Sat, 28 Nov 2026 09:43:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9332606A31C
+	for <amd-gfx@archiver.kernel.org>; Sat, 28 Nov 2026 16:26:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=EfSSjYDn
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S8wF0dD+
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE29F10E3AC;
-	Sat, 28 Nov 2026 09:43:52 +0000 (UTC)
-Received: from mail-4322.protonmail.ch (mail-4322.protonmail.ch [185.70.43.22])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 05ECD10E3AC
- for <amd-gfx@lists.freedesktop.org>; Sat, 28 Nov 2026 09:43:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
- s=protonmail3; t=1795859025; x=1796118225;
- bh=yBzSVsNGnLLHsuBPJV9A8YnRBTDGW5JhHWd5tyKOKbc=;
- h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
- Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
- Message-ID:BIMI-Selector;
- b=EfSSjYDnTUSMmzFyMwEfr30S2ilvSRqVA7bZndLEMt0Du1yext3XygTMmyul7fR86
- JuDQ8i4ynNAja5yjpjff7oibWjif2mhqqRS51TE3gkk6M2CrqvyFzM9dthGcdP/149
- I4cV2DyD9gVt+O80QbJCrpaplZjLx4us6lKPYQQhyXznOYMTlTupNICZWRE/IItVLe
- tM21npAa+9EqKqH4y3X5GP7eEJZbH0qmO62QY6FUJKxydp4OW4/isMPEe0nV9hSxus
- IikNb0Wk215APrf+6GsM9qlQnoItgmiFeMLWnOJIy5omHgdHc1cimJjoifiR3NIOW9
- yqI7Q+ND6fsPA==
-Date: Sat, 28 Nov 2026 09:43:39 +0000
-To: Chenyu Chen <chen-yu.chen@amd.com>
-From: =?utf-8?Q?Eren_=C3=96zen?= <erenozen@protonmail.com>
-Cc: amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Roman Li <roman.li@amd.com>, Wayne Lin <wayne.lin@amd.com>,
- Tom Chung <chiahsuan.chung@amd.com>, Fangzhi Zuo <jerry.zuo@amd.com>,
- Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu <Ray.Wu@amd.com>,
- Ivan Lipski <ivan.lipski@amd.com>, Alex Hung <alex.hung@amd.com>,
- James Lin <PingLei.Lin@amd.com>, Mario Limonciello <superm1@kernel.org>
-Subject: Re: [PATCH 15/27] drm/amd/display: Guard connector I2C transfer
- without DDC pin
-Message-ID: <D625PZrdGWeEqbBV6K9LV6lFe36aUMnR0hHLRcWLG6JmN94-5TOjMVBRDcWjJyhJosNIRMe3w4eQBMUfR3CNYiWEzxpqdMwQGtfGuXL-NTg=@protonmail.com>
-In-Reply-To: <20261125065631.3889665-16-chen-yu.chen@amd.com>
-References: <20261125065631.3889665-1-chen-yu.chen@amd.com>
- <20261125065631.3889665-16-chen-yu.chen@amd.com>
-Feedback-ID: 19860221:user:proton
-X-Pm-Message-ID: caa9d1b3f8db3b2309853c350e8dd4caddd77b8d
+	by gabe.freedesktop.org (Postfix) with ESMTP id 33C5D10E1CE;
+	Sat, 28 Nov 2026 16:26:19 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C5B710E11C;
+ Sat, 28 Nov 2026 16:26:12 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id E3CC4600B9;
+ Sat, 28 Nov 2026 16:26:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2A101F00893;
+ Sat, 28 Nov 2026 16:26:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795883170;
+ bh=0Ic80AEaRx36IaB+hMrIQN80NyUsmhjyvx3E1suBk1g=;
+ h=From:Date:Subject:To:Cc;
+ b=S8wF0dD+DCNopucU0gLQ0JpZZVzjFaCn7IJf3Rux+O4FovmcAVov4P5t/nrN07NSZ
+ v23I7ioNRbCbKTHnuJxvw1LHQo9ZcGQagLtYCZ2GCHmSOBTGqHEiUKsu01sa9+virt
+ QZDfLztl9/epcOOBzSEj4JaL14e8D2vxcIvoZsQOpeAO9xI3jeALVrO38YiHnVGWfx
+ 3e7fEVoVY4gAmpR6tNgizYHto3Jex4bE5f2xCCQkCanwVrS50sH+EtgJWHVtl5pFd8
+ bIX1FAzxk5aRQ6GSCq6JudOJ3AqQx08O4Aeks1HMJ0FTxZ7V/JhtbwXGm1wkYdCrxh
+ SKfn/w7mJChdA==
+From: Nathan Chancellor <nathan@kernel.org>
+Date: Sat, 28 Nov 2026 09:25:57 -0700
+Subject: [PATCH] drm/amdgpu: Initialize data to NULL in
+ imu_v13_0_program_rlc_ram()
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261128-amdgpu-uninitialized-data-imu_v13_0-v1-1-e2c0ddb75ee7@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAA/yXNTQ6CMBBA4auQWTsJrdJYr2IIKcyAY6SS/hAj4
+ e5WXX6b9zaIHIQjXKoNAq8S5ekL1KGC4eb8xChUDLrWRil9RjfTtGTMXrwkcQ95MyG55FDm3K3
+ q2NVoG9Pb02gaSwSltAQe5fW7XNu/Y+7vPKRvGvb9A0sbSqKHAAAA
+X-Change-ID: 20261128-amdgpu-uninitialized-data-imu_v13_0-956b94f659dd
+To: Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Hawking Zhang <Hawking.Zhang@amd.com>, Frank Min <Frank.Min@amd.com>, 
+ Likun Gao <Likun.Gao@amd.com>, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, llvm@lists.linux.dev, 
+ Nathan Chancellor <nathan@kernel.org>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1917; i=nathan@kernel.org;
+ h=from:subject:message-id; bh=gBmpC7sVg3kQTwjqKfmrRg3ricTg1VnhwUHCCU43UDk=;
+ b=owGbwMvMwCUmm602sfCA1DTG02pJDNncDHOMq2PmfbxjXjyzQ4YtvTRLwcnDLO77FOsrFuev7
+ ordHre6o5SFQYyLQVZMkaX6sepxQ8M5ZxlvnJoEM4eVCWQIAxenAEzElY3hn52h3nHe8wIzoxKi
+ Tp63//GZ3TozuTrSOtbGhO+8lt6FtYwMLxSb2LoPeD9M2XjgqTLjnbJJbq0twa+br53U/vmh6+1
+ ZBgA=
+X-Developer-Key: i=nathan@kernel.org; a=openpgp;
+ fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,50 +65,58 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-2.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-23.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi James, Chenyu,
+Clang warns (or errors with CONFIG_WERROR=y / W=e):
 
-This fixes the dm_test_i2c_xfer_no_ddc_pin() crash I reported on
-11-18 against commit 48b8c06b05ad ("drm/amd/display: Route connector
-DDC over AUX for native DP sinks"):
-https://lore.kernel.org/all/QU464501lRPW3X8es-jXBFOvvwqS3eKR3HRS33U6x6o5eYC=
-6h5AKV7f3ZXRCaU7-sEcupJMHereqyDUsUSG_fsOMNwvGO_CcZRKsz1AgObk=3D@protonmail.=
-com/
+  drivers/gpu/drm/amd/amdgpu/imu_v13_0.c:264:30: error: variable 'data' is uninitialized when used here [-Werror,-Wuninitialized]
+    264 |                         program_imu_rlc_ram(adev, data, (const u32)size);
+        |                                                   ^~~~
 
-I think  moving the check to the top also turns off the AUX routing on
-links that have no DDC pin. ddc_service_construct() leaves ddc_pin
-NULL for USB4 DPIA links and for force_to_use_aux links (no_ddc_pin
-on ASICs with dp_connector_no_native_i2c, i.e. DCN 4.2b and DCN 6.0).
-Those connectors still get the hw i2c adapter as their "ddc" bus, and
-AUX is the only way to reach the sink. With this patch, DDC/CI through
-that bus fails with -EIO there again, and that's the case
-48b8c06b05ad was written for (fwupd). I found this by reading the
-code and haven't tested it on DPIA hardware.
+It is not wrong that data is passed to program_imu_rlc_ram()
+uninitialized but since this warning happens early in clang's frontend,
+it cannot see program_imu_rlc_ram() is meber called due to r being
+-EINVAL and even if it were, data would not be dereferenced because size
+is 0, so it is never actually used uninitialized.
 
-Mario's v4 fixes the crash without  that side effect: it checks
-ddc_service->link before using it and keeps the routing. It also
-carries my test fix, which gives the test a zeroed dc_link:
-https://lore.kernel.org/all/20261118-superm1-amdgpu-ddc-v4-1-539eaeb4edd7@k=
-ernel.org/
+It is bad form to pass uninitialized values to functions even if they
+are not used, so just initialize data to NULL to silence the warning, as
+it will need to be properly set up when support for calling
+program_imu_rlc_ram() is added.
 
-Could this patch be dropped in favour of v4, or changed to check
-ddc_service->link instead? If it stays as it is, could you please add
-the tags below? These are some of my first kernel contributions, so
-the credit would mean a lot to me.
+Fixes: 9caddf5f7de7 ("drm/amdgpu: Add imu v13 ip block v2")
+Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+---
+ drivers/gpu/drm/amd/amdgpu/imu_v13_0.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Fixes: 48b8c06b05ad ("drm/amd/display: Route connector DDC over AUX for nat=
-ive DP sinks")
-Reported-by: Eren =C3=96zen <erenozen@protonmail.com>
-Closes: https://lore.kernel.org/all/QU464501lRPW3X8es-jXBFOvvwqS3eKR3HRS33U=
-6x6o5eYC6h5AKV7f3ZXRCaU7-sEcupJMHereqyDUsUSG_fsOMNwvGO_CcZRKsz1AgObk=3D@pro=
-tonmail.com/
+diff --git a/drivers/gpu/drm/amd/amdgpu/imu_v13_0.c b/drivers/gpu/drm/amd/amdgpu/imu_v13_0.c
+index aea418be444a..eb18c7d3e120 100644
+--- a/drivers/gpu/drm/amd/amdgpu/imu_v13_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/imu_v13_0.c
+@@ -253,7 +253,7 @@ static void program_imu_rlc_ram(struct amdgpu_device *adev,
+ static void imu_v13_0_program_rlc_ram(struct amdgpu_device *adev)
+ {
+ 	u32 reg_data, size = 0;
+-	const u32 *data;
++	const u32 *data = NULL;
+ 	int r = -EINVAL;
+ 
+ 	WREG32_SOC15(GC, 0, regGFX_IMU_RLC_RAM_INDEX, 0x2);
 
-Thanks,
-Eren
+---
+base-commit: fc652f23f1c3c727e561ca66bafd58000208e3a9
+base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+change-id: 20261128-amdgpu-uninitialized-data-imu_v13_0-956b94f659dd
+
+Best regards,
+--  
+Cheers,
+Nathan
 
